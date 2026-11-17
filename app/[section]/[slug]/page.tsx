@@ -5,8 +5,6 @@ import Blocks from "@/components/Blocks";
 import { sections } from "@/lib/site";
 import { pageContent } from "@/lib/content";
 
-export const dynamicParams = false;
-
 export function generateStaticParams() {
   return sections.flatMap((s) =>
     s.pages.map((p) => ({ section: s.slug, slug: p.slug })),

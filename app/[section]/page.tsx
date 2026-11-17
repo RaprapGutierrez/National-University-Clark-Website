@@ -3,8 +3,6 @@ import { notFound } from "next/navigation";
 import PageBanner from "@/components/PageBanner";
 import { sections } from "@/lib/site";
 
-export const dynamicParams = false;
-
 export function generateStaticParams() {
   return sections.map((s) => ({ section: s.slug }));
 }
