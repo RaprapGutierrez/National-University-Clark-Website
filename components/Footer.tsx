@@ -1,23 +1,11 @@
 import Link from "next/link";
+import { sections } from "@/lib/site";
 
-const university = [
-  { label: "About NU", href: "/about" },
-  { label: "Athletics", href: "/student-life" },
-];
+const FOOTER_SLUGS = ["academics", "admissions", "student-life", "about"];
 
-const admissions = [
-  { label: "Programs Offered", href: "/academics" },
-  { label: "Colleges & Departments", href: "/academics" },
-  { label: "How to Apply", href: "/admissions" },
-  { label: "Scholarships", href: "/admissions" },
-  { label: "For International Students", href: "/admissions" },
-  { label: "Admission Requirements", href: "/admissions" },
-];
-
-const connect = [
-  { label: "Contact Us", href: "/about" },
-  { label: "Careers", href: "/about" },
-];
+const footerSections = FOOTER_SLUGS.map((slug) =>
+  sections.find((s) => s.slug === slug),
+).filter((s): s is (typeof sections)[number] => Boolean(s));
 
 const socials = [
   {
@@ -37,36 +25,13 @@ const socials = [
   },
 ];
 
-function Column({
-  title,
-  links,
-}: {
-  title: string;
-  links: { label: string; href: string }[];
-}) {
-  return (
-    <div>
-      <h3 className="mb-5 text-2xl font-bold text-white">{title}</h3>
-      <ul className="space-y-3">
-        {links.map((l) => (
-          <li key={l.label}>
-            <Link href={l.href} className="text-white hover:underline">
-              {l.label}
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-
 export default function Footer() {
   return (
     <footer className="mt-20 bg-navy py-12 text-white">
-      <div className="mx-auto grid max-w-6xl gap-10 px-5 md:grid-cols-[220px_1fr_1fr_1fr]">
+      <div className="mx-auto grid max-w-6xl gap-10 px-5 md:grid-cols-[220px_repeat(4,1fr)]">
         <div>
           <img
-            src="/nu-logo.png"
+            src="/logo.png"
             alt="National University 1900"
             className="h-44 w-auto"
           />
@@ -88,9 +53,27 @@ export default function Footer() {
           </div>
         </div>
 
-        <Column title="University" links={university} />
-        <Column title="Admissions" links={admissions} />
-        <Column title="Connect" links={connect} />
+        {footerSections.map((s) => (
+          <div key={s.slug}>
+            <h3 className="mb-5 text-xl font-bold">
+              <Link href={`/${s.slug}`} className="hover:underline">
+                {s.title}
+              </Link>
+            </h3>
+            <ul className="space-y-3 text-sm">
+              {s.pages.map((p) => (
+                <li key={p.slug}>
+                  <Link
+                    href={`/${s.slug}/${p.slug}`}
+                    className="text-white/90 hover:underline"
+                  >
+                    {p.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
       </div>
 
       <div className="mx-auto mt-10 max-w-6xl border-t border-dashed border-white/30 px-5 pt-6 text-sm text-white/80">
