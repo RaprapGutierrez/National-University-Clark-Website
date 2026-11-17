@@ -31,7 +31,7 @@ export default function Footer() {
       <div className="mx-auto grid max-w-6xl gap-10 px-5 md:grid-cols-[220px_repeat(4,1fr)]">
         <div>
           <img
-            src="/logo.png"
+            src="/nu-logo.png"
             alt="National University 1900"
             className="h-44 w-auto"
           />
