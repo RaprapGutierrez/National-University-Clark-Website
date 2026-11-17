@@ -62,6 +62,9 @@ export default function Navbar() {
             <br />
             University
           </span>
+          <span className="block text-sm font-bold tracking-[0.25em] text-royal">
+            CLARK
+          </span>
         </Link>
 
         <ul className="hidden flex-1 items-center justify-evenly lg:flex">
