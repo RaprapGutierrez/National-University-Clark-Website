@@ -91,10 +91,10 @@ export default function Home() {
               <Reveal>
                 <Link
                   href={`/academics/${seniorHigh.slug}`}
-                  className="group mx-auto block max-w-sm lg:max-w-none"
+                  className="group mx-auto block max-w-sm transition-transform duration-300 ease-out hover:-translate-y-2 hover:scale-[1.03] motion-reduce:transform-none lg:max-w-none"
                 >
                   <div
-                    className="relative z-10 mx-auto -mb-12 w-4/5 transition-transform duration-300 group-hover:-translate-y-1"
+                    className="relative z-10 mx-auto -mb-12 w-4/5 transition-transform duration-300 ease-out group-hover:-translate-y-3 group-hover:rotate-1 motion-reduce:transform-none"
                     style={{ filter: STICKER }}
                   >
                     <Image
@@ -106,14 +106,14 @@ export default function Home() {
                     />
                   </div>
 
-                  <div className="rounded-3xl border-2 border-gold bg-navy px-6 pb-6 pt-16 text-center text-white shadow-lg transition group-hover:shadow-2xl">
+                  <div className="rounded-3xl border-2 border-gold bg-navy px-6 pb-6 pt-16 text-center text-white shadow-lg transition-shadow duration-300 group-hover:shadow-2xl group-hover:shadow-navy/40">
                     <h3 className="text-2xl font-extrabold text-gold">
                       {seniorHigh.title}
                     </h3>
                     <p className="mt-2 text-sm text-white/85">
                       {seniorHigh.summary}
                     </p>
-                    <span className="mt-5 inline-block rounded-full bg-gold px-5 py-2 text-sm font-bold text-navy transition group-hover:-translate-y-0.5">
+                    <span className="mt-5 inline-block rounded-full bg-gold px-5 py-2 text-sm font-bold text-navy transition-transform duration-300 group-hover:translate-x-1">
                       Learn more
                     </span>
                   </div>
