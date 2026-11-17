@@ -15,15 +15,6 @@ const extraLinks = [
   { label: "News", href: "/news" },
 ];
 
-function chunk<T>(items: T[], columns: number): T[][] {
-  const size = Math.ceil(items.length / columns);
-  const result: T[][] = [];
-  for (let i = 0; i < items.length; i += size) {
-    result.push(items.slice(i, i + size));
-  }
-  return result;
-}
-
 function Chevron({ className = "" }: { className?: string }) {
   return (
     <svg
@@ -101,53 +92,45 @@ export default function Navbar() {
 
         {/* Desktop menu */}
         <ul className="hidden flex-1 items-center justify-evenly lg:flex">
-          {menu.map((s) => {
-            const columns = chunk(s.pages, s.pages.length > 4 ? 2 : 1);
-            return (
-              <li key={s.slug} className="group">
-                <Link
-                  href={`/${s.slug}`}
-                  className="flex items-center gap-1.5 rounded-lg px-2 py-2 font-medium text-navy hover:text-royal"
-                >
-                  {s.title}
-                  <Chevron className="group-hover:rotate-180 group-focus-within:rotate-180" />
-                </Link>
+          {menu.map((s) => (
+            <li key={s.slug} className="group">
+              <Link
+                href={`/${s.slug}`}
+                className="flex items-center gap-1.5 rounded-lg px-2 py-2 font-medium text-navy hover:text-royal"
+              >
+                {s.title}
+                <Chevron className="group-hover:rotate-180 group-focus-within:rotate-180" />
+              </Link>
 
-                <div className="invisible absolute left-0 right-0 top-full z-30 pt-3 opacity-0 transition group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100">
-                  <div
-                    className="grid gap-8 rounded-2xl border border-line bg-[#f4f5fc] p-8 shadow-xl"
+              <div className="invisible absolute left-0 right-0 top-full z-30 pt-3 opacity-0 transition group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100">
+                <div className="rounded-2xl border border-line bg-[#f4f5fc] p-8 shadow-xl">
+                  <h3 className="mb-4 border-b border-line pb-3 text-sm font-bold uppercase tracking-wide text-navy">
+                    {s.title}
+                  </h3>
+                  <ul
+                    className="grid gap-x-8 gap-y-3"
                     style={{
-                      gridTemplateColumns: `1fr repeat(${columns.length}, 1fr)`,
+                      gridTemplateColumns: `repeat(${Math.min(
+                        s.pages.length,
+                        4,
+                      )}, minmax(0, 1fr))`,
                     }}
                   >
-                    <div>
-                      <h3 className="text-sm font-bold uppercase tracking-wide text-navy">
-                        {s.title}
-                      </h3>
-                    </div>
-
-                    {columns.map((col, i) => (
-                      <ul
-                        key={i}
-                        className="space-y-2.5 border-l border-line pl-8"
-                      >
-                        {col.map((p) => (
-                          <li key={p.slug}>
-                            <Link
-                              href={`/${s.slug}/${p.slug}`}
-                              className="text-[15px] font-medium text-slate hover:text-navy"
-                            >
-                              {p.title}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
+                    {s.pages.map((p) => (
+                      <li key={p.slug}>
+                        <Link
+                          href={`/${s.slug}/${p.slug}`}
+                          className="text-[15px] font-medium text-slate hover:text-navy"
+                        >
+                          {p.title}
+                        </Link>
+                      </li>
                     ))}
-                  </div>
+                  </ul>
                 </div>
-              </li>
-            );
-          })}
+              </div>
+            </li>
+          ))}
 
           {extraLinks.map((l) => (
             <li key={l.href}>
