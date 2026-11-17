@@ -8,7 +8,7 @@ export default function Home() {
 
   return (
     <>
-      <header className="bg-linear-to-br from-navy via-royal to-sky pb-24 text-white">
+      <header className="bg-navy bg-[url('/bg-enrollment.webp')] bg-cover bg-center bg-no-repeat pb-24 text-white">
         <div className="mx-auto max-w-6xl px-5">
           <Navbar />
           <div className="max-w-3xl pt-16">
