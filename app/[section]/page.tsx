@@ -6,7 +6,7 @@ import HeroSlider from "@/components/HeroSlider";
 import LogoDivider from "@/components/LogoDivider";
 import { sections, APPLY_URL } from "@/lib/site";
 
-const CONTACT_URL = "/about"; // change to your contact page, e.g. "/about/contact-us"
+const CONTACT_URL = "/about"; // change to your contact page
 
 export default function Home() {
   const academics = sections.find((s) => s.slug === "academics")!;
