@@ -21,7 +21,7 @@ export default function HeroSlider() {
   }, []);
 
   return (
-    <div className="relative aspect-[4/3] w-full overflow-hidden rounded-3xl shadow-2xl ring-4 ring-white/30">
+    <div className="relative aspect-[3/2] w-full overflow-hidden rounded-3xl bg-navy/70 shadow-2xl ring-4 ring-white/30">
       {slides.map((s, i) => (
         <Image
           key={s.src}
@@ -30,7 +30,7 @@ export default function HeroSlider() {
           fill
           priority={i === 0}
           sizes="(min-width: 1024px) 540px, 100vw"
-          className={`object-cover transition-opacity duration-1000 ${
+          className={`object-contain transition-opacity duration-1000 ${
             i === index ? "opacity-100" : "opacity-0"
           }`}
         />
