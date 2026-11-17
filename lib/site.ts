@@ -81,8 +81,13 @@ export const sections: Section[] = [
       },
       {
         slug: "hospitality",
-        title: "Hospitality",
-        summary: "Programs in hospitality and tourism.",
+        title: "School of Dentistry and Allied Health",
+        summary: "Programs in dentistry and allied health sciences.",
+      },
+      {
+        slug: "office-of-the-academic-director",
+        title: "Office of the Academic Director",
+        summary: "Academic leadership, policies, and support for NU Clark.",
       },
     ],
   },

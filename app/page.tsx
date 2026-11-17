@@ -11,6 +11,9 @@ const CONTACT_URL = "/about"; // change to your contact page
 export default function Home() {
   const academics = sections.find((s) => s.slug === "academics")!;
   const admissions = sections.find((s) => s.slug === "admissions")!;
+  const schools = academics.pages.filter(
+    (p) => p.slug !== "office-of-the-academic-director",
+  );
 
   return (
     <>
@@ -72,7 +75,7 @@ export default function Home() {
             <p className="mb-6 mt-1 max-w-xl text-slate">{academics.intro}</p>
           </Reveal>
           <div className="grid gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
-            {academics.pages.map((p, i) => (
+            {schools.map((p, i) => (
               <Reveal key={p.slug} delay={(i % 3) * 100} className="h-full">
                 <Link
                   href={`/academics/${p.slug}`}

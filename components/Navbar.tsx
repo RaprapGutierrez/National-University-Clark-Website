@@ -124,12 +124,6 @@ export default function Navbar() {
                       <h3 className="text-sm font-bold uppercase tracking-wide text-navy">
                         {s.title}
                       </h3>
-                      <Link
-                        href={`/${s.slug}`}
-                        className="mt-3 inline-block text-sm font-semibold text-royal hover:underline"
-                      >
-                        View all
-                      </Link>
                     </div>
 
                     {columns.map((col, i) => (
@@ -203,13 +197,6 @@ export default function Navbar() {
                   </button>
                   {expanded && (
                     <div className="flex flex-col pb-3 pl-3">
-                      <Link
-                        href={`/${s.slug}`}
-                        onClick={closeMenu}
-                        className="py-1.5 text-sm font-semibold text-royal"
-                      >
-                        View all
-                      </Link>
                       {s.pages.map((p) => (
                         <Link
                           key={p.slug}
