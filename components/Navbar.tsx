@@ -24,7 +24,7 @@ function chunk<T>(items: T[], columns: number): T[][] {
   return result;
 }
 
-function Chevron() {
+function Chevron({ className = "" }: { className?: string }) {
   return (
     <svg
       width="12"
@@ -36,37 +36,70 @@ function Chevron() {
       strokeLinecap="round"
       strokeLinejoin="round"
       aria-hidden="true"
-      className="transition-transform group-hover:rotate-180 group-focus-within:rotate-180"
+      className={`transition-transform ${className}`}
     >
       <path d="m6 9 6 6 6-6" />
     </svg>
   );
 }
 
+function Hamburger({ open }: { open: boolean }) {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.5"
+      strokeLinecap="round"
+      aria-hidden="true"
+    >
+      {open ? (
+        <path d="M6 6l12 12M18 6L6 18" />
+      ) : (
+        <path d="M4 7h16M4 12h16M4 17h16" />
+      )}
+    </svg>
+  );
+}
+
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const [openSection, setOpenSection] = useState<string | null>(null);
+
+  const closeMenu = () => {
+    setOpen(false);
+    setOpenSection(null);
+  };
 
   return (
-    <nav className="relative mt-5 rounded-2xl bg-white px-5 py-3 shadow-sm">
-      <div className="flex items-center gap-4">
-        <Link href="/" className="flex shrink-0 items-center gap-3 text-navy">
+    <nav className="relative mt-5 rounded-2xl bg-white px-4 py-3 shadow-sm sm:px-5">
+      <div className="flex items-center gap-3 sm:gap-4">
+        <Link
+          href="/"
+          onClick={closeMenu}
+          className="flex shrink-0 items-center gap-2 text-navy sm:gap-3"
+        >
           <Image
             src="/nu-logo.png"
             alt="National University logo"
             width={38}
             height={46}
             priority
+            className="h-10 w-auto sm:h-[46px]"
           />
-          <span className="text-[17px] font-extrabold uppercase leading-[1.05] tracking-tight">
+          <span className="text-[14px] font-extrabold uppercase leading-[1.05] tracking-tight sm:text-[17px]">
             National
             <br />
             University
           </span>
-          <span className="block text-sm font-bold tracking-[0.25em] text-royal">
+          <span className="block text-xs font-bold tracking-[0.15em] text-royal sm:text-sm sm:tracking-[0.25em]">
             CLARK
           </span>
         </Link>
 
+        {/* Desktop menu */}
         <ul className="hidden flex-1 items-center justify-evenly lg:flex">
           {menu.map((s) => {
             const columns = chunk(s.pages, s.pages.length > 4 ? 2 : 1);
@@ -77,49 +110,44 @@ export default function Navbar() {
                   className="flex items-center gap-1.5 rounded-lg px-2 py-2 font-medium text-navy hover:text-royal"
                 >
                   {s.title}
-                  <Chevron />
+                  <Chevron className="group-hover:rotate-180 group-focus-within:rotate-180" />
                 </Link>
 
                 <div className="invisible absolute left-0 right-0 top-full z-30 pt-3 opacity-0 transition group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100">
                   <div
                     className="grid gap-8 rounded-2xl border border-line bg-[#f4f5fc] p-8 shadow-xl"
                     style={{
-                      gridTemplateColumns: `1.2fr repeat(${columns.length}, 1fr)`,
+                      gridTemplateColumns: `1fr repeat(${columns.length}, 1fr)`,
                     }}
                   >
                     <div>
                       <h3 className="text-sm font-bold uppercase tracking-wide text-navy">
                         {s.title}
                       </h3>
-                      <p className="mt-2 max-w-xs text-sm text-slate">
-                        {s.intro}
-                      </p>
                       <Link
                         href={`/${s.slug}`}
-                        className="mt-4 inline-block text-sm font-semibold text-royal hover:underline"
+                        className="mt-3 inline-block text-sm font-semibold text-royal hover:underline"
                       >
                         View all
                       </Link>
                     </div>
 
                     {columns.map((col, i) => (
-                      <div key={i} className="border-l border-line pl-8">
-                        <h3 className="mb-3 text-sm font-bold uppercase tracking-wide text-navy">
-                          {i === 0 ? "Pages" : "\u00A0"}
-                        </h3>
-                        <ul className="space-y-2.5">
-                          {col.map((p) => (
-                            <li key={p.slug}>
-                              <Link
-                                href={`/${s.slug}/${p.slug}`}
-                                className="text-[15px] font-medium text-slate hover:text-navy"
-                              >
-                                {p.title}
-                              </Link>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
+                      <ul
+                        key={i}
+                        className="space-y-2.5 border-l border-line pl-8"
+                      >
+                        {col.map((p) => (
+                          <li key={p.slug}>
+                            <Link
+                              href={`/${s.slug}/${p.slug}`}
+                              className="text-[15px] font-medium text-slate hover:text-navy"
+                            >
+                              {p.title}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
                     ))}
                   </div>
                 </div>
@@ -146,60 +174,78 @@ export default function Navbar() {
           Apply Now
         </a>
 
+        {/* Hamburger button */}
         <button
-          onClick={() => setOpen(!open)}
+          onClick={() => (open ? closeMenu() : setOpen(true))}
           aria-expanded={open}
-          className="rounded-lg bg-mist px-3 py-2 font-bold text-navy lg:hidden"
+          aria-label={open ? "Close menu" : "Open menu"}
+          className="ml-auto flex h-11 w-11 items-center justify-center rounded-xl bg-mist text-navy sm:ml-0 lg:hidden"
         >
-          Menu
+          <Hamburger open={open} />
         </button>
       </div>
 
+      {/* Mobile menu */}
       {open && (
-        <ul className="mt-3 space-y-3 border-t border-line pt-3 lg:hidden">
-          {menu.map((s) => (
-            <li key={s.slug}>
-              <Link
-                href={`/${s.slug}`}
-                onClick={() => setOpen(false)}
-                className="font-bold text-navy"
-              >
-                {s.title}
-              </Link>
-              <div className="mt-1 flex flex-col pl-3">
-                {s.pages.map((p) => (
-                  <Link
-                    key={p.slug}
-                    href={`/${s.slug}/${p.slug}`}
-                    onClick={() => setOpen(false)}
-                    className="py-1 text-sm text-slate"
+        <div className="mt-3 max-h-[75vh] overflow-y-auto border-t border-line pt-2 lg:hidden">
+          <ul className="divide-y divide-line">
+            {menu.map((s) => {
+              const expanded = openSection === s.slug;
+              return (
+                <li key={s.slug}>
+                  <button
+                    onClick={() => setOpenSection(expanded ? null : s.slug)}
+                    aria-expanded={expanded}
+                    className="flex w-full items-center justify-between py-3 text-left font-bold text-navy"
                   >
-                    {p.title}
-                  </Link>
-                ))}
-              </div>
-            </li>
-          ))}
-          {extraLinks.map((l) => (
-            <li key={l.href}>
-              <Link
-                href={l.href}
-                onClick={() => setOpen(false)}
-                className="font-bold text-navy"
-              >
-                {l.label}
-              </Link>
-            </li>
-          ))}
-          <li>
-            <a
-              href={APPLY_URL}
-              className="inline-block rounded-full bg-navy px-6 py-2.5 font-semibold text-white"
-            >
-              Apply Now
-            </a>
-          </li>
-        </ul>
+                    {s.title}
+                    <Chevron className={expanded ? "rotate-180" : ""} />
+                  </button>
+                  {expanded && (
+                    <div className="flex flex-col pb-3 pl-3">
+                      <Link
+                        href={`/${s.slug}`}
+                        onClick={closeMenu}
+                        className="py-1.5 text-sm font-semibold text-royal"
+                      >
+                        View all
+                      </Link>
+                      {s.pages.map((p) => (
+                        <Link
+                          key={p.slug}
+                          href={`/${s.slug}/${p.slug}`}
+                          onClick={closeMenu}
+                          className="py-1.5 text-sm text-slate"
+                        >
+                          {p.title}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </li>
+              );
+            })}
+
+            {extraLinks.map((l) => (
+              <li key={l.href}>
+                <Link
+                  href={l.href}
+                  onClick={closeMenu}
+                  className="block py-3 font-bold text-navy"
+                >
+                  {l.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+
+          <a
+            href={APPLY_URL}
+            className="mt-3 block rounded-full bg-navy px-6 py-3 text-center font-semibold text-white sm:hidden"
+          >
+            Apply Now
+          </a>
+        </div>
       )}
     </nav>
   );

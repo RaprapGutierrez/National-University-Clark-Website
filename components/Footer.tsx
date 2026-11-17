@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { sections } from "@/lib/site";
 
@@ -27,15 +28,18 @@ const socials = [
 
 export default function Footer() {
   return (
-    <footer className="mt-20 bg-navy py-12 text-white">
-      <div className="mx-auto grid max-w-6xl gap-10 px-5 md:grid-cols-[220px_repeat(4,1fr)]">
-        <div>
-          <img
+    <footer className="mt-16 bg-navy py-10 text-white sm:mt-20 sm:py-12">
+      <div className="mx-auto grid max-w-6xl gap-10 px-5 lg:grid-cols-[200px_1fr] lg:gap-14">
+        {/* Logo + socials */}
+        <div className="flex flex-col items-center gap-5 text-center lg:items-start lg:text-left">
+          <Image
             src="/nu-logo.png"
             alt="National University 1900"
-            className="h-44 w-auto"
+            width={150}
+            height={182}
+            className="h-28 w-auto sm:h-36 lg:h-44"
           />
-          <div className="mt-6 flex gap-3">
+          <div className="flex gap-3">
             {socials.map((s) => (
               <a
                 key={s.name}
@@ -43,7 +47,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={s.name}
-                className="flex h-11 w-11 items-center justify-center rounded-full bg-white text-navy hover:bg-gold"
+                className="flex h-11 w-11 items-center justify-center rounded-full bg-white text-navy transition hover:bg-gold"
               >
                 <svg viewBox="0 0 24 24" className="h-5 w-5 fill-current">
                   <path d={s.path} />
@@ -53,32 +57,35 @@ export default function Footer() {
           </div>
         </div>
 
-        {footerSections.map((s) => (
-          <div key={s.slug}>
-            <h3 className="mb-5 text-xl font-bold">
-              <Link href={`/${s.slug}`} className="hover:underline">
-                {s.title}
-              </Link>
-            </h3>
-            <ul className="space-y-3 text-sm">
-              {s.pages.map((p) => (
-                <li key={p.slug}>
-                  <Link
-                    href={`/${s.slug}/${p.slug}`}
-                    className="text-white/90 hover:underline"
-                  >
-                    {p.title}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
+        {/* Link columns */}
+        <div className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-4">
+          {footerSections.map((s) => (
+            <div key={s.slug} className="min-w-0">
+              <h3 className="mb-4 text-lg font-bold sm:text-xl">
+                <Link href={`/${s.slug}`} className="hover:underline">
+                  {s.title}
+                </Link>
+              </h3>
+              <ul className="space-y-2.5 text-sm">
+                {s.pages.map((p) => (
+                  <li key={p.slug}>
+                    <Link
+                      href={`/${s.slug}/${p.slug}`}
+                      className="break-words text-white/90 hover:underline"
+                    >
+                      {p.title}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
       </div>
 
-      <div className="mx-auto mt-10 max-w-6xl border-t border-dashed border-white/30 px-5 pt-6 text-sm text-white/80">
+      <div className="mx-auto mt-10 flex max-w-6xl flex-col gap-2 border-t border-dashed border-white/30 px-5 pt-6 text-center text-sm text-white/80 sm:flex-row sm:justify-between sm:text-left">
         <p>Jose Abad Santos Avenue, Clark Freeport Zone, Pampanga</p>
-        <p className="mt-2">© 2026 National University. All rights reserved.</p>
+        <p>© 2026 National University. All rights reserved.</p>
       </div>
     </footer>
   );
