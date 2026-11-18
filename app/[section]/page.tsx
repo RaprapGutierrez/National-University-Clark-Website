@@ -1,11 +1,14 @@
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { AboutOverview } from "@/components/about/AboutPages";
 import PageBanner from "@/components/PageBanner";
 import AcademicsBanner from "@/components/AcademicsBanner";
 import Reveal from "@/components/Reveal";
-import { sections } from "@/lib/site";
+import { sections, APPLY_URL } from "@/lib/site";
+
+const CONTACT_URL = "/about"; // change to your contact page
 
 type SectionProps = { params: Promise<{ section: string }> };
 
@@ -89,6 +92,49 @@ export default async function SectionPage({ params }: SectionProps) {
               </Reveal>
             ))}
           </div>
+        )}
+
+        {isAcademics && (
+          <Reveal className="mt-12 sm:mt-16">
+            <section className="grid items-center gap-8 rounded-3xl bg-navy p-6 text-white sm:p-10 md:grid-cols-[1fr_auto]">
+              <div className="text-center md:text-left">
+                <h2 className="text-2xl font-extrabold sm:text-3xl">
+                  Ready to become a Nationalian?
+                </h2>
+                <p className="mx-auto mt-2 max-w-xl text-white/80 md:mx-0">
+                  Start your online application today, or scan the QR code with
+                  your phone.
+                </p>
+                <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-center md:justify-start">
+                  <a
+                    href={APPLY_URL}
+                    className="inline-block rounded-full bg-gold px-6 py-3 text-center font-bold text-navy transition hover:-translate-y-0.5"
+                  >
+                    Apply now
+                  </a>
+                  <Link
+                    href={CONTACT_URL}
+                    className="inline-block rounded-full px-6 py-3 text-center font-bold text-white ring-2 ring-white/70 transition hover:bg-white/10"
+                  >
+                    Contact us
+                  </Link>
+                </div>
+              </div>
+
+              <div className="mx-auto text-center">
+                <div className="rounded-2xl bg-white p-3 shadow-lg">
+                  <Image
+                    src="/qr-nu-clark.webp"
+                    alt="QR code for NU Clark"
+                    width={160}
+                    height={160}
+                    className="h-36 w-36 sm:h-40 sm:w-40"
+                  />
+                </div>
+                <p className="mt-2 text-sm text-white/80">Scan to apply</p>
+              </div>
+            </section>
+          </Reveal>
         )}
       </main>
     </>
