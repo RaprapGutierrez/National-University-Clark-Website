@@ -4,6 +4,9 @@ import Navbar from "@/components/Navbar";
 
 type Crumb = { label: string; href?: string };
 
+// How far (in banner-image pixels) the shapes reach up behind the navbar
+const Z = 300;
+
 export default function ImageBanner({
   src,
   alt,
@@ -15,9 +18,21 @@ export default function ImageBanner({
 }) {
   return (
     <>
-      {/* Same navy as the banner image, so the two blend together */}
-      <header className="pb-5">
-        <div className="mx-auto max-w-6xl px-4 sm:px-5">
+      <header className="relative pb-5">
+        {/* Shapes that continue up behind the navbar, top-right only (desktop) */}
+        <svg
+          aria-hidden="true"
+          viewBox={`0 -${Z} 2400 ${Z}`}
+          preserveAspectRatio="xMaxYMax slice"
+          className="pointer-events-none absolute inset-0 hidden h-full w-full lg:block"
+        >
+          <polygon points="2030,-300 2400,-300 2400,0 1900,0" fill="#223585" />
+          <polygon points="1648,-300 2400,-300 2400,0 1990,0" fill="#e89907" />
+          <polygon points="2340,-300 2420,-300 2310,0 2230,0" fill="#f7c600" />
+          <polygon points="2450,-300 2478,-300 2368,0 2340,0" fill="#9c862e" />
+        </svg>
+
+        <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-5">
           <Navbar />
         </div>
       </header>
