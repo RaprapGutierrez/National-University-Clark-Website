@@ -75,9 +75,15 @@ export const programsBySchool: Record<string, Program[]> = {
   ],
 
   seas: [
-    program("ba-political-science", "BA Political Science"),
-    program("bs-communication", "BS Communication"),
-    program("bs-psychology", "BS Psychology"),
+    program("ba-political-science", "BA Political Science", {
+      image: "/program-pol-sci.png",
+    }),
+    program("bs-communication", "BS Communication", {
+      image: "/program-ab-com.png",
+    }),
+    program("bs-psychology", "BS Psychology", {
+      image: "/program-psychology.png",
+    }),
   ],
 
   satc: [
