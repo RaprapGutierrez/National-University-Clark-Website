@@ -4,17 +4,20 @@ import Navbar from "@/components/Navbar";
 import Reveal from "@/components/Reveal";
 import HeroSlider from "@/components/HeroSlider";
 import LogoDivider from "@/components/LogoDivider";
+import SchoolCard from "@/components/SchoolCard";
 import { sections, APPLY_URL } from "@/lib/site";
 
 const CONTACT_URL = "/about"; // change to your contact page
 
-// Yellow outline that follows the shape of the cutout, like a sticker
-const STICKER =
-  "drop-shadow(4px 0 0 var(--color-gold, #f7c600)) " +
-  "drop-shadow(-4px 0 0 var(--color-gold, #f7c600)) " +
-  "drop-shadow(0 4px 0 var(--color-gold, #f7c600)) " +
-  "drop-shadow(0 -4px 0 var(--color-gold, #f7c600)) " +
-  "drop-shadow(0 10px 14px rgba(0, 0, 0, 0.25))";
+// slug (from lib/site.ts) -> image in /public
+const schoolImages: Record<string, string> = {
+  "senior-high-school": "/senior-high.png",
+  sabm: "/school-sabm.png",
+  seas: "/school-seas.png",
+  satc: "/school-satc.png",
+  engineering: "/school-engineering.png",
+  hospitality: "/school-dentistry.png", // School of Dentistry and Allied Health
+};
 
 export default function Home() {
   const academics = sections.find((s) => s.slug === "academics")!;
@@ -22,8 +25,6 @@ export default function Home() {
   const schools = academics.pages.filter(
     (p) => p.slug !== "office-of-the-academic-director",
   );
-  const seniorHigh = schools.find((p) => p.slug === "senior-high-school");
-  const otherSchools = schools.filter((p) => p.slug !== "senior-high-school");
 
   return (
     <>
@@ -85,55 +86,17 @@ export default function Home() {
             <p className="mb-8 mt-1 max-w-xl text-slate">{academics.intro}</p>
           </Reveal>
 
-          <div className="grid items-start gap-8 lg:grid-cols-[360px_1fr] lg:gap-10">
-            {/* Featured: Senior High School */}
-            {seniorHigh && (
-              <Reveal>
-                <Link
-                  href={`/academics/${seniorHigh.slug}`}
-                  className="group mx-auto block max-w-sm transition-transform duration-300 ease-out hover:-translate-y-2 hover:scale-[1.03] motion-reduce:transform-none lg:max-w-none"
-                >
-                  <div
-                    className="relative z-10 mx-auto -mb-12 w-4/5 transition-transform duration-300 ease-out group-hover:-translate-y-3 group-hover:rotate-1 motion-reduce:transform-none"
-                    style={{ filter: STICKER }}
-                  >
-                    <Image
-                      src="/senior-high.png"
-                      alt="Senior High School students"
-                      width={578}
-                      height={432}
-                      className="h-auto w-full"
-                    />
-                  </div>
-
-                  <div className="rounded-3xl border-2 border-gold bg-navy px-6 pb-6 pt-16 text-center text-white shadow-lg transition-shadow duration-300 group-hover:shadow-2xl group-hover:shadow-navy/40">
-                    <h3 className="text-2xl font-extrabold text-gold">
-                      {seniorHigh.title}
-                    </h3>
-                    <p className="mt-2 text-sm text-white/85">
-                      {seniorHigh.summary}
-                    </p>
-                    <span className="mt-5 inline-block rounded-full bg-gold px-5 py-2 text-sm font-bold text-navy transition-transform duration-300 group-hover:translate-x-1">
-                      Learn more
-                    </span>
-                  </div>
-                </Link>
+          <div className="grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+            {schools.map((p, i) => (
+              <Reveal key={p.slug} delay={(i % 3) * 100} className="h-full">
+                <SchoolCard
+                  href={`/academics/${p.slug}`}
+                  title={p.title}
+                  summary={p.summary}
+                  image={schoolImages[p.slug]}
+                />
               </Reveal>
-            )}
-
-            {/* Other schools */}
-            <div className="grid gap-3 sm:grid-cols-2 sm:gap-4">
-              {otherSchools.map((p, i) => (
-                <Reveal key={p.slug} delay={(i % 2) * 100} className="h-full">
-                  <Link
-                    href={`/academics/${p.slug}`}
-                    className="block h-full rounded-xl border border-line bg-white p-5 font-semibold transition hover:-translate-y-1 hover:border-royal hover:text-royal"
-                  >
-                    {p.title}
-                  </Link>
-                </Reveal>
-              ))}
-            </div>
+            ))}
           </div>
         </section>
 
