@@ -97,26 +97,59 @@ export default function AcademicsBanner({
       </div>
 
       {crumbs && crumbs.length > 0 && (
-        <nav
-          aria-label="Breadcrumb"
-          className="mx-auto max-w-6xl px-5 pt-5 text-sm text-slate"
-        >
-          <ol className="flex flex-wrap items-center gap-2">
-            {crumbs.map((c, i) => (
-              <li key={i} className="flex items-center gap-2">
-                {c.href ? (
-                  <Link
-                    href={c.href}
-                    className="font-bold text-royal hover:underline"
-                  >
-                    {c.label}
-                  </Link>
-                ) : (
-                  <span>{c.label}</span>
-                )}
-                {i < crumbs.length - 1 && <span aria-hidden="true">/</span>}
-              </li>
-            ))}
+        <nav aria-label="Breadcrumb" className="mx-auto max-w-6xl px-5 pt-6">
+          <ol className="inline-flex flex-wrap items-center gap-1 rounded-full border border-line bg-white px-2 py-1.5 text-sm text-slate shadow-sm">
+            {crumbs.map((c, i) => {
+              const last = i === crumbs.length - 1;
+              return (
+                <li key={i} className="flex items-center gap-1">
+                  {c.href ? (
+                    <Link
+                      href={c.href}
+                      className="flex items-center gap-1.5 rounded-full px-3 py-1 font-bold text-royal transition hover:bg-royal/10"
+                    >
+                      {i === 0 && (
+                        <svg
+                          aria-hidden="true"
+                          viewBox="0 0 24 24"
+                          className="h-4 w-4"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2.2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <path d="M3 11l9-8 9 8" />
+                          <path d="M5 10v10h14V10" />
+                        </svg>
+                      )}
+                      {c.label}
+                    </Link>
+                  ) : (
+                    <span
+                      aria-current="page"
+                      className="rounded-full bg-navy px-3 py-1 font-bold text-white"
+                    >
+                      {c.label}
+                    </span>
+                  )}
+                  {!last && (
+                    <svg
+                      aria-hidden="true"
+                      viewBox="0 0 24 24"
+                      className="h-4 w-4 text-gold"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="3"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M9 6l6 6-6 6" />
+                    </svg>
+                  )}
+                </li>
+              );
+            })}
           </ol>
         </nav>
       )}

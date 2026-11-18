@@ -84,15 +84,50 @@ export default async function SectionPage({ params }: SectionProps) {
         <PageBanner title={data.title} crumbs={crumbs} />
       )}
       <main className="mx-auto max-w-6xl px-5 py-8">
-        <Reveal>
-          <p className="mb-10 max-w-2xl text-lg text-slate">{data.intro}</p>
-        </Reveal>
+        {isAcademics ? (
+          <Reveal>
+            <div className="mb-12 rounded-3xl border border-line bg-white p-6 shadow-sm sm:p-8">
+              <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+                <div className="border-l-4 border-gold pl-4">
+                  <h2 className="text-2xl font-extrabold text-navy sm:text-3xl">
+                    Find where you belong
+                  </h2>
+                  <p className="mt-2 max-w-xl text-lg text-slate">
+                    {data.intro}
+                  </p>
+                </div>
+                <nav
+                  aria-label="Jump to a section"
+                  className="flex flex-wrap gap-2"
+                >
+                  {[
+                    ["#senior-high", "Senior High"],
+                    ["#colleges", "Colleges"],
+                    ["#office", "Academic Office"],
+                  ].map(([href, label]) => (
+                    <a
+                      key={href}
+                      href={href}
+                      className="rounded-full bg-navy px-4 py-2 text-sm font-bold text-white transition hover:-translate-y-0.5 hover:bg-royal"
+                    >
+                      {label}
+                    </a>
+                  ))}
+                </nav>
+              </div>
+            </div>
+          </Reveal>
+        ) : (
+          <Reveal>
+            <p className="mb-10 max-w-2xl text-lg text-slate">{data.intro}</p>
+          </Reveal>
+        )}
 
         {isAcademics ? (
           <div className="space-y-14 sm:space-y-16">
             {/* 1. Senior High School */}
             {shs && (
-              <section>
+              <section id="senior-high" className="scroll-mt-24">
                 <Reveal>
                   <GroupHeading
                     kicker="Grades 11 and 12"
@@ -125,7 +160,7 @@ export default async function SectionPage({ params }: SectionProps) {
             )}
 
             {/* 2. Colleges and schools */}
-            <section>
+            <section id="colleges" className="scroll-mt-24">
               <Reveal>
                 <GroupHeading
                   kicker="College"
@@ -157,7 +192,7 @@ export default async function SectionPage({ params }: SectionProps) {
 
             {/* 3. Office of the Academic Director */}
             {office && (
-              <section>
+              <section id="office" className="scroll-mt-24">
                 <Reveal>
                   <GroupHeading
                     kicker="Academic support"
