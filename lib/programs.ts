@@ -44,11 +44,18 @@ const ENGINEERING_MISSION =
 // Key = school slug from lib/site.ts
 export const programsBySchool: Record<string, Program[]> = {
   "senior-high-school": [
-    program("abm", "ABM", { text: "Accountancy, Business, and Management" }),
+    program("abm", "ABM", {
+      text: "Accountancy, Business, and Management",
+      image: "/program-abm.png",
+    }),
     program("stem", "STEM", {
       text: "Science, Technology, Engineering, and Mathematics",
+      image: "/program-stem.png",
     }),
-    program("humss", "HUMSS", { text: "Humanities and Social Sciences" }),
+    program("humss", "HUMSS", {
+      text: "Humanities and Social Sciences",
+      image: "/program-humss.png",
+    }),
   ],
 
   sabm: [
@@ -74,9 +81,12 @@ export const programsBySchool: Record<string, Program[]> = {
   ],
 
   satc: [
-    program("bs-architecture", "BS Architecture"),
+    program("bs-architecture", "BS Architecture", {
+      image: "/program-architecture.png",
+    }),
     program("bs-information-technology", "BS Information Technology", {
       text: "Specialization in Web and Mobile Application",
+      image: "/program-bsit.png",
     }),
     program("bs-computer-science", "BS Computer Science", {
       text: "Specialization in Artificial Intelligence",
