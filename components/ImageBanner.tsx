@@ -16,7 +16,7 @@ export default function ImageBanner({
   return (
     <>
       {/* Same navy as the banner image, so the two blend together */}
-      <header className="bg-[#1b2a70] pb-5">
+      <header className="pb-5">
         <div className="mx-auto max-w-6xl px-4 sm:px-5">
           <Navbar />
         </div>
