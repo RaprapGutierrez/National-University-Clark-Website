@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { AboutDetail, aboutPageTitle } from "@/components/about/AboutPages";
 import PageBanner from "@/components/PageBanner";
-import ImageBanner from "@/components/ImageBanner";
+import AcademicsBanner from "@/components/AcademicsBanner";
 import Blocks from "@/components/Blocks";
 import { sections } from "@/lib/site";
 import { pageContent } from "@/lib/content";
@@ -16,12 +16,18 @@ export function generateStaticParams() {
   );
 }
 
-export async function generateMetadata({ params }: InnerPageProps): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: InnerPageProps): Promise<Metadata> {
   const { section, slug } = await params;
   if (section !== "about") return {};
 
-  const page = sections.find((entry) => entry.slug === section)?.pages.find((entry) => entry.slug === slug);
-  return page ? { title: `${aboutPageTitle(page)} | NU Clark`, description: page.summary } : {};
+  const page = sections
+    .find((entry) => entry.slug === section)
+    ?.pages.find((entry) => entry.slug === slug);
+  return page
+    ? { title: `${aboutPageTitle(page)} | NU Clark`, description: page.summary }
+    : {};
 }
 
 export default async function InnerPage({ params }: InnerPageProps) {
@@ -41,9 +47,10 @@ export default async function InnerPage({ params }: InnerPageProps) {
   return (
     <>
       {section === "academics" ? (
-        <ImageBanner
-          src={`/banner-${slug}.png`}
-          alt={page.title}
+        <AcademicsBanner
+          title={page.title}
+          subtitle={page.summary}
+          label="Academics"
           crumbs={crumbs}
         />
       ) : (

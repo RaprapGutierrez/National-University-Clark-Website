@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { AboutOverview } from "@/components/about/AboutPages";
 import PageBanner from "@/components/PageBanner";
-import ImageBanner from "@/components/ImageBanner";
+import AcademicsBanner from "@/components/AcademicsBanner";
 import Reveal from "@/components/Reveal";
 import { sections } from "@/lib/site";
 
@@ -13,10 +13,17 @@ export function generateStaticParams() {
   return sections.map((s) => ({ section: s.slug }));
 }
 
-export async function generateMetadata({ params }: SectionProps): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: SectionProps): Promise<Metadata> {
   const { section } = await params;
   const about = sections.find((entry) => entry.slug === "about");
-  return section === "about" ? { title: "About NU Clark | National University", description: about?.intro } : {};
+  return section === "about"
+    ? {
+        title: "About NU Clark | National University",
+        description: about?.intro,
+      }
+    : {};
 }
 
 export default async function SectionPage({ params }: SectionProps) {
@@ -31,9 +38,10 @@ export default async function SectionPage({ params }: SectionProps) {
   return (
     <>
       {isAcademics ? (
-        <ImageBanner
-          src="/banner-academics-main.png"
-          alt="Academics at NU Clark"
+        <AcademicsBanner
+          title="Academics"
+          subtitle="Choose a school to see the programs it offers."
+          label="National University Clark"
           crumbs={crumbs}
         />
       ) : (
