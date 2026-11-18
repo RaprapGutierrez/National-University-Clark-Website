@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import PageBanner from "@/components/PageBanner";
@@ -25,14 +26,25 @@ export default async function InnerPage({
 
   return (
     <>
-      <PageBanner
-        title={page.title}
-        crumbs={[
-          { label: "Home", href: "/" },
-          { label: sec.title, href: `/${sec.slug}` },
-          { label: page.title },
-        ]}
-      />
+      {section === "academics" ? (
+        <Image
+          src={`/banner-${slug}.png`}
+          alt={page.title}
+          width={2400}
+          height={600}
+          priority
+          className="h-auto w-full"
+        />
+      ) : (
+        <PageBanner
+          title={page.title}
+          crumbs={[
+            { label: "Home", href: "/" },
+            { label: sec.title, href: `/${sec.slug}` },
+            { label: page.title },
+          ]}
+        />
+      )}
       <main className="mx-auto grid max-w-6xl gap-10 px-5 py-8 lg:grid-cols-[1fr_280px]">
         <article>
           <p className="mb-10 max-w-2xl text-lg text-slate">{page.summary}</p>
