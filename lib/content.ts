@@ -166,30 +166,54 @@ export const pageContent: Record<string, Block[]> = {
   ]),
 
   "academics/sabm": school("School of Accountancy, Business, and Management", [
+    { title: "BS Management Accounting" },
     { title: "BS Accountancy" },
-    { title: "BS Business Administration" },
+    {
+      title: "BS Business Administration",
+      text: "Major in Marketing Management",
+    },
+    { title: "BS Tourism Management" },
   ]),
 
   "academics/seas": school("School of Education, Arts, and Sciences", [
-    { title: "Bachelor of Elementary Education" },
-    { title: "Bachelor of Secondary Education" },
+    { title: "BA Political Science" },
+    { title: "BS Communication" },
+    { title: "BS Psychology" },
   ]),
 
   "academics/satc": school(
     "School of Architecture, Technology, and Computing",
-    [{ title: "BS Computer Science" }, { title: "BS Information Technology" }],
+    [
+      { title: "BS Architecture" },
+      {
+        title: "BS Information Technology",
+        text: "Specialization in Web and Mobile Application",
+      },
+      {
+        title: "BS Computer Science",
+        text: "Specialization in Artificial Intelligence",
+      },
+    ],
   ),
 
   "academics/engineering": school(
     "School of Engineering",
-    [{ title: "BS Civil Engineering" }],
+    [{ title: "BS Civil Engineering" }, { title: "BS Computer Engineering" }],
     "The College of Engineering shall be known for producing competent, ethical, and responsible engineers responsive to the needs and aspirations of the country.",
   ),
 
-  "academics/hospitality": school("Hospitality program", [
-    { title: "BS Hospitality Management" },
-    { title: "BS Tourism Management" },
+  "academics/hospitality": school("School of Dentistry and Allied Health", [
+    { title: "Doctor of Dental Medicine" },
+    { title: "BS Medical Technology" },
   ]),
+
+  "academics/office-of-the-academic-director": [
+    {
+      type: "text",
+      heading: "About the Office of the Academic Director",
+      body: ["Add the official overview of this office here."],
+    },
+  ],
 
   // ---------- ADMISSIONS ----------
   "admissions/apply-now": [
