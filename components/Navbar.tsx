@@ -104,7 +104,7 @@ function Hamburger({ open }: { open: boolean }) {
   );
 }
 
-export default function Navbar() {
+export default function Navbar({ currentPath }: { currentPath?: string }) {
   const [open, setOpen] = useState(false);
   const [openSection, setOpenSection] = useState<string | null>(null);
   const [active, setActive] = useState<string | null>(null);
@@ -167,6 +167,8 @@ export default function Navbar() {
         <ul className="hidden flex-1 items-center justify-evenly lg:flex">
           {menu.map((s) => {
             const isActive = active === s.slug;
+            const href = `/${s.slug}`;
+            const isCurrent = currentPath === href || currentPath?.startsWith(`${href}/`);
             const cols = columnsBySlug[s.slug];
             return (
               <li
@@ -184,9 +186,10 @@ export default function Navbar() {
                 }}
               >
                 <Link
-                  href={`/${s.slug}`}
+                  href={href}
                   onClick={() => setActive(null)}
-                  className="flex items-center gap-1.5 rounded-lg px-2 py-2 font-medium text-navy hover:text-royal"
+                  aria-current={currentPath === href ? "page" : isCurrent ? "location" : undefined}
+                  className={`flex items-center gap-1.5 rounded-lg px-2 py-2 text-navy hover:text-royal ${isCurrent ? "bg-mist font-bold underline decoration-gold decoration-2 underline-offset-[7px]" : "font-medium"}`}
                 >
                   {s.title}
                   <Chevron className={isActive ? "rotate-180" : ""} />
@@ -234,7 +237,8 @@ export default function Navbar() {
                                     <Link
                                       href={it.href}
                                       onClick={() => setActive(null)}
-                                      className="block text-[15px] font-medium text-royal hover:text-navy"
+                                      aria-current={it.href === currentPath ? "page" : undefined}
+                                      className="block text-[15px] font-medium text-royal hover:text-navy aria-[current=page]:font-bold aria-[current=page]:underline"
                                     >
                                       {it.label}
                                       {it.sub && (
@@ -305,6 +309,16 @@ export default function Navbar() {
                   </button>
                   {expanded && (
                     <div className="pb-3 pl-3">
+                      {s.slug === "about" && (
+                        <Link
+                          href="/about"
+                          onClick={closeMenu}
+                          aria-current={currentPath === "/about" ? "page" : undefined}
+                          className="block py-1.5 text-sm font-bold text-navy aria-[current=page]:underline"
+                        >
+                          About NU Clark
+                        </Link>
+                      )}
                       {columnsBySlug[s.slug].flat().map((g, gi) => (
                         <div key={gi} className="py-1.5">
                           {g.title && (
@@ -321,7 +335,8 @@ export default function Navbar() {
                               key={it.label}
                               href={it.href}
                               onClick={closeMenu}
-                              className={`block py-1 text-sm text-slate ${
+                              aria-current={it.href === currentPath ? "page" : undefined}
+                              className={`block py-1 text-sm text-slate aria-[current=page]:font-bold aria-[current=page]:text-navy aria-[current=page]:underline ${
                                 g.title ? "pl-3" : ""
                               }`}
                             >

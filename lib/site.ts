@@ -20,32 +20,32 @@ export const sections: Section[] = [
     slug: "about",
     title: "About",
     intro:
-      "Learn about National University Clark, its people, and its mission.",
+      "National University’s campus in Mabalacat City, Pampanga, serving senior high school and college students in Central Luzon.",
     pages: [
       {
         slug: "our-story",
         title: "Our Story",
-        summary: "How NU Clark started and where it is today.",
+        summary: "From a school in Quiapo to a university campus in Central Luzon.",
       },
       {
         slug: "leadership",
         title: "Leadership",
-        summary: "Meet the campus leaders and view the organizational chart.",
+        summary: "Meet the campus directors and National University’s board, or find a campus office.",
       },
       {
         slug: "vmgo",
         title: "VMGO",
-        summary: "Our vision, mission, goals, and objectives.",
+        summary: "Explore NU’s vision, mission, strategic goals, core values, and graduate attributes.",
       },
       {
         slug: "accreditation",
         title: "Accreditation",
-        summary: "Recognitions and accredited programs.",
+        summary: "Find NU Clark’s public records and explore recognitions published by National University.",
       },
       {
         slug: "campus-tour",
         title: "Campus Tour",
-        summary: "Take a look around the NU Clark campus.",
+        summary: "Watch the campus tour, browse photos, and find directions.",
       },
     ],
   },

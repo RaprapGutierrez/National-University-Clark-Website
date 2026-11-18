@@ -1,22 +1,29 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
+import { AboutOverview } from "@/components/about/AboutPages";
 import PageBanner from "@/components/PageBanner";
 import ImageBanner from "@/components/ImageBanner";
 import Reveal from "@/components/Reveal";
 import { sections } from "@/lib/site";
 
+type SectionProps = { params: Promise<{ section: string }> };
+
 export function generateStaticParams() {
   return sections.map((s) => ({ section: s.slug }));
 }
 
-export default async function SectionPage({
-  params,
-}: {
-  params: Promise<{ section: string }>;
-}) {
+export async function generateMetadata({ params }: SectionProps): Promise<Metadata> {
+  const { section } = await params;
+  const about = sections.find((entry) => entry.slug === "about");
+  return section === "about" ? { title: "About NU Clark | National University", description: about?.intro } : {};
+}
+
+export default async function SectionPage({ params }: SectionProps) {
   const { section } = await params;
   const data = sections.find((s) => s.slug === section);
   if (!data) notFound();
+  if (section === "about") return <AboutOverview section={data} />;
 
   const isAcademics = data.slug === "academics";
   const crumbs = [{ label: "Home", href: "/" }, { label: data.title }];

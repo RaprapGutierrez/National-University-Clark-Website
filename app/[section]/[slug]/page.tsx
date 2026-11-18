@@ -1,10 +1,14 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
+import { AboutDetail, aboutPageTitle } from "@/components/about/AboutPages";
 import PageBanner from "@/components/PageBanner";
 import ImageBanner from "@/components/ImageBanner";
 import Blocks from "@/components/Blocks";
 import { sections } from "@/lib/site";
 import { pageContent } from "@/lib/content";
+
+type InnerPageProps = { params: Promise<{ section: string; slug: string }> };
 
 export function generateStaticParams() {
   return sections.flatMap((s) =>
@@ -12,15 +16,20 @@ export function generateStaticParams() {
   );
 }
 
-export default async function InnerPage({
-  params,
-}: {
-  params: Promise<{ section: string; slug: string }>;
-}) {
+export async function generateMetadata({ params }: InnerPageProps): Promise<Metadata> {
+  const { section, slug } = await params;
+  if (section !== "about") return {};
+
+  const page = sections.find((entry) => entry.slug === section)?.pages.find((entry) => entry.slug === slug);
+  return page ? { title: `${aboutPageTitle(page)} | NU Clark`, description: page.summary } : {};
+}
+
+export default async function InnerPage({ params }: InnerPageProps) {
   const { section, slug } = await params;
   const sec = sections.find((s) => s.slug === section);
   const page = sec?.pages.find((p) => p.slug === slug);
   if (!sec || !page) notFound();
+  if (section === "about") return <AboutDetail page={page} section={sec} />;
 
   const blocks = pageContent[`${section}/${slug}`];
   const crumbs = [
@@ -69,6 +78,7 @@ export default async function InnerPage({
               <Link
                 key={p.slug}
                 href={`/${sec.slug}/${p.slug}`}
+                aria-current={p.slug === slug ? "page" : undefined}
                 className={`rounded-lg px-3 py-2 text-sm hover:bg-white ${
                   p.slug === slug
                     ? "bg-white font-bold text-royal"
