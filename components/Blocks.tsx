@@ -1,9 +1,69 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { Block } from "@/lib/content";
+
+// Yellow outline that follows the shape of the cutout, like a sticker
+const STICKER =
+  "drop-shadow(4px 0 0 var(--color-gold, #f7c600)) " +
+  "drop-shadow(-4px 0 0 var(--color-gold, #f7c600)) " +
+  "drop-shadow(0 4px 0 var(--color-gold, #f7c600)) " +
+  "drop-shadow(0 -4px 0 var(--color-gold, #f7c600)) " +
+  "drop-shadow(0 10px 14px rgba(0, 0, 0, 0.25))";
+
+type CardItem = { title: string; text?: string; href?: string; image?: string };
 
 function Heading({ children }: { children?: React.ReactNode }) {
   if (!children) return null;
   return <h2 className="mb-5 text-2xl font-extrabold text-navy">{children}</h2>;
+}
+
+// Card with a sticker photo on top and a blue and gold box below
+function StickerCard({ item }: { item: CardItem }) {
+  const inner = (
+    <>
+      {item.image && (
+        <div
+          className="relative z-10 mx-auto -mb-10 aspect-[4/3] w-3/4 transition-transform duration-300 ease-out group-hover:-translate-y-3 group-hover:rotate-1 motion-reduce:transform-none"
+          style={{ filter: STICKER }}
+        >
+          <Image
+            src={item.image}
+            alt={item.title}
+            fill
+            sizes="(min-width: 1024px) 260px, 70vw"
+            className="object-contain object-bottom"
+          />
+        </div>
+      )}
+
+      <div
+        className={`flex flex-1 flex-col items-center rounded-3xl border-2 border-gold bg-navy px-5 pb-6 text-center text-white shadow-lg transition-shadow duration-300 group-hover:shadow-2xl group-hover:shadow-navy/40 ${
+          item.image ? "pt-14" : "pt-6"
+        }`}
+      >
+        <h3 className="text-lg font-extrabold text-gold">{item.title}</h3>
+        {item.text && (
+          <p className="mt-1.5 text-sm text-white/85">{item.text}</p>
+        )}
+      </div>
+    </>
+  );
+
+  const cls =
+    "group mx-auto flex h-full w-full max-w-xs flex-col transition-transform duration-300 ease-out hover:-translate-y-2 hover:scale-[1.03] motion-reduce:transform-none";
+
+  if (!item.href) return <div className={cls}>{inner}</div>;
+  if (item.href.startsWith("http"))
+    return (
+      <a href={item.href} className={cls}>
+        {inner}
+      </a>
+    );
+  return (
+    <Link href={item.href} className={cls}>
+      {inner}
+    </Link>
+  );
 }
 
 function BlockView({ block }: { block: Block }) {
@@ -34,7 +94,23 @@ function BlockView({ block }: { block: Block }) {
         </section>
       );
 
-    case "cards":
+    case "cards": {
+      // If any card has an image, show the whole block as sticker cards
+      const hasImages = block.items.some((c) => c.image);
+
+      if (hasImages) {
+        return (
+          <section>
+            <Heading>{block.heading}</Heading>
+            <div className="grid gap-x-6 gap-y-10 sm:grid-cols-2">
+              {block.items.map((c, i) => (
+                <StickerCard key={i} item={c} />
+              ))}
+            </div>
+          </section>
+        );
+      }
+
       return (
         <section>
           <Heading>{block.heading}</Heading>
@@ -80,6 +156,7 @@ function BlockView({ block }: { block: Block }) {
           </div>
         </section>
       );
+    }
 
     case "list":
       return (

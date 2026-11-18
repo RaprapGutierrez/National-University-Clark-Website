@@ -6,7 +6,7 @@ export type Block =
   | {
       type: "cards";
       heading?: string;
-      items: { title: string; text?: string; href?: string }[];
+      items: { title: string; text?: string; href?: string; image?: string }[];
     }
   | { type: "list"; heading?: string; items: string[] }
   | {
@@ -22,7 +22,7 @@ export type Block =
 // Builds a standard school page. Replace the placeholder text with official content.
 function school(
   name: string,
-  programs: { title: string; text?: string }[],
+  programs: { title: string; text?: string; image?: string }[],
   mission?: string,
 ): Block[] {
   return [
@@ -166,13 +166,17 @@ export const pageContent: Record<string, Block[]> = {
   ]),
 
   "academics/sabm": school("School of Accountancy, Business, and Management", [
-    { title: "BS Management Accounting" },
-    { title: "BS Accountancy" },
+    {
+      title: "BS Management Accounting",
+      image: "/program-management-accounting.png",
+    },
+    { title: "BS Accountancy", image: "/program-accountancy.png" },
     {
       title: "BS Business Administration",
       text: "Major in Marketing Management",
+      image: "/program-business-admin.png",
     },
-    { title: "BS Tourism Management" },
+    { title: "BS Tourism Management", image: "/program-tourism.png" },
   ]),
 
   "academics/seas": school("School of Education, Arts, and Sciences", [
