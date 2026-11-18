@@ -1,7 +1,7 @@
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import PageBanner from "@/components/PageBanner";
+import ImageBanner from "@/components/ImageBanner";
 import Blocks from "@/components/Blocks";
 import { sections } from "@/lib/site";
 import { pageContent } from "@/lib/content";
@@ -23,27 +23,22 @@ export default async function InnerPage({
   if (!sec || !page) notFound();
 
   const blocks = pageContent[`${section}/${slug}`];
+  const crumbs = [
+    { label: "Home", href: "/" },
+    { label: sec.title, href: `/${sec.slug}` },
+    { label: page.title },
+  ];
 
   return (
     <>
       {section === "academics" ? (
-        <Image
+        <ImageBanner
           src={`/banner-${slug}.png`}
           alt={page.title}
-          width={2400}
-          height={600}
-          priority
-          className="h-auto w-full"
+          crumbs={crumbs}
         />
       ) : (
-        <PageBanner
-          title={page.title}
-          crumbs={[
-            { label: "Home", href: "/" },
-            { label: sec.title, href: `/${sec.slug}` },
-            { label: page.title },
-          ]}
-        />
+        <PageBanner title={page.title} crumbs={crumbs} />
       )}
       <main className="mx-auto grid max-w-6xl gap-10 px-5 py-8 lg:grid-cols-[1fr_280px]">
         <article>

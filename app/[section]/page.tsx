@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import PageBanner from "@/components/PageBanner";
+import ImageBanner from "@/components/ImageBanner";
 import Reveal from "@/components/Reveal";
 import { sections } from "@/lib/site";
 
@@ -18,13 +19,19 @@ export default async function SectionPage({
   if (!data) notFound();
 
   const isAcademics = data.slug === "academics";
+  const crumbs = [{ label: "Home", href: "/" }, { label: data.title }];
 
   return (
     <>
-      <PageBanner
-        title={data.title}
-        crumbs={[{ label: "Home", href: "/" }, { label: data.title }]}
-      />
+      {isAcademics ? (
+        <ImageBanner
+          src="/banner-academics-main.png"
+          alt="Academics at NU Clark"
+          crumbs={crumbs}
+        />
+      ) : (
+        <PageBanner title={data.title} crumbs={crumbs} />
+      )}
       <main className="mx-auto max-w-6xl px-5 py-8">
         <Reveal>
           <p className="mb-8 max-w-2xl text-lg text-slate">{data.intro}</p>
