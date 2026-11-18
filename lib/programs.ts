@@ -102,15 +102,21 @@ export const programsBySchool: Record<string, Program[]> = {
   engineering: [
     program("bs-civil-engineering", "BS Civil Engineering", {
       mission: ENGINEERING_MISSION,
+      image: "/program-civil-eng.png",
     }),
     program("bs-computer-engineering", "BS Computer Engineering", {
       mission: ENGINEERING_MISSION,
+      image: "/program-com-eng.png",
     }),
   ],
 
   // slug "hospitality" is School of Dentistry and Allied Health
   hospitality: [
-    program("doctor-of-dental-medicine", "Doctor of Dental Medicine"),
-    program("bs-medical-technology", "BS Medical Technology"),
+    program("doctor-of-dental-medicine", "Doctor of Dental Medicine", {
+      image: "/program-dentistry.png",
+    }),
+    program("bs-medical-technology", "BS Medical Technology", {
+      image: "/program-med-tech.png",
+    }),
   ],
 };
