@@ -29,6 +29,29 @@ export async function generateMetadata({
     : {};
 }
 
+function GroupHeading({
+  kicker,
+  title,
+  text,
+}: {
+  kicker: string;
+  title: string;
+  text: string;
+}) {
+  return (
+    <div className="mb-6">
+      <p className="text-sm font-bold uppercase tracking-[0.2em] text-royal">
+        {kicker}
+      </p>
+      <h2 className="mt-1 text-2xl font-extrabold text-navy sm:text-3xl">
+        {title}
+      </h2>
+      <div className="mt-3 h-1.5 w-16 rounded-full bg-gold" />
+      <p className="mt-3 max-w-2xl text-slate">{text}</p>
+    </div>
+  );
+}
+
 export default async function SectionPage({ params }: SectionProps) {
   const { section } = await params;
   const data = sections.find((s) => s.slug === section);
@@ -37,6 +60,16 @@ export default async function SectionPage({ params }: SectionProps) {
 
   const isAcademics = data.slug === "academics";
   const crumbs = [{ label: "Home", href: "/" }, { label: data.title }];
+
+  const shs = data.pages.find((p) => p.slug === "senior-high-school");
+  const office = data.pages.find(
+    (p) => p.slug === "office-of-the-academic-director",
+  );
+  const colleges = data.pages.filter(
+    (p) =>
+      p.slug !== "senior-high-school" &&
+      p.slug !== "office-of-the-academic-director",
+  );
 
   return (
     <>
@@ -52,29 +85,106 @@ export default async function SectionPage({ params }: SectionProps) {
       )}
       <main className="mx-auto max-w-6xl px-5 py-8">
         <Reveal>
-          <p className="mb-8 max-w-2xl text-lg text-slate">{data.intro}</p>
+          <p className="mb-10 max-w-2xl text-lg text-slate">{data.intro}</p>
         </Reveal>
 
         {isAcademics ? (
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {data.pages.map((p, i) => (
-              <Reveal key={p.slug} delay={(i % 3) * 100} className="h-full">
-                <Link
-                  href={`/${data.slug}/${p.slug}`}
-                  className="group flex h-full flex-col rounded-3xl border-2 border-gold bg-navy p-6 text-white shadow-lg transition duration-300 ease-out hover:-translate-y-2 hover:shadow-2xl hover:shadow-navy/40 motion-reduce:transform-none"
-                >
-                  <h3 className="text-xl font-extrabold text-gold">
-                    {p.title}
-                  </h3>
-                  <p className="mt-2 text-sm text-white/85">{p.summary}</p>
-                  <span className="mt-auto inline-block self-start pt-5">
-                    <span className="inline-block rounded-full bg-gold px-5 py-2 text-sm font-bold text-navy transition-transform duration-300 group-hover:translate-x-1">
+          <div className="space-y-14 sm:space-y-16">
+            {/* 1. Senior High School */}
+            {shs && (
+              <section>
+                <Reveal>
+                  <GroupHeading
+                    kicker="Grades 11 and 12"
+                    title="Senior High School"
+                    text="Begin your path here. Choose a track and strand that fits your goals and get ready for college and career."
+                  />
+                </Reveal>
+                <Reveal>
+                  <Link
+                    href={`/${data.slug}/${shs.slug}`}
+                    className="group grid items-center gap-6 rounded-3xl border-2 border-gold bg-navy p-6 text-white shadow-lg transition duration-300 ease-out hover:-translate-y-2 hover:shadow-2xl hover:shadow-navy/40 motion-reduce:transform-none sm:p-10 md:grid-cols-[1fr_auto]"
+                  >
+                    <div>
+                      <span className="inline-block rounded-full bg-gold/20 px-3 py-1 text-xs font-bold uppercase tracking-wider text-gold">
+                        Start here
+                      </span>
+                      <h3 className="mt-3 text-2xl font-extrabold text-gold sm:text-3xl">
+                        {shs.title}
+                      </h3>
+                      <p className="mt-2 max-w-xl text-white/85">
+                        {shs.summary}
+                      </p>
+                    </div>
+                    <span className="inline-block justify-self-start rounded-full bg-gold px-6 py-3 font-bold text-navy transition-transform duration-300 group-hover:translate-x-1 md:justify-self-end">
                       Learn more →
                     </span>
-                  </span>
-                </Link>
+                  </Link>
+                </Reveal>
+              </section>
+            )}
+
+            {/* 2. Colleges and schools */}
+            <section>
+              <Reveal>
+                <GroupHeading
+                  kicker="College"
+                  title="Colleges and Schools"
+                  text="Pick the school that matches the course you want to take. Each page lists its programs, mission, and vision."
+                />
               </Reveal>
-            ))}
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {colleges.map((p, i) => (
+                  <Reveal key={p.slug} delay={(i % 3) * 100} className="h-full">
+                    <Link
+                      href={`/${data.slug}/${p.slug}`}
+                      className="group flex h-full flex-col rounded-3xl border-2 border-gold bg-navy p-6 text-white shadow-lg transition duration-300 ease-out hover:-translate-y-2 hover:shadow-2xl hover:shadow-navy/40 motion-reduce:transform-none"
+                    >
+                      <h3 className="text-xl font-extrabold text-gold">
+                        {p.title}
+                      </h3>
+                      <p className="mt-2 text-sm text-white/85">{p.summary}</p>
+                      <span className="mt-auto inline-block self-start pt-5">
+                        <span className="inline-block rounded-full bg-gold px-5 py-2 text-sm font-bold text-navy transition-transform duration-300 group-hover:translate-x-1">
+                          Learn more →
+                        </span>
+                      </span>
+                    </Link>
+                  </Reveal>
+                ))}
+              </div>
+            </section>
+
+            {/* 3. Office of the Academic Director */}
+            {office && (
+              <section>
+                <Reveal>
+                  <GroupHeading
+                    kicker="Academic support"
+                    title="Office of the Academic Director"
+                    text="Questions about academic policies or support? This office is where to start."
+                  />
+                </Reveal>
+                <Reveal>
+                  <Link
+                    href={`/${data.slug}/${office.slug}`}
+                    className="group grid items-center gap-6 rounded-3xl border-2 border-navy bg-gold p-6 text-navy shadow-lg transition duration-300 ease-out hover:-translate-y-2 hover:shadow-2xl hover:shadow-navy/30 motion-reduce:transform-none sm:p-10 md:grid-cols-[1fr_auto]"
+                  >
+                    <div>
+                      <h3 className="text-2xl font-extrabold sm:text-3xl">
+                        {office.title}
+                      </h3>
+                      <p className="mt-2 max-w-xl font-medium text-navy/85">
+                        {office.summary}
+                      </p>
+                    </div>
+                    <span className="inline-block justify-self-start rounded-full bg-navy px-6 py-3 font-bold text-white transition-transform duration-300 group-hover:translate-x-1 md:justify-self-end">
+                      Learn more →
+                    </span>
+                  </Link>
+                </Reveal>
+              </section>
+            )}
           </div>
         ) : (
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -95,7 +205,7 @@ export default async function SectionPage({ params }: SectionProps) {
         )}
 
         {isAcademics && (
-          <Reveal className="mt-12 sm:mt-16">
+          <Reveal className="mt-14 sm:mt-20">
             <section className="grid items-center gap-8 rounded-3xl bg-navy p-6 text-white sm:p-10 md:grid-cols-[1fr_auto]">
               <div className="text-center md:text-left">
                 <h2 className="text-2xl font-extrabold sm:text-3xl">
