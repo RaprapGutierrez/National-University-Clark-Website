@@ -1,4 +1,5 @@
 import { APPLY_URL } from "./site";
+import { programsBySchool } from "./programs";
 
 export type Block =
   | { type: "text"; heading?: string; body: string[] }
@@ -19,32 +20,19 @@ export type Block =
   | { type: "image"; src: string; alt: string; caption?: string }
   | { type: "note"; text: string };
 
-// Builds a standard school page. Replace the placeholder text with official content.
-function school(
-  name: string,
-  programs: { title: string; text?: string; image?: string }[],
-  mission?: string,
-): Block[] {
+// School page: only the programs, each one clickable.
+function school(slug: string): Block[] {
+  const programs = programsBySchool[slug] ?? [];
   return [
     {
-      type: "text",
-      heading: `About the ${name}`,
-      body: ["Add the official overview of this school here."],
-    },
-    {
-      type: "mv",
-      items: [
-        {
-          label: "Our Mission",
-          text: mission ?? "Add the official mission here.",
-        },
-        { label: "Our Vision", text: "Add the official vision here." },
-      ],
-    },
-    { type: "cards", heading: "Programs offered", items: programs },
-    {
-      type: "note",
-      text: "Copy the program list and descriptions from the official NU Clark programs page before publishing.",
+      type: "cards",
+      heading: "Programs offered",
+      items: programs.map((p) => ({
+        title: p.title,
+        text: p.text,
+        image: p.image,
+        href: `/academics/${slug}/${p.slug}`,
+      })),
     },
   ];
 }
@@ -156,60 +144,12 @@ export const pageContent: Record<string, Block[]> = {
   ],
 
   // ---------- ACADEMICS ----------
-  "academics/senior-high-school": school("Senior High School", [
-    { title: "ABM", text: "Accountancy, Business, and Management" },
-    {
-      title: "STEM",
-      text: "Science, Technology, Engineering, and Mathematics",
-    },
-    { title: "HUMSS", text: "Humanities and Social Sciences" },
-  ]),
-
-  "academics/sabm": school("School of Accountancy, Business, and Management", [
-    {
-      title: "BS Management Accounting",
-      image: "/program-management-accounting.png",
-    },
-    { title: "BS Accountancy", image: "/program-accountancy.png" },
-    {
-      title: "BS Business Administration",
-      text: "Major in Marketing Management",
-      image: "/program-business-admin.png",
-    },
-    { title: "BS Tourism Management", image: "/program-tourism.png" },
-  ]),
-
-  "academics/seas": school("School of Education, Arts, and Sciences", [
-    { title: "BA Political Science" },
-    { title: "BS Communication" },
-    { title: "BS Psychology" },
-  ]),
-
-  "academics/satc": school(
-    "School of Architecture, Technology, and Computing",
-    [
-      { title: "BS Architecture" },
-      {
-        title: "BS Information Technology",
-        text: "Specialization in Web and Mobile Application",
-      },
-      {
-        title: "BS Computer Science",
-        text: "Specialization in Artificial Intelligence",
-      },
-    ],
-  ),
-
-  "academics/engineering": school(
-    "School of Engineering",
-    [{ title: "BS Civil Engineering" }, { title: "BS Computer Engineering" }],
-    "The College of Engineering shall be known for producing competent, ethical, and responsible engineers responsive to the needs and aspirations of the country.",
-  ),
-
-  "academics/hospitality": school("School of Dentistry and Allied Health", [
-    { title: "Doctor of Dental Medicine" },
-    { title: "BS Medical Technology" },
-  ]),
+  "academics/senior-high-school": school("senior-high-school"),
+  "academics/sabm": school("sabm"),
+  "academics/seas": school("seas"),
+  "academics/satc": school("satc"),
+  "academics/engineering": school("engineering"),
+  "academics/hospitality": school("hospitality"),
 
   "academics/office-of-the-academic-director": [
     {

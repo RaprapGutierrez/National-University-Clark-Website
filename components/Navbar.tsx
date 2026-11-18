@@ -2,18 +2,67 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { sections, APPLY_URL } from "@/lib/site";
+import { programsBySchool } from "@/lib/programs";
+
+type SectionT = (typeof sections)[number];
+type Item = { label: string; sub?: string; href: string };
+type Group = { title?: string; href?: string; items: Item[] };
 
 const order = ["academics", "admissions", "student-life", "about"];
 const menu = order
   .map((slug) => sections.find((s) => s.slug === slug))
-  .filter((s): s is (typeof sections)[number] => Boolean(s));
+  .filter((s): s is SectionT => Boolean(s));
 
 const extraLinks = [
   { label: "Alumni", href: "/alumni" },
   { label: "News", href: "/news" },
 ];
+
+// Programs listed under a school, each linking to its own page
+function programsOf(sectionSlug: string, pageSlug: string) {
+  return (programsBySchool[pageSlug] ?? []).map((p) => ({
+    label: p.title,
+    sub: p.text,
+    href: `/${sectionSlug}/${pageSlug}/${p.slug}`,
+  }));
+}
+
+// Splits a section into dropdown columns
+function buildColumns(s: SectionT): Group[][] {
+  if (s.slug === "academics") {
+    const groups: Group[] = s.pages.map((p) => ({
+      title: p.title,
+      href: `/${s.slug}/${p.slug}`,
+      items: programsOf(s.slug, p.slug),
+    }));
+
+    // Put each school in the shorter column so both stay balanced
+    const cols: Group[][] = [[], []];
+    const sizes = [0, 0];
+    groups.forEach((g) => {
+      const i = sizes[0] <= sizes[1] ? 0 : 1;
+      cols[i].push(g);
+      sizes[i] += g.items.length + 2;
+    });
+    return cols.filter((c) => c.length > 0);
+  }
+
+  const items: Item[] = s.pages.map((p) => ({
+    label: p.title,
+    href: `/${s.slug}/${p.slug}`,
+  }));
+  const half = Math.ceil(items.length / 2);
+  return [
+    [{ items: items.slice(0, half) }],
+    [{ items: items.slice(half) }],
+  ].filter((c) => c[0].items.length > 0);
+}
+
+const columnsBySlug: Record<string, Group[][]> = Object.fromEntries(
+  menu.map((s) => [s.slug, buildColumns(s)]),
+);
 
 function Chevron({ className = "" }: { className?: string }) {
   return (
@@ -58,10 +107,30 @@ function Hamburger({ open }: { open: boolean }) {
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [openSection, setOpenSection] = useState<string | null>(null);
+  const [active, setActive] = useState<string | null>(null);
+  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (timer.current) clearTimeout(timer.current);
+    };
+  }, []);
+
+  const showDropdown = (slug: string) => {
+    if (timer.current) clearTimeout(timer.current);
+    setActive(slug);
+  };
+
+  // Short delay so the mouse can cross the gap without the menu closing
+  const hideDropdown = () => {
+    if (timer.current) clearTimeout(timer.current);
+    timer.current = setTimeout(() => setActive(null), 200);
+  };
 
   const closeMenu = () => {
     setOpen(false);
     setOpenSection(null);
+    setActive(null);
   };
 
   return (
@@ -92,45 +161,97 @@ export default function Navbar() {
 
         {/* Desktop menu */}
         <ul className="hidden flex-1 items-center justify-evenly lg:flex">
-          {menu.map((s) => (
-            <li key={s.slug} className="group">
-              <Link
-                href={`/${s.slug}`}
-                className="flex items-center gap-1.5 rounded-lg px-2 py-2 font-medium text-navy hover:text-royal"
+          {menu.map((s) => {
+            const isActive = active === s.slug;
+            const cols = columnsBySlug[s.slug];
+            return (
+              <li
+                key={s.slug}
+                onMouseEnter={() => showDropdown(s.slug)}
+                onMouseLeave={hideDropdown}
+                onFocus={() => showDropdown(s.slug)}
+                onBlur={(e) => {
+                  if (!e.currentTarget.contains(e.relatedTarget as Node)) {
+                    hideDropdown();
+                  }
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === "Escape") setActive(null);
+                }}
               >
-                {s.title}
-                <Chevron className="group-hover:rotate-180 group-focus-within:rotate-180" />
-              </Link>
+                <Link
+                  href={`/${s.slug}`}
+                  onClick={() => setActive(null)}
+                  className="flex items-center gap-1.5 rounded-lg px-2 py-2 font-medium text-navy hover:text-royal"
+                >
+                  {s.title}
+                  <Chevron className={isActive ? "rotate-180" : ""} />
+                </Link>
 
-              <div className="invisible absolute left-0 right-0 top-full z-30 pt-3 opacity-0 transition group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100">
-                <div className="rounded-2xl border border-line bg-[#f4f5fc] p-8 shadow-xl">
-                  <h3 className="mb-4 border-b border-line pb-3 text-sm font-bold uppercase tracking-wide text-navy">
-                    {s.title}
-                  </h3>
-                  <ul
-                    className="grid gap-x-8 gap-y-3"
-                    style={{
-                      gridTemplateColumns: `repeat(${Math.min(
-                        s.pages.length,
-                        4,
-                      )}, minmax(0, 1fr))`,
-                    }}
-                  >
-                    {s.pages.map((p) => (
-                      <li key={p.slug}>
-                        <Link
-                          href={`/${s.slug}/${p.slug}`}
-                          className="text-[15px] font-medium text-slate hover:text-navy"
+                <div
+                  className={`absolute left-0 right-0 top-full z-30 pt-3 transition-opacity duration-150 ${
+                    isActive ? "visible opacity-100" : "invisible opacity-0"
+                  }`}
+                >
+                  <div className="rounded-2xl border border-line bg-[#f4f5fc] p-8 shadow-xl">
+                    <div
+                      className="grid"
+                      style={{
+                        gridTemplateColumns: `repeat(${cols.length}, minmax(0, 1fr))`,
+                      }}
+                    >
+                      {cols.map((col, ci) => (
+                        <div
+                          key={ci}
+                          className={`space-y-7 ${
+                            ci > 0 ? "border-l border-line pl-10" : "pr-10"
+                          }`}
                         >
-                          {p.title}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
+                          {col.map((g, gi) => (
+                            <div key={gi}>
+                              {g.title && (
+                                <h3
+                                  className={`text-sm font-bold uppercase tracking-wide text-navy ${
+                                    g.items.length ? "mb-3" : ""
+                                  }`}
+                                >
+                                  <Link
+                                    href={g.href!}
+                                    onClick={() => setActive(null)}
+                                    className="hover:text-royal"
+                                  >
+                                    {g.title}
+                                  </Link>
+                                </h3>
+                              )}
+                              <ul className="space-y-2.5">
+                                {g.items.map((it) => (
+                                  <li key={it.label}>
+                                    <Link
+                                      href={it.href}
+                                      onClick={() => setActive(null)}
+                                      className="block text-[15px] font-medium text-royal hover:text-navy"
+                                    >
+                                      {it.label}
+                                      {it.sub && (
+                                        <span className="block text-xs font-normal text-slate">
+                                          {it.sub}
+                                        </span>
+                                      )}
+                                    </Link>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          ))}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </li>
-          ))}
+              </li>
+            );
+          })}
 
           {extraLinks.map((l) => (
             <li key={l.href}>
@@ -179,16 +300,34 @@ export default function Navbar() {
                     <Chevron className={expanded ? "rotate-180" : ""} />
                   </button>
                   {expanded && (
-                    <div className="flex flex-col pb-3 pl-3">
-                      {s.pages.map((p) => (
-                        <Link
-                          key={p.slug}
-                          href={`/${s.slug}/${p.slug}`}
-                          onClick={closeMenu}
-                          className="py-1.5 text-sm text-slate"
-                        >
-                          {p.title}
-                        </Link>
+                    <div className="pb-3 pl-3">
+                      {columnsBySlug[s.slug].flat().map((g, gi) => (
+                        <div key={gi} className="py-1.5">
+                          {g.title && (
+                            <Link
+                              href={g.href!}
+                              onClick={closeMenu}
+                              className="block py-1 text-sm font-bold text-navy"
+                            >
+                              {g.title}
+                            </Link>
+                          )}
+                          {g.items.map((it) => (
+                            <Link
+                              key={it.label}
+                              href={it.href}
+                              onClick={closeMenu}
+                              className={`block py-1 text-sm text-slate ${
+                                g.title ? "pl-3" : ""
+                              }`}
+                            >
+                              {it.label}
+                              {it.sub && (
+                                <span className="block text-xs">{it.sub}</span>
+                              )}
+                            </Link>
+                          ))}
+                        </div>
                       ))}
                     </div>
                   )}
