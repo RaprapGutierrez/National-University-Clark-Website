@@ -139,7 +139,7 @@ export default function Navbar() {
         <Link
           href="/"
           onClick={closeMenu}
-          className="flex shrink-0 items-center gap-2 text-navy sm:gap-3"
+          className="flex shrink-0 items-center gap-2.5 text-navy sm:gap-3"
         >
           <Image
             src="/nu-logo.png"
@@ -154,7 +154,11 @@ export default function Navbar() {
             <br />
             University
           </span>
-          <span className="block text-xs font-bold tracking-[0.15em] text-royal sm:text-sm sm:tracking-[0.25em]">
+          <span
+            className="h-9 w-0.5 rounded-full bg-gold sm:h-11"
+            aria-hidden="true"
+          />
+          <span className="text-xl font-extrabold uppercase leading-none tracking-wide text-royal sm:text-2xl">
             CLARK
           </span>
         </Link>
