@@ -38,11 +38,11 @@ function buildColumns(s: SectionT): Group[][] {
       items: programsOf(s.slug, p.slug),
     }));
 
-    // Put each school in the shorter column so both stay balanced
-    const cols: Group[][] = [[], []];
-    const sizes = [0, 0];
+    // Three columns, each school goes in the shortest column
+    const cols: Group[][] = [[], [], []];
+    const sizes = [0, 0, 0];
     groups.forEach((g) => {
-      const i = sizes[0] <= sizes[1] ? 0 : 1;
+      const i = sizes.indexOf(Math.min(...sizes));
       cols[i].push(g);
       sizes[i] += g.items.length + 2;
     });
@@ -168,7 +168,8 @@ export default function Navbar({ currentPath }: { currentPath?: string }) {
           {menu.map((s) => {
             const isActive = active === s.slug;
             const href = `/${s.slug}`;
-            const isCurrent = currentPath === href || currentPath?.startsWith(`${href}/`);
+            const isCurrent =
+              currentPath === href || currentPath?.startsWith(`${href}/`);
             const cols = columnsBySlug[s.slug];
             return (
               <li
@@ -188,7 +189,13 @@ export default function Navbar({ currentPath }: { currentPath?: string }) {
                 <Link
                   href={href}
                   onClick={() => setActive(null)}
-                  aria-current={currentPath === href ? "page" : isCurrent ? "location" : undefined}
+                  aria-current={
+                    currentPath === href
+                      ? "page"
+                      : isCurrent
+                        ? "location"
+                        : undefined
+                  }
                   className={`flex items-center gap-1.5 rounded-lg px-2 py-2 text-navy hover:text-royal ${isCurrent ? "bg-mist font-bold underline decoration-gold decoration-2 underline-offset-[7px]" : "font-medium"}`}
                 >
                   {s.title}
@@ -200,7 +207,7 @@ export default function Navbar({ currentPath }: { currentPath?: string }) {
                     isActive ? "visible opacity-100" : "invisible opacity-0"
                   }`}
                 >
-                  <div className="rounded-2xl border border-line bg-[#f4f5fc] p-8 shadow-xl">
+                  <div className="max-h-[calc(100vh-140px)] overflow-y-auto rounded-2xl border border-line bg-[#f4f5fc] p-6 shadow-xl">
                     <div
                       className="grid"
                       style={{
@@ -210,9 +217,9 @@ export default function Navbar({ currentPath }: { currentPath?: string }) {
                       {cols.map((col, ci) => (
                         <div
                           key={ci}
-                          className={`space-y-7 ${
-                            ci > 0 ? "border-l border-line pl-10" : "pr-10"
-                          }`}
+                          className={`space-y-6 ${
+                            ci > 0 ? "border-l border-line pl-6" : ""
+                          } ${ci < cols.length - 1 ? "pr-6" : ""}`}
                         >
                           {col.map((g, gi) => (
                             <div key={gi}>
@@ -237,7 +244,11 @@ export default function Navbar({ currentPath }: { currentPath?: string }) {
                                     <Link
                                       href={it.href}
                                       onClick={() => setActive(null)}
-                                      aria-current={it.href === currentPath ? "page" : undefined}
+                                      aria-current={
+                                        it.href === currentPath
+                                          ? "page"
+                                          : undefined
+                                      }
                                       className="block text-[15px] font-medium text-royal hover:text-navy aria-[current=page]:font-bold aria-[current=page]:underline"
                                     >
                                       {it.label}
@@ -313,7 +324,9 @@ export default function Navbar({ currentPath }: { currentPath?: string }) {
                         <Link
                           href="/about"
                           onClick={closeMenu}
-                          aria-current={currentPath === "/about" ? "page" : undefined}
+                          aria-current={
+                            currentPath === "/about" ? "page" : undefined
+                          }
                           className="block py-1.5 text-sm font-bold text-navy aria-[current=page]:underline"
                         >
                           About NU Clark
@@ -335,7 +348,9 @@ export default function Navbar({ currentPath }: { currentPath?: string }) {
                               key={it.label}
                               href={it.href}
                               onClick={closeMenu}
-                              aria-current={it.href === currentPath ? "page" : undefined}
+                              aria-current={
+                                it.href === currentPath ? "page" : undefined
+                              }
                               className={`block py-1 text-sm text-slate aria-[current=page]:font-bold aria-[current=page]:text-navy aria-[current=page]:underline ${
                                 g.title ? "pl-3" : ""
                               }`}
