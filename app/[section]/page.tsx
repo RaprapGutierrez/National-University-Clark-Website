@@ -3,12 +3,17 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { AboutOverview } from "@/components/about/AboutPages";
-import PageBanner from "@/components/PageBanner";
 import AcademicsBanner from "@/components/AcademicsBanner";
 import Reveal from "@/components/Reveal";
 import { sections, APPLY_URL } from "@/lib/site";
 
 const CONTACT_URL = "/about"; // change to your contact page
+
+// Heading text for the intro card of the non-Academics sections
+const introCopy: Record<string, { kicker: string; heading: string }> = {
+  admissions: { kicker: "Admissions", heading: "Start your journey" },
+  "student-life": { kicker: "Campus life", heading: "More than the classroom" },
+};
 
 type SectionProps = { params: Promise<{ section: string }> };
 
@@ -60,6 +65,10 @@ export default async function SectionPage({ params }: SectionProps) {
 
   const isAcademics = data.slug === "academics";
   const crumbs = [{ label: "Home", href: "/" }, { label: data.title }];
+  const copy = introCopy[data.slug] ?? {
+    kicker: "National University Clark",
+    heading: data.title,
+  };
 
   const shs = data.pages.find((p) => p.slug === "senior-high-school");
   const office = data.pages.find(
@@ -73,16 +82,16 @@ export default async function SectionPage({ params }: SectionProps) {
 
   return (
     <>
-      {isAcademics ? (
-        <AcademicsBanner
-          title="Academics"
-          subtitle="Choose a school to see the programs it offers."
-          label="National University Clark"
-          crumbs={crumbs}
-        />
-      ) : (
-        <PageBanner title={data.title} crumbs={crumbs} />
-      )}
+      <AcademicsBanner
+        title={data.title}
+        subtitle={
+          isAcademics
+            ? "Choose a school to see the programs it offers."
+            : data.intro
+        }
+        label="National University Clark"
+        crumbs={crumbs}
+      />
       <main className="mx-auto max-w-6xl px-5 py-8">
         {isAcademics ? (
           <Reveal>
@@ -119,7 +128,17 @@ export default async function SectionPage({ params }: SectionProps) {
           </Reveal>
         ) : (
           <Reveal>
-            <p className="mb-10 max-w-2xl text-lg text-slate">{data.intro}</p>
+            <div className="mb-12 rounded-3xl border border-line bg-white p-6 shadow-sm sm:p-8">
+              <div className="border-l-4 border-gold pl-4">
+                <p className="text-sm font-bold uppercase tracking-[0.2em] text-royal">
+                  {copy.kicker}
+                </p>
+                <h2 className="mt-1 text-2xl font-extrabold text-navy sm:text-3xl">
+                  {copy.heading}
+                </h2>
+                <p className="mt-2 max-w-xl text-lg text-slate">{data.intro}</p>
+              </div>
+            </div>
           </Reveal>
         )}
 
@@ -227,11 +246,19 @@ export default async function SectionPage({ params }: SectionProps) {
               <Reveal key={p.slug} delay={(i % 3) * 100} className="h-full">
                 <Link
                   href={`/${data.slug}/${p.slug}`}
-                  className="block h-full rounded-2xl border border-line bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:border-royal"
+                  className="group flex h-full flex-col rounded-3xl border-2 border-gold bg-navy p-6 text-white shadow-lg transition duration-300 ease-out hover:-translate-y-2 hover:shadow-2xl hover:shadow-navy/40 motion-reduce:transform-none"
                 >
-                  <b className="block text-lg">{p.title}</b>
-                  <span className="mt-1 block text-sm text-slate">
-                    {p.summary}
+                  <span className="flex h-10 w-10 items-center justify-center rounded-full bg-gold text-sm font-extrabold text-navy">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <h3 className="mt-4 text-xl font-extrabold text-gold">
+                    {p.title}
+                  </h3>
+                  <p className="mt-2 text-sm text-white/85">{p.summary}</p>
+                  <span className="mt-auto inline-block self-start pt-5">
+                    <span className="inline-block rounded-full bg-gold px-5 py-2 text-sm font-bold text-navy transition-transform duration-300 group-hover:translate-x-1">
+                      Learn more →
+                    </span>
                   </span>
                 </Link>
               </Reveal>
@@ -239,48 +266,47 @@ export default async function SectionPage({ params }: SectionProps) {
           </div>
         )}
 
-        {isAcademics && (
-          <Reveal className="mt-14 sm:mt-20">
-            <section className="grid items-center gap-8 rounded-3xl bg-navy p-6 text-white sm:p-10 md:grid-cols-[1fr_auto]">
-              <div className="text-center md:text-left">
-                <h2 className="text-2xl font-extrabold sm:text-3xl">
-                  Ready to become a Nationalian?
-                </h2>
-                <p className="mx-auto mt-2 max-w-xl text-white/80 md:mx-0">
-                  Start your online application today, or scan the QR code with
-                  your phone.
-                </p>
-                <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-center md:justify-start">
-                  <a
-                    href={APPLY_URL}
-                    className="inline-block rounded-full bg-gold px-6 py-3 text-center font-bold text-navy transition hover:-translate-y-0.5"
-                  >
-                    Apply now
-                  </a>
-                  <Link
-                    href={CONTACT_URL}
-                    className="inline-block rounded-full px-6 py-3 text-center font-bold text-white ring-2 ring-white/70 transition hover:bg-white/10"
-                  >
-                    Contact us
-                  </Link>
-                </div>
+        {/* Enrollment block (all sections) */}
+        <Reveal className="mt-14 sm:mt-20">
+          <section className="grid items-center gap-8 rounded-3xl bg-navy p-6 text-white sm:p-10 md:grid-cols-[1fr_auto]">
+            <div className="text-center md:text-left">
+              <h2 className="text-2xl font-extrabold sm:text-3xl">
+                Ready to become a Nationalian?
+              </h2>
+              <p className="mx-auto mt-2 max-w-xl text-white/80 md:mx-0">
+                Start your online application today, or scan the QR code with
+                your phone.
+              </p>
+              <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-center md:justify-start">
+                <a
+                  href={APPLY_URL}
+                  className="inline-block rounded-full bg-gold px-6 py-3 text-center font-bold text-navy transition hover:-translate-y-0.5"
+                >
+                  Apply now
+                </a>
+                <Link
+                  href={CONTACT_URL}
+                  className="inline-block rounded-full px-6 py-3 text-center font-bold text-white ring-2 ring-white/70 transition hover:bg-white/10"
+                >
+                  Contact us
+                </Link>
               </div>
+            </div>
 
-              <div className="mx-auto text-center">
-                <div className="rounded-2xl bg-white p-3 shadow-lg">
-                  <Image
-                    src="/qr-nu-clark.webp"
-                    alt="QR code for NU Clark"
-                    width={160}
-                    height={160}
-                    className="h-36 w-36 sm:h-40 sm:w-40"
-                  />
-                </div>
-                <p className="mt-2 text-sm text-white/80">Scan to apply</p>
+            <div className="mx-auto text-center">
+              <div className="rounded-2xl bg-white p-3 shadow-lg">
+                <Image
+                  src="/qr-nu-clark.webp"
+                  alt="QR code for NU Clark"
+                  width={160}
+                  height={160}
+                  className="h-36 w-36 sm:h-40 sm:w-40"
+                />
               </div>
-            </section>
-          </Reveal>
-        )}
+              <p className="mt-2 text-sm text-white/80">Scan to apply</p>
+            </div>
+          </section>
+        </Reveal>
       </main>
     </>
   );
