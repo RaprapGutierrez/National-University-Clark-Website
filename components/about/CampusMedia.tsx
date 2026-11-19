@@ -1,12 +1,14 @@
 "use client";
 
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AboutIcon } from "@/components/about/AboutIcon";
 import { campusPhotos } from "@/lib/about";
 
-const mediaHeading = "font-serif text-[1.85rem] leading-tight font-normal tracking-tight text-[#101f55] sm:text-[2.25rem]";
-const galleryButton = "inline-grid size-11 shrink-0 place-items-center border border-[#d8d7cf] text-[#101f55] transition-colors hover:border-[#101f55] hover:bg-[#101f55] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#101f55]";
+const mediaHeading =
+  "font-serif text-[1.85rem] leading-tight font-normal tracking-tight text-[#101f55] sm:text-[2.25rem]";
+const galleryButton =
+  "inline-grid size-11 shrink-0 place-items-center border border-[#d8d7cf] text-[#101f55] transition-colors hover:border-[#101f55] hover:bg-[#101f55] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#101f55]";
 
 export function TourVideo() {
   return (
@@ -34,7 +36,14 @@ export function UniversityHymn() {
   );
 }
 
-function AboutVideo({ id, heading, title, videoId, poster, playLabel }: {
+function AboutVideo({
+  id,
+  heading,
+  title,
+  videoId,
+  poster,
+  playLabel,
+}: {
   id: string;
   heading: string;
   title: string;
@@ -45,6 +54,12 @@ function AboutVideo({ id, heading, title, videoId, poster, playLabel }: {
   const [playing, setPlaying] = useState(false);
   const player = useRef<HTMLDivElement>(null);
   const videoUrl = `https://www.youtube.com/watch?v=${videoId}`;
+
+  // Go back to the poster when the page is left or hidden, so the video
+  // never starts by itself when you come back
+  useEffect(() => {
+    return () => setPlaying(false);
+  }, []);
 
   return (
     <section aria-labelledby={id}>
@@ -78,7 +93,13 @@ function AboutVideo({ id, heading, title, videoId, poster, playLabel }: {
           <a
             href={videoUrl}
             onClick={(event) => {
-              if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+              if (
+                event.ctrlKey ||
+                event.metaKey ||
+                event.shiftKey ||
+                event.altKey
+              )
+                return;
               event.preventDefault();
               setPlaying(true);
               player.current?.focus();
@@ -114,7 +135,10 @@ export function CampusGallery() {
   const photo = campusPhotos[selected];
 
   function move(amount: number) {
-    setSelected((current) => (current + amount + campusPhotos.length) % campusPhotos.length);
+    setSelected(
+      (current) =>
+        (current + amount + campusPhotos.length) % campusPhotos.length,
+    );
   }
 
   return (
@@ -130,7 +154,13 @@ export function CampusGallery() {
                 href={src}
                 aria-label={`Enlarge photo: ${caption}`}
                 onClick={(event) => {
-                  if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+                  if (
+                    event.ctrlKey ||
+                    event.metaKey ||
+                    event.shiftKey ||
+                    event.altKey
+                  )
+                    return;
                   const modal = dialog.current;
                   if (!modal || typeof modal.showModal !== "function") return;
                   event.preventDefault();
@@ -144,14 +174,20 @@ export function CampusGallery() {
                   src={src}
                   alt=""
                   fill
-                  sizes={index < 2 ? "(min-width: 1024px) 460px, 50vw" : "(min-width: 1024px) 230px, 50vw"}
+                  sizes={
+                    index < 2
+                      ? "(min-width: 1024px) 460px, 50vw"
+                      : "(min-width: 1024px) 230px, 50vw"
+                  }
                   className="object-cover transition-transform duration-300 group-hover:scale-[1.035] motion-reduce:transform-none"
                 />
                 <span className="absolute right-1.5 bottom-1.5 grid size-8 place-items-center bg-[#101f55]/90 text-white group-hover:bg-[#101f55] sm:right-2 sm:bottom-2">
                   <AboutIcon name="expand" className="size-4" />
                 </span>
               </a>
-              <figcaption className="mt-2 text-xs leading-snug text-[#494e5b] sm:text-sm">{caption}</figcaption>
+              <figcaption className="mt-2 text-xs leading-snug text-[#494e5b] sm:text-sm">
+                {caption}
+              </figcaption>
             </figure>
           </li>
         ))}
@@ -170,7 +206,9 @@ export function CampusGallery() {
         className="fixed inset-0 m-auto max-h-[92dvh] w-[calc(100%_-_1.5rem)] max-w-4xl overflow-auto border border-[#d8d7cf] bg-[#faf8f2] text-[#101f55] backdrop:bg-[#060d27]/85"
       >
         <div className="flex items-center justify-between gap-3 px-4 py-2 sm:px-5">
-          <h3 id="photo-dialog-title" className="font-serif text-xl">Campus gallery</h3>
+          <h3 id="photo-dialog-title" className="font-serif text-xl">
+            Campus gallery
+          </h3>
           <button
             type="button"
             onClick={() => dialog.current?.close()}
@@ -200,7 +238,9 @@ export function CampusGallery() {
           </button>
           <p aria-live="polite" className="text-sm">
             {photo.caption}
-            <span className="mt-1 block text-xs text-[#494e5b]">{selected + 1} of {campusPhotos.length}</span>
+            <span className="mt-1 block text-xs text-[#494e5b]">
+              {selected + 1} of {campusPhotos.length}
+            </span>
           </p>
           <button
             type="button"

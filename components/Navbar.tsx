@@ -142,7 +142,7 @@ export default function Navbar({
   };
 
   return (
-    <nav className="relative mt-5 rounded-2xl bg-white px-4 py-3 shadow-sm sm:px-5">
+    <nav className="relative left-1/2 z-40 mt-5 w-[min(calc(100vw-2.5rem),1700px)] -translate-x-1/2 rounded-2xl bg-white px-4 py-3 shadow-sm sm:px-6 lg:px-8">
       <div className="flex items-center gap-3 sm:gap-4">
         <Link
           href="/"
