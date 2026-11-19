@@ -15,6 +15,33 @@ const introCopy: Record<string, { kicker: string; heading: string }> = {
   "student-life": { kicker: "Campus life", heading: "More than the classroom" },
 };
 
+// Text for each Student Life section (key = page slug in lib/site.ts)
+const studentLifeCopy: Record<
+  string,
+  { kicker: string; text: string; button: string }
+> = {
+  organizations: {
+    kicker: "Clubs and groups",
+    text: "Find a club that matches your interests, meet new people, and build leadership skills outside the classroom.",
+    button: "Explore organizations",
+  },
+  sports: {
+    kicker: "Teams and athletics",
+    text: "Represent the campus, stay active, and cheer on your fellow Nationalians at athletic events.",
+    button: "See sports",
+  },
+  events: {
+    kicker: "On campus",
+    text: "Keep up with what's happening, from school programs to activities that bring students together.",
+    button: "See events",
+  },
+  services: {
+    kicker: "Student support",
+    text: "Find the offices and services that support you while you study at NU Clark.",
+    button: "View services",
+  },
+};
+
 type SectionProps = { params: Promise<{ section: string }> };
 
 export function generateStaticParams() {
@@ -239,6 +266,72 @@ export default async function SectionPage({ params }: SectionProps) {
                 </Reveal>
               </section>
             )}
+          </div>
+        ) : data.slug === "student-life" ? (
+          <div className="space-y-14 sm:space-y-20">
+            {data.pages.map((p, i) => {
+              const c = studentLifeCopy[p.slug];
+              const flip = i % 2 === 1;
+              return (
+                <section key={p.slug} id={p.slug} className="scroll-mt-24">
+                  <div className="grid items-center gap-8 md:grid-cols-2 md:gap-12">
+                    <Reveal className={flip ? "md:order-2" : ""}>
+                      <div className="border-l-4 border-gold pl-5">
+                        <p className="text-sm font-bold uppercase tracking-[0.2em] text-royal">
+                          {c?.kicker ?? "Student life"}
+                        </p>
+                        <h2 className="mt-1 text-3xl font-extrabold text-navy sm:text-4xl">
+                          {p.title}
+                        </h2>
+                        <div className="mt-3 h-1.5 w-16 rounded-full bg-gold" />
+                        <p className="mt-4 max-w-xl text-lg text-slate">
+                          {c?.text ?? p.summary}
+                        </p>
+                        <Link
+                          href={`/${data.slug}/${p.slug}`}
+                          className="mt-6 inline-block rounded-full bg-navy px-6 py-3 font-bold text-white transition hover:-translate-y-0.5 hover:bg-royal"
+                        >
+                          {c?.button ?? "Learn more"} →
+                        </Link>
+                      </div>
+                    </Reveal>
+
+                    <Reveal delay={100} className={flip ? "md:order-1" : ""}>
+                      <div className="relative isolate flex min-h-[220px] items-center justify-center overflow-hidden rounded-3xl border-2 border-gold bg-navy p-8 shadow-lg">
+                        <svg
+                          aria-hidden="true"
+                          viewBox="0 0 400 300"
+                          preserveAspectRatio="xMaxYMin slice"
+                          className="pointer-events-none absolute inset-0 -z-10 h-full w-full select-none"
+                        >
+                          <polygon
+                            points="400,0 220,0 400,200"
+                            fill="#f5a000"
+                            fillOpacity="0.9"
+                          />
+                          <polygon
+                            points="400,0 330,0 400,70"
+                            className="fill-gold"
+                          />
+                          <polygon
+                            points="0,300 0,120 180,300"
+                            className="fill-royal"
+                            fillOpacity="0.45"
+                          />
+                          <polygon
+                            points="0,300 0,220 80,300"
+                            className="fill-gold"
+                          />
+                        </svg>
+                        <span className="text-8xl font-extrabold text-white/90 sm:text-9xl">
+                          {String(i + 1).padStart(2, "0")}
+                        </span>
+                      </div>
+                    </Reveal>
+                  </div>
+                </section>
+              );
+            })}
           </div>
         ) : (
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

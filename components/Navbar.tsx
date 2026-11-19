@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 import { sections, APPLY_URL } from "@/lib/site";
 import { programsBySchool } from "@/lib/programs";
 
@@ -104,7 +105,14 @@ function Hamburger({ open }: { open: boolean }) {
   );
 }
 
-export default function Navbar({ currentPath }: { currentPath?: string }) {
+export default function Navbar({
+  currentPath: currentPathProp,
+}: {
+  currentPath?: string;
+}) {
+  // Use the page's own URL unless a path is passed in
+  const pathname = usePathname();
+  const currentPath = currentPathProp ?? pathname;
   const [open, setOpen] = useState(false);
   const [openSection, setOpenSection] = useState<string | null>(null);
   const [active, setActive] = useState<string | null>(null);
