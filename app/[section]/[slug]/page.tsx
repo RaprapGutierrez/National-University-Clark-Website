@@ -3,7 +3,6 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { AboutDetail, aboutPageTitle } from "@/components/about/AboutPages";
-import PageBanner from "@/components/PageBanner";
 import AcademicsBanner from "@/components/AcademicsBanner";
 import Blocks from "@/components/Blocks";
 import Reveal from "@/components/Reveal";
@@ -49,65 +48,15 @@ export default async function InnerPage({ params }: InnerPageProps) {
   ];
 
   const isAcademics = section === "academics";
+  const showApply = section !== "student-life";
+  const backLabel = isAcademics ? "← All schools" : `← All ${sec.title}`;
 
-  /* ---------- Other sections: original layout ---------- */
-  if (!isAcademics) {
-    return (
-      <>
-        <PageBanner title={page.title} crumbs={crumbs} />
-        <main className="mx-auto grid max-w-6xl gap-10 px-5 py-8 lg:grid-cols-[1fr_280px]">
-          <article>
-            <p className="mb-10 max-w-2xl text-lg text-slate">{page.summary}</p>
-
-            {blocks ? (
-              <Blocks blocks={blocks} />
-            ) : (
-              <div className="rounded-2xl border border-dashed border-line bg-white p-8 text-slate">
-                Content for {page.title} is coming soon.
-              </div>
-            )}
-
-            {page.cta && (
-              <a
-                href={page.cta.href}
-                className="mt-10 inline-block rounded-full bg-navy px-6 py-3 font-bold text-white hover:bg-royal"
-              >
-                {page.cta.label}
-              </a>
-            )}
-          </article>
-
-          <aside>
-            <h2 className="mb-3 font-bold">More in {sec.title}</h2>
-            <div className="flex flex-col gap-1">
-              {sec.pages.map((p) => (
-                <Link
-                  key={p.slug}
-                  href={`/${sec.slug}/${p.slug}`}
-                  aria-current={p.slug === slug ? "page" : undefined}
-                  className={`rounded-lg px-3 py-2 text-sm hover:bg-white ${
-                    p.slug === slug
-                      ? "bg-white font-bold text-royal"
-                      : "text-slate"
-                  }`}
-                >
-                  {p.title}
-                </Link>
-              ))}
-            </div>
-          </aside>
-        </main>
-      </>
-    );
-  }
-
-  /* ---------- Academics: upgraded layout ---------- */
   return (
     <>
       <AcademicsBanner
         title={page.title}
         subtitle={page.summary}
-        label="Academics"
+        label={sec.title}
         crumbs={crumbs}
       />
 
@@ -125,17 +74,19 @@ export default async function InnerPage({ params }: InnerPageProps) {
                 </p>
               </div>
               <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-                <a
-                  href={APPLY_URL}
-                  className="rounded-full bg-gold px-6 py-3 text-center font-bold text-navy transition hover:-translate-y-0.5"
-                >
-                  Apply now
-                </a>
+                {showApply && (
+                  <a
+                    href={APPLY_URL}
+                    className="rounded-full bg-gold px-6 py-3 text-center font-bold text-navy transition hover:-translate-y-0.5"
+                  >
+                    Apply now
+                  </a>
+                )}
                 <Link
                   href={`/${sec.slug}`}
                   className="rounded-full px-6 py-3 text-center font-bold text-navy ring-2 ring-navy/70 transition hover:bg-navy hover:text-white"
                 >
-                  ← All schools
+                  {backLabel}
                 </Link>
               </div>
             </div>
@@ -185,21 +136,6 @@ export default async function InnerPage({ params }: InnerPageProps) {
                 );
               })}
             </div>
-          </div>
-
-          <div className="rounded-3xl bg-navy p-5 text-white shadow-lg">
-            <h3 className="text-lg font-extrabold text-gold">
-              Ready to enroll?
-            </h3>
-            <p className="mt-1 text-sm text-white/85">
-              Start your online application today.
-            </p>
-            <a
-              href={APPLY_URL}
-              className="mt-4 inline-block rounded-full bg-gold px-5 py-2 text-sm font-bold text-navy transition hover:-translate-y-0.5"
-            >
-              Apply now
-            </a>
           </div>
         </aside>
       </main>
