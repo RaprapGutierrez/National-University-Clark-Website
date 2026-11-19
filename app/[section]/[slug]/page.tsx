@@ -49,9 +49,6 @@ export default async function InnerPage({ params }: InnerPageProps) {
   ];
 
   const isAcademics = section === "academics";
-  const index = sec.pages.findIndex((p) => p.slug === slug);
-  const prev = index > 0 ? sec.pages[index - 1] : null;
-  const next = index < sec.pages.length - 1 ? sec.pages[index + 1] : null;
 
   /* ---------- Other sections: original layout ---------- */
   if (!isAcademics) {
@@ -161,37 +158,6 @@ export default async function InnerPage({ params }: InnerPageProps) {
               {page.cta.label}
             </a>
           )}
-
-          {/* Previous / next school */}
-          <nav
-            aria-label="Browse schools"
-            className="mt-14 grid gap-4 sm:grid-cols-2"
-          >
-            {prev ? (
-              <Link
-                href={`/${sec.slug}/${prev.slug}`}
-                className="group rounded-2xl border border-line bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:border-royal"
-              >
-                <span className="text-xs font-bold uppercase tracking-wider text-royal">
-                  ← Previous
-                </span>
-                <b className="mt-1 block text-navy">{prev.title}</b>
-              </Link>
-            ) : (
-              <span />
-            )}
-            {next && (
-              <Link
-                href={`/${sec.slug}/${next.slug}`}
-                className="group rounded-2xl border border-line bg-white p-5 text-left shadow-sm transition hover:-translate-y-1 hover:border-royal sm:text-right"
-              >
-                <span className="text-xs font-bold uppercase tracking-wider text-royal">
-                  Next →
-                </span>
-                <b className="mt-1 block text-navy">{next.title}</b>
-              </Link>
-            )}
-          </nav>
         </article>
 
         {/* Sidebar */}
