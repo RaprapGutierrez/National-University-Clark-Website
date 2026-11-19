@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Figtree } from "next/font/google";
 import "./globals.css";
-import Topbar from "@/components/Topbar";
+import UtilityBar from "@/components/about/UtilityBar";
 import TopLoader from "@/components/TopLoader";
 import Footer from "@/components/Footer";
 
@@ -22,7 +22,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${figtree.variable} font-sans antialiased`}>
         <TopLoader />
-        <Topbar />
+        <UtilityBar />
         {children}
         <Footer />
       </body>
