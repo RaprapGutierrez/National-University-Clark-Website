@@ -28,7 +28,35 @@ export default function Home() {
 
   return (
     <>
-      <header className="bg-navy bg-[url('/bg-enrollment.webp')] bg-cover bg-center bg-no-repeat pb-20 text-white sm:pb-24">
+      <header className="relative isolate overflow-hidden border-b-[6px] border-gold bg-navy pb-20 text-white sm:pb-24">
+        {/* Shapes on the right (desktop only), same as the Academics banner */}
+        <svg
+          aria-hidden="true"
+          viewBox="0 0 2400 600"
+          preserveAspectRatio="xMaxYMid slice"
+          className="pointer-events-none absolute inset-0 -z-10 hidden h-full w-full select-none lg:block"
+        >
+          <polygon
+            points="1900,0 2400,0 2400,600 1640,600"
+            className="fill-royal"
+            fillOpacity="0.33"
+          />
+          <polygon
+            points="2400,0 1990,0 2400,360"
+            fill="#f5a000"
+            fillOpacity="0.94"
+          />
+          <polygon
+            points="2230,0 2310,0 2090,600 2010,600"
+            className="fill-gold"
+          />
+          <polygon
+            points="2340,0 2368,0 2148,600 2120,600"
+            className="fill-gold"
+            fillOpacity="0.6"
+          />
+          <polygon points="2400,600 2180,600 2400,400" className="fill-gold" />
+        </svg>
         <div className="mx-auto max-w-6xl px-4 sm:px-5">
           <Navbar />
           <div className="grid items-center gap-8 pt-8 sm:pt-12 lg:grid-cols-2 lg:gap-10 lg:pt-14">
