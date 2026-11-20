@@ -12,6 +12,13 @@ export function ScrollHeader({ children }: { children: ReactNode }) {
     let ticking = false;
 
     function updateVisibility() {
+      // Keep header visible while the portaled mobile menu is open
+      if (document.documentElement.dataset.mobileMenuOpen === "true") {
+        setHidden(false);
+        ticking = false;
+        return;
+      }
+
       const currentY = Math.max(window.scrollY, 0);
       const distance = currentY - previousY;
 

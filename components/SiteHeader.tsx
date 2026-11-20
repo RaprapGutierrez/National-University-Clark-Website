@@ -8,7 +8,7 @@ import { campusContact, qualityManagement } from "@/lib/about";
 const utilityLinks = [
   { label: "Strategic Quality Management", href: qualityManagement },
   {
-    label: "Institutional Linkages",
+    label: "Linkages",
     href: "https://www.nu.edu.ph/institutional-linkages",
   },
   {

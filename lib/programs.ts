@@ -334,15 +334,10 @@ export const programsBySchool: Record<string, Program[]> = {
     }),
     program("bs-computer-science", "BS Computer Science", {
       text: "Specialization in Artificial Intelligence",
-      aboutAfterMission: true,
       about: [
         "The Bachelor of Science in Computer Science with Specialization in Artificial Intelligence (BSCS-AI) is a four-year degree program designed to equip students with a strong foundation in computer science principles and advanced competencies in artificial intelligence technologies. The program develops learners' knowledge and skills in software development, algorithms, data structures, computer systems, and emerging AI-driven solutions that address real-world challenges across industries.",
         "The specialization in Artificial Intelligence focuses on the design, development, and deployment of intelligent systems capable of learning, reasoning, decision-making, and problem-solving. Students gain hands-on experience in machine learning, deep learning, computer vision, natural language processing, data analytics, robotics, intelligent agents, and AI ethics. Through project-based learning, research, and industry collaborations, students develop innovative AI applications that improve efficiency, productivity, and user experiences in various domains such as healthcare, business, education, finance, and smart technologies.",
       ],
-      mission:
-        "Pursuant to the University's Mission of providing academic excellence, the College of Computing and Information Technologies provides a high level of education in compliance with international and local standards and prepares highly qualified graduates who can contribute positively towards their communities.",
-      vision:
-        "The College of Computing and Information Technologies envisions to be recognized as a national and regional center of excellence for learning, research and community development in the fields of Computer Science and Information Technology.",
       objectives: [
         "Our graduates pursue successful careers in the computing profession, academe, research, entrepreneurship, or advanced studies.",
         "Our graduates continuously enhance their knowledge and competencies to adapt to emerging technologies and thrive in a global environment.",

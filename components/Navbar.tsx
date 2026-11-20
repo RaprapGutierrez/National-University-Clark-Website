@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { usePathname } from "next/navigation";
 import { APPLY_URL } from "@/lib/site";
 import {
@@ -194,8 +195,10 @@ export default function Navbar({
     if (!mounted) return;
     const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
+    document.documentElement.dataset.mobileMenuOpen = "true";
     return () => {
       document.body.style.overflow = prev;
+      delete document.documentElement.dataset.mobileMenuOpen;
     };
   }, [mounted]);
 
@@ -401,177 +404,178 @@ export default function Navbar({
         </div>
       </nav>
 
-      {/* Mobile menu — NU.edu.ph timing: opacity 0.28s + panel 0.46s cubic-bezier */}
-      {mounted && (
-        <div
-          className={[
-            "fixed inset-x-0 bottom-0 top-[var(--mobile-nav-h,3.75rem)] z-[55] lg:hidden",
-            "transition-[opacity,visibility] duration-[280ms] ease-out motion-reduce:transition-none",
-            visible
-              ? "visible opacity-100"
-              : "invisible opacity-0",
-          ].join(" ")}
-          role="dialog"
-          aria-modal="true"
-          aria-label="Site menu"
-        >
+      {/* Portaled out of ScrollHeader — fixed positioning breaks inside transformed parents */}
+      {mounted &&
+        createPortal(
           <div
             className={[
-              "flex h-full flex-col bg-white",
-              "transition-[transform,opacity] duration-[460ms] ease-[cubic-bezier(0.2,0.8,0.2,1)] motion-reduce:transition-none",
-              visible
-                ? "translate-y-0 opacity-100"
-                : "-translate-y-2 opacity-0",
+              "fixed inset-x-0 bottom-0 top-[var(--mobile-nav-h,3.75rem)] z-[55] lg:hidden",
+              "transition-[opacity,visibility] duration-[280ms] ease-out motion-reduce:transition-none",
+              visible ? "visible opacity-100" : "invisible opacity-0",
             ].join(" ")}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Site menu"
           >
-            <div className="relative min-h-0 flex-1 overflow-hidden">
-              {/* Root panel */}
-              <div
-                className={[
-                  "absolute inset-0 overflow-y-auto px-5",
-                  "transition-[transform,opacity] duration-[460ms] ease-[cubic-bezier(0.2,0.8,0.2,1)] motion-reduce:transition-none",
-                  panel
-                    ? "-translate-x-6 opacity-0"
-                    : "translate-x-0 opacity-100",
-                ].join(" ")}
-              >
-                <ul className="py-1">
-                  {menu.map((s) => (
-                    <li key={s.slug} className="border-b border-line">
+            <div
+              className={[
+                "flex h-full flex-col bg-white",
+                "transition-[transform,opacity] duration-[460ms] ease-[cubic-bezier(0.2,0.8,0.2,1)] motion-reduce:transition-none",
+                visible
+                  ? "translate-y-0 opacity-100"
+                  : "-translate-y-2 opacity-0",
+              ].join(" ")}
+            >
+              <div className="relative min-h-0 flex-1 overflow-hidden">
+                <div
+                  className={[
+                    "absolute inset-0 overflow-y-auto px-5",
+                    "transition-[transform,opacity] duration-[460ms] ease-[cubic-bezier(0.2,0.8,0.2,1)] motion-reduce:transition-none",
+                    panel
+                      ? "-translate-x-6 opacity-0"
+                      : "translate-x-0 opacity-100",
+                  ].join(" ")}
+                >
+                  <ul className="py-1">
+                    {menu.map((s) => (
+                      <li key={s.slug} className="border-b border-line">
+                        <button
+                          type="button"
+                          onClick={() => setPanel(s.slug)}
+                          className="flex w-full items-center justify-between py-4 text-left text-[1.05rem] font-semibold text-navy transition-colors active:bg-mist"
+                        >
+                          {s.title}
+                          <ArrowRight className="text-royal" />
+                        </button>
+                      </li>
+                    ))}
+                    {extraLinks.map((l) => (
+                      <li key={l.href} className="border-b border-line">
+                        <Link
+                          href={l.href}
+                          onClick={closeMenu}
+                          className="block py-4 text-[1.05rem] font-semibold text-navy transition-colors active:bg-mist"
+                        >
+                          {l.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div
+                  className={[
+                    "absolute inset-0 overflow-y-auto bg-white px-5",
+                    "transition-[transform,opacity] duration-[460ms] ease-[cubic-bezier(0.2,0.8,0.2,1)] motion-reduce:transition-none",
+                    panel
+                      ? "translate-x-0 opacity-100"
+                      : "pointer-events-none translate-x-6 opacity-0",
+                  ].join(" ")}
+                >
+                  {activeSection && (
+                    <>
                       <button
                         type="button"
-                        onClick={() => setPanel(s.slug)}
-                        className="flex w-full items-center justify-between py-4 text-left text-[1.05rem] font-semibold text-navy transition-colors active:bg-mist"
+                        onClick={() => setPanel(null)}
+                        className="flex items-center gap-2 py-4 text-sm font-bold text-royal transition-colors active:opacity-70"
                       >
-                        {s.title}
-                        <ArrowRight className="text-royal" />
+                        <ArrowLeft />
+                        Back
                       </button>
-                    </li>
-                  ))}
-                  {extraLinks.map((l) => (
-                    <li key={l.href} className="border-b border-line">
                       <Link
-                        href={l.href}
+                        href={`/${activeSection.slug}`}
                         onClick={closeMenu}
-                        className="block py-4 text-[1.05rem] font-semibold text-navy transition-colors active:bg-mist"
+                        className="mb-2 block border-b border-line pb-4 text-xl font-extrabold text-navy"
                       >
-                        {l.label}
+                        {activeSection.title}
                       </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Drill-down panel */}
-              <div
-                className={[
-                  "absolute inset-0 overflow-y-auto bg-white px-5",
-                  "transition-[transform,opacity] duration-[460ms] ease-[cubic-bezier(0.2,0.8,0.2,1)] motion-reduce:transition-none",
-                  panel
-                    ? "translate-x-0 opacity-100"
-                    : "pointer-events-none translate-x-6 opacity-0",
-                ].join(" ")}
-              >
-                {activeSection && (
-                  <>
-                    <button
-                      type="button"
-                      onClick={() => setPanel(null)}
-                      className="flex items-center gap-2 py-4 text-sm font-bold text-royal transition-colors active:opacity-70"
-                    >
-                      <ArrowLeft />
-                      Back
-                    </button>
-                    <Link
-                      href={`/${activeSection.slug}`}
-                      onClick={closeMenu}
-                      className="mb-2 block border-b border-line pb-4 text-xl font-extrabold text-navy"
-                    >
-                      {activeSection.title}
-                    </Link>
-                    {activeSection.slug === "about" && (
-                      <Link
-                        href="/about"
-                        onClick={closeMenu}
-                        className="block border-b border-line py-3.5 font-semibold text-navy transition-colors active:bg-mist"
-                      >
-                        About NU Clark
-                      </Link>
-                    )}
-                    {columnsBySlug[activeSection.slug].flat().map((g, gi) => (
-                      <div key={gi} className="border-b border-line py-3">
-                        {g.title && (
-                          <Link
-                            href={g.href!}
-                            onClick={closeMenu}
-                            className="block py-1.5 font-bold text-navy transition-colors active:text-royal"
-                          >
-                            {g.title}
-                          </Link>
-                        )}
-                        <ul
-                          className={
-                            g.title ? "mt-1 space-y-1 pl-3" : "space-y-1"
-                          }
+                      {activeSection.slug === "about" && (
+                        <Link
+                          href="/about"
+                          onClick={closeMenu}
+                          className="block border-b border-line py-3.5 font-semibold text-navy transition-colors active:bg-mist"
                         >
-                          {g.items.map((it) => (
-                            <li key={it.label}>
-                              <Link
-                                href={it.href}
-                                onClick={closeMenu}
-                                aria-current={
-                                  it.href === currentPath ? "page" : undefined
-                                }
-                                className="block rounded-md py-2 text-[15px] text-slate transition-colors active:bg-mist aria-[current=page]:font-bold aria-[current=page]:text-navy"
-                              >
-                                {it.label}
-                                {it.sub && (
-                                  <span className="mt-0.5 block text-xs text-slate/80">
-                                    {it.sub}
-                                  </span>
-                                )}
-                              </Link>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    ))}
-                  </>
-                )}
+                          About NU Clark
+                        </Link>
+                      )}
+                      {columnsBySlug[activeSection.slug].flat().map((g, gi) => (
+                        <div key={gi} className="border-b border-line py-3">
+                          {g.title && (
+                            <Link
+                              href={g.href!}
+                              onClick={closeMenu}
+                              className="block py-1.5 font-bold text-navy transition-colors active:text-royal"
+                            >
+                              {g.title}
+                            </Link>
+                          )}
+                          <ul
+                            className={
+                              g.title ? "mt-1 space-y-1 pl-3" : "space-y-1"
+                            }
+                          >
+                            {g.items.map((it) => (
+                              <li key={it.label}>
+                                <Link
+                                  href={it.href}
+                                  onClick={closeMenu}
+                                  aria-current={
+                                    it.href === currentPath
+                                      ? "page"
+                                      : undefined
+                                  }
+                                  className="block rounded-md py-2 text-[15px] text-slate transition-colors active:bg-mist aria-[current=page]:font-bold aria-[current=page]:text-navy"
+                                >
+                                  {it.label}
+                                  {it.sub && (
+                                    <span className="mt-0.5 block text-xs text-slate/80">
+                                      {it.sub}
+                                    </span>
+                                  )}
+                                </Link>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      ))}
+                    </>
+                  )}
+                </div>
               </div>
-            </div>
 
-            <div className="border-t border-line px-5 py-4">
-              <div className="flex flex-wrap items-center gap-3 opacity-80">
-                <Image
-                  src="/pacucoa.png"
-                  alt="PACUCOA"
-                  width={48}
-                  height={48}
-                  className="h-10 w-auto object-contain"
-                />
-                <Image
-                  src="/ched.png"
-                  alt="CHED"
-                  width={48}
-                  height={48}
-                  className="h-10 w-auto object-contain"
-                />
-                <Image
-                  src="/faap.png"
-                  alt="FAAP"
-                  width={48}
-                  height={48}
-                  className="h-10 w-auto object-contain"
-                />
+              <div className="border-t border-line px-5 py-4">
+                <div className="flex flex-wrap items-center gap-3 opacity-80">
+                  <Image
+                    src="/pacucoa.png"
+                    alt="PACUCOA"
+                    width={48}
+                    height={48}
+                    className="h-10 w-auto object-contain"
+                  />
+                  <Image
+                    src="/ched.png"
+                    alt="CHED"
+                    width={48}
+                    height={48}
+                    className="h-10 w-auto object-contain"
+                  />
+                  <Image
+                    src="/faap.png"
+                    alt="FAAP"
+                    width={48}
+                    height={48}
+                    className="h-10 w-auto object-contain"
+                  />
+                </div>
+                <p className="mt-3 text-[11px] leading-snug text-slate">
+                  Copyright © 2026 National University Clark. All Rights
+                  Reserved.
+                </p>
               </div>
-              <p className="mt-3 text-[11px] leading-snug text-slate">
-                Copyright © 2026 National University Clark. All Rights Reserved.
-              </p>
             </div>
-          </div>
-        </div>
-      )}
+          </div>,
+          document.body,
+        )}
     </>
   );
 }

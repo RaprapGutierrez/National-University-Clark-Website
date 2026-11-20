@@ -37,6 +37,13 @@ html[data-site-nav-hidden="true"]:not(:has([data-site-header]:focus-within)) {
   --site-header-offset: 1.25rem;
 }
 
+/* Mobile menu is portaled to body; keep the bar visible and clickable while open */
+html[data-mobile-menu-open="true"] [data-site-header] {
+  transform: none !important;
+  pointer-events: auto !important;
+  z-index: 60;
+}
+
 body {
   background: var(--color-mist);
   color: var(--color-navy);
