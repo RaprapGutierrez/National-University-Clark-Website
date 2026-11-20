@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Block } from "@/lib/content";
+import ImageCarousel from "@/components/ImageCarousel";
+import ImageGallery from "@/components/ImageGallery";
 
 // Yellow outline that follows the shape of the cutout, like a sticker
 const STICKER =
@@ -298,6 +300,25 @@ function BlockView({ block }: { block: Block }) {
             </figcaption>
           )}
         </figure>
+      );
+
+    case "carousel":
+      return (
+        <section>
+          <Heading>{block.heading}</Heading>
+          <ImageCarousel
+            items={block.items}
+            label={block.label ?? block.heading}
+          />
+        </section>
+      );
+
+    case "gallery":
+      return (
+        <section>
+          <Heading>{block.heading}</Heading>
+          <ImageGallery items={block.items} />
+        </section>
       );
 
     case "note":

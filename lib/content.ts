@@ -24,6 +24,17 @@ export type Block =
   | { type: "table"; heading?: string; columns: string[]; rows: string[][] }
   | { type: "stats"; items: { value: string; label: string }[] }
   | { type: "image"; src: string; alt: string; caption?: string }
+  | {
+      type: "carousel";
+      heading?: string;
+      label?: string;
+      items: { src: string; alt: string }[];
+    }
+  | {
+      type: "gallery";
+      heading?: string;
+      items: { src: string; alt: string }[];
+    }
   | { type: "note"; text: string };
 
 // School page: only the programs, each one clickable.
@@ -213,14 +224,87 @@ export const pageContent: Record<string, Block[]> = {
 
   "student-life/sports": [
     {
-      type: "list",
-      heading: "Sports offered",
-      items: ["Basketball", "Volleyball", "Add more sports"],
+      type: "text",
+      heading: "4th Nationalian Friendship Games",
+      body: [
+        "LOOK: NU Clark athletes emerge CHAMPIONS in Badminton Men and Table Tennis Men, with SILVER winnings in Chess Women and BRONZE in Chess Men during the Day 2 of this year’s Nationalian Friendship Games (NFG) at NU Laguna.",
+        "Yesterday, together with the KabaleNU athletes, their coaches and the campus directors, Dr. Arnel A. Diego, Executive Director; Prof. Priscilla M. Evangelista, Academic Director; and Prof. Richard John W. Hernandez, Academic Services Director; as well as the Campus Sports Development Coordinator, Dr. Francisco Gabriel Prevandos, and other campus unit officials attended the NFG Opening Ceremonies.",
+        "📸 NU Clark Campus Sports Development Office, Coaches Cynthia Mae Ylarde & co.",
+      ],
+    },
+    {
+      type: "carousel",
+      label: "Nationalian Friendship Games photos",
+      items: [
+        {
+          src: "/carousel-img-1.jpg",
+          alt: "NU Clark medalists holding certificates and medals at the Nationalian Friendship Games",
+        },
+        {
+          src: "/carousel-img-2.jpg",
+          alt: "NU Clark athletes in navy jerseys with medals and certificates",
+        },
+        {
+          src: "/carousel-img-3.jpg",
+          alt: "NU Clark athletes and a coach in gold jerseys",
+        },
+        {
+          src: "/carousel-img-4.jpg",
+          alt: "NU Clark athletes and coaches in white and navy jerseys",
+        },
+        {
+          src: "/carousel-img-5.jpg",
+          alt: "NU Clark volleyball team with their coaches",
+        },
+        {
+          src: "/carousel-img-6.jpg",
+          alt: "NU Clark team in white jerseys in front of Henry Sy Sr. Hall",
+        },
+        {
+          src: "/carousel-img-7.jpg",
+          alt: "NU Clark athletes in gold jerseys posing with arms crossed",
+        },
+        {
+          src: "/carousel-img-8.jpg",
+          alt: "NU Clark athletes in navy jerseys in front of the 4th Nationalian Friendship Games banner",
+        },
+        {
+          src: "/carousel-img-9.jpg",
+          alt: "NU Clark athletes and coaches holding certificates",
+        },
+      ],
     },
     {
       type: "text",
-      heading: "Athletics at NU Clark",
-      body: ["Add information about teams, tryouts, and facilities."],
+      heading: "Ready to show your talent and passion, Nationalians!",
+      body: [
+        "The PRISAA Tryouts are happening on November 9–13, 2026!",
+        "This is your chance to showcase your skills, push your limits, and earn the opportunity to represent NU Clark in the upcoming PRISAA competitions.",
+        "Check the pubmat below for the complete tryout schedules, venues, and assigned point persons.",
+        "Bring your energy, give your best, and show your pride as a Nationalian!",
+        "See you at the tryouts, Bulldogs!",
+      ],
+    },
+    {
+      type: "gallery",
+      items: [
+        {
+          src: "/tryout-1.jpg",
+          alt: "PRISAA Tryouts poster, November 9–13, 2026",
+        },
+        {
+          src: "/tryout-4.jpg",
+          alt: "Tryout schedule for men’s basketball, men’s volleyball, table tennis, chess, and badminton, November 9–11",
+        },
+        {
+          src: "/tryout-3.jpg",
+          alt: "Tryout schedule for women’s basketball, women’s volleyball, archery, athletics and arnis, billiards, taekwondo, swimming, and sepak takraw, November 9–13",
+        },
+        {
+          src: "/tryout-2.jpg",
+          alt: "Tryout guidelines: sports attire, credentials-only sports, badminton equipment, and waiver form",
+        },
+      ],
     },
   ],
 
