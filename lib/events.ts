@@ -11,6 +11,11 @@ export type EventPost = {
   body: string[];
   /** Pictures in /public/events/ */
   images?: { src: string; alt: string }[];
+  /** Photo albums grouped by section, shown full width under the post */
+  gallery?: {
+    title: string;
+    items: { src: string; alt: string; caption: string }[];
+  }[];
   /** Buttons, e.g. register forms or the Facebook post */
   links?: { label: string; href: string }[];
   /** Facebook video link (opens in a new tab, see note below) */
@@ -89,10 +94,105 @@ export const events: EventPost[] = [
     slug: "ganting-pagal-engineering",
     tag: "Dean’s List",
     title: "Ganting Pagal 2026: School of Engineering",
+    images: [
+      {
+        src: "/events/ganting-pagal/cover.jpg",
+        alt: "Ganting Pagal, First Term A.Y. 2026-2027, NU Clark SDAO",
+      },
+    ],
+    gallery: [
+      {
+        title: "BS Civil Engineering",
+        items: [
+          {
+            src: "/events/ganting-pagal/civil-1st-first-honors.jpg",
+            alt: "BS Civil Engineering, First Year, First Honors",
+            caption: "First Year · First Honors",
+          },
+          {
+            src: "/events/ganting-pagal/civil-1st-second-honors-a.jpg",
+            alt: "BS Civil Engineering, First Year, Second Honors, ranks 1 to 4",
+            caption: "First Year · Second Honors (1 of 2)",
+          },
+          {
+            src: "/events/ganting-pagal/civil-1st-second-honors-b.jpg",
+            alt: "BS Civil Engineering, First Year, Second Honors, ranks 5 to 7",
+            caption: "First Year · Second Honors (2 of 2)",
+          },
+          {
+            src: "/events/ganting-pagal/civil-2nd-first-honors.jpg",
+            alt: "BS Civil Engineering, Second Year, First Honors",
+            caption: "Second Year · First Honors",
+          },
+          {
+            src: "/events/ganting-pagal/civil-2nd-second-honors.jpg",
+            alt: "BS Civil Engineering, Second Year, Second Honors",
+            caption: "Second Year · Second Honors",
+          },
+          {
+            src: "/events/ganting-pagal/civil-4th-first-honors.jpg",
+            alt: "BS Civil Engineering, Fourth Year, First Honors",
+            caption: "Fourth Year · First Honors",
+          },
+          {
+            src: "/events/ganting-pagal/civil-4th-second-honors.jpg",
+            alt: "BS Civil Engineering, Fourth Year, Second Honors",
+            caption: "Fourth Year · Second Honors",
+          },
+        ],
+      },
+      {
+        title: "BS Computer Engineering",
+        items: [
+          {
+            src: "/events/ganting-pagal/comp-1st-first-honors.jpg",
+            alt: "BS Computer Engineering, First Year, First Honors",
+            caption: "First Year · First Honors",
+          },
+          {
+            src: "/events/ganting-pagal/comp-1st-second-honors.jpg",
+            alt: "BS Computer Engineering, First Year, Second Honors",
+            caption: "First Year · Second Honors",
+          },
+          {
+            src: "/events/ganting-pagal/comp-2nd-first-honors.jpg",
+            alt: "BS Computer Engineering, Second Year, First Honors",
+            caption: "Second Year · First Honors",
+          },
+          {
+            src: "/events/ganting-pagal/comp-2nd-second-honors.jpg",
+            alt: "BS Computer Engineering, Second Year, Second Honors",
+            caption: "Second Year · Second Honors",
+          },
+          {
+            src: "/events/ganting-pagal/comp-3rd-first-honors.jpg",
+            alt: "BS Computer Engineering, Third Year, First Honors",
+            caption: "Third Year · First Honors",
+          },
+          {
+            src: "/events/ganting-pagal/comp-3rd-second-honors.jpg",
+            alt: "BS Computer Engineering, Third Year, Second Honors",
+            caption: "Third Year · Second Honors",
+          },
+          {
+            src: "/events/ganting-pagal/comp-4th-first-honors.jpg",
+            alt: "BS Computer Engineering, Fourth Year, First Honors",
+            caption: "Fourth Year · First Honors",
+          },
+          {
+            src: "/events/ganting-pagal/comp-4th-second-honors.jpg",
+            alt: "BS Computer Engineering, Fourth Year, Second Honors",
+            caption: "Fourth Year · Second Honors",
+          },
+        ],
+      },
+    ],
     date: "Term 1 | A.Y. 2026–2027",
-    venue:
-      "BS Civil Engineering · BS Computer Engineering",
-    body: ["Recognizing Excellence. Celebrating Achievement.", ...DEANS_LIST_BODY],
+    venue: "BS Civil Engineering · BS Computer Engineering",
+    body: [
+      "Recognizing Excellence. Celebrating Achievement.",
+      ...DEANS_LIST_BODY,
+    ],
     links: [
       {
         label: "See the Facebook post",
@@ -108,9 +208,11 @@ export const events: EventPost[] = [
     title:
       "Ganting Pagal 2026: School of Architecture, Technology, and Computing",
     date: "Term 1 | A.Y. 2026–2027",
-    venue:
-      "BS Architecture · BS Computer Science · BS Information Technology",
-    body: ["Recognizing Excellence. Celebrating Achievement.", ...DEANS_LIST_BODY],
+    venue: "BS Architecture · BS Computer Science · BS Information Technology",
+    body: [
+      "Recognizing Excellence. Celebrating Achievement.",
+      ...DEANS_LIST_BODY,
+    ],
     links: [
       {
         label: "See the Facebook post",
@@ -123,11 +225,15 @@ export const events: EventPost[] = [
   {
     slug: "ganting-pagal-sabm",
     tag: "Dean’s List",
-    title: "Ganting Pagal 2026: School of Accountancy, Business, and Management",
+    title:
+      "Ganting Pagal 2026: School of Accountancy, Business, and Management",
     date: "Term 1 | A.Y. 2026–2027",
     venue:
       "BS Accountancy · BS Management Accounting · BS Business Administration (Major in Marketing Management) · BS Tourism Management",
-    body: ["Recognizing Excellence. Celebrating Achievement.", ...DEANS_LIST_BODY],
+    body: [
+      "Recognizing Excellence. Celebrating Achievement.",
+      ...DEANS_LIST_BODY,
+    ],
     links: [
       {
         label: "See the Facebook post",
@@ -143,7 +249,10 @@ export const events: EventPost[] = [
     title: "Ganting Pagal 2026: School of Dentistry and Allied Health",
     date: "Term 1 | A.Y. 2026–2027",
     venue: "BS Medical Technology · Doctor of Dental Medicine",
-    body: ["Recognizing Excellence. Celebrating Achievement.", ...DEANS_LIST_BODY],
+    body: [
+      "Recognizing Excellence. Celebrating Achievement.",
+      ...DEANS_LIST_BODY,
+    ],
     links: [
       {
         label: "See the Facebook post",
@@ -159,7 +268,10 @@ export const events: EventPost[] = [
     title: "Ganting Pagal 2026: School of Education, Arts, and Sciences",
     date: "Term 1 | A.Y. 2026–2027",
     venue: "AB Communication · AB Political Science · BS Psychology",
-    body: ["Recognizing Excellence. Celebrating Achievement.", ...DEANS_LIST_BODY],
+    body: [
+      "Recognizing Excellence. Celebrating Achievement.",
+      ...DEANS_LIST_BODY,
+    ],
     links: [
       {
         label: "See the Facebook post",
@@ -213,7 +325,8 @@ export const events: EventPost[] = [
   {
     slug: "highlights-oath-taking-ceremony",
     tag: "Highlights",
-    title: "Plugged Into Purpose: Oath-Taking Ceremony and Leadership Development Seminar",
+    title:
+      "Plugged Into Purpose: Oath-Taking Ceremony and Leadership Development Seminar",
     date: "September 16, 2026",
     body: [
       "On September 16, 2026, the Senior High School and College Recognized and Accredited Student Organizations of NU Clark gathered for PLUGGED INTO PURPOSE: Oath-Taking Ceremony and Leadership Development Seminar, formally beginning another year of student leadership and service.",
