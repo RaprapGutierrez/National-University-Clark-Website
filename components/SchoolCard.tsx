@@ -40,8 +40,11 @@ export default function SchoolCard({
         <h3 className="text-xl font-extrabold text-gold">{title}</h3>
         <p className="mt-2 text-sm text-white/85">{summary}</p>
         <div className="mt-auto pt-5">
-          <span className="inline-block rounded-full bg-gold px-5 py-2 text-sm font-bold text-navy transition-transform duration-300 group-hover:translate-x-1">
-            Learn more →
+          <span className="inline-flex items-center gap-2 rounded-full bg-gold px-5 py-2.5 text-sm font-bold leading-none text-navy transition-transform duration-300 group-hover:translate-x-1">
+            Learn more
+            <span aria-hidden="true" className="translate-y-px">
+              →
+            </span>
           </span>
         </div>
       </div>

@@ -429,7 +429,7 @@ export default function Navbar({
               <div className="relative min-h-0 flex-1 overflow-hidden">
                 <div
                   className={[
-                    "absolute inset-0 overflow-y-auto px-5",
+                    "absolute inset-0 overflow-y-auto px-5 pr-6",
                     "transition-[transform,opacity] duration-[460ms] ease-[cubic-bezier(0.2,0.8,0.2,1)] motion-reduce:transition-none",
                     panel
                       ? "-translate-x-6 opacity-0"
@@ -442,10 +442,10 @@ export default function Navbar({
                         <button
                           type="button"
                           onClick={() => setPanel(s.slug)}
-                          className="flex w-full items-center justify-between py-4 text-left text-[1.05rem] font-semibold text-navy transition-colors active:bg-mist"
+                          className="flex w-full items-center justify-between gap-3 py-4 pr-1 text-left text-[1.05rem] font-semibold text-navy transition-colors active:bg-mist"
                         >
-                          {s.title}
-                          <ArrowRight className="text-royal" />
+                          <span className="min-w-0">{s.title}</span>
+                          <ArrowRight className="shrink-0 text-royal" />
                         </button>
                       </li>
                     ))}
@@ -454,7 +454,7 @@ export default function Navbar({
                         <Link
                           href={l.href}
                           onClick={closeMenu}
-                          className="block py-4 text-[1.05rem] font-semibold text-navy transition-colors active:bg-mist"
+                          className="block py-4 pr-1 text-[1.05rem] font-semibold text-navy transition-colors active:bg-mist"
                         >
                           {l.label}
                         </Link>
@@ -465,7 +465,7 @@ export default function Navbar({
 
                 <div
                   className={[
-                    "absolute inset-0 overflow-y-auto bg-white px-5",
+                    "absolute inset-0 overflow-y-auto bg-white px-5 pr-6",
                     "transition-[transform,opacity] duration-[460ms] ease-[cubic-bezier(0.2,0.8,0.2,1)] motion-reduce:transition-none",
                     panel
                       ? "translate-x-0 opacity-100"

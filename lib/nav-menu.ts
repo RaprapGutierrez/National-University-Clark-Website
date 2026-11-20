@@ -61,7 +61,13 @@ const navProgramsBySchool: Record<
     { slug: "doctor-of-dental-medicine", title: "Doctor of Dental Medicine" },
     { slug: "bs-medical-technology", title: "BS Medical Technology" },
   ],
+  "office-of-the-academic-director": [
+    { slug: "language-center", title: "Language Center" },
+  ],
 };
+
+export const LANGUAGE_CENTER_URL =
+  "https://www.facebook.com/people/NU-Clark-Language-Center/61578139199668/";
 
 const order = ["academics", "admissions", "student-life", "about"] as const;
 

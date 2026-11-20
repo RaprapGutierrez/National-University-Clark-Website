@@ -124,11 +124,6 @@ export const sections: Section[] = [
         title: "Scholarships",
         summary: "Find financial support options.",
       },
-      {
-        slug: "tuition-fees",
-        title: "Tuition & Fees",
-        summary: "See what each term costs.",
-      },
     ],
   },
   {
