@@ -49,9 +49,7 @@ export default function EventsPage() {
                     <div className="min-w-0">
                       <span
                         className={`inline-block rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wider ${
-                          upcoming
-                            ? "bg-gold text-navy"
-                            : "bg-navy text-gold"
+                          upcoming ? "bg-gold text-navy" : "bg-navy text-gold"
                         }`}
                       >
                         {e.tag}
@@ -167,6 +165,45 @@ export default function EventsPage() {
                       </div>
                     )}
                   </div>
+                  {e.gallery && e.gallery.length > 0 && (
+                    <div className="border-t border-line px-6 pb-8 pt-6 sm:px-8">
+                      <p className="mb-6 text-sm text-slate">
+                        Tap a picture to see the full list of names.
+                      </p>
+                      <div className="space-y-8">
+                        {e.gallery.map((group) => (
+                          <div key={group.title}>
+                            <h3 className="text-lg font-extrabold text-navy sm:text-xl">
+                              {group.title}
+                            </h3>
+                            <div className="mt-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                              {group.items.map((img) => (
+                                <figure key={img.src}>
+                                  <a
+                                    href={img.src}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="relative block aspect-square overflow-hidden rounded-2xl border-2 border-gold bg-navy transition hover:-translate-y-1 hover:shadow-lg"
+                                  >
+                                    <Image
+                                      src={img.src}
+                                      alt={img.alt}
+                                      fill
+                                      sizes="(min-width: 1024px) 320px, (min-width: 640px) 45vw, 100vw"
+                                      className="object-cover"
+                                    />
+                                  </a>
+                                  <figcaption className="mt-2 text-sm font-semibold text-slate">
+                                    {img.caption}
+                                  </figcaption>
+                                </figure>
+                              ))}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </article>
               </Reveal>
             );
