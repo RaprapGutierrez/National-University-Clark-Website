@@ -10,7 +10,34 @@ const STICKER =
   "drop-shadow(0 -4px 0 var(--color-gold, #f7c600)) " +
   "drop-shadow(0 10px 14px rgba(0, 0, 0, 0.25))";
 
-type CardItem = { title: string; text?: string; href?: string; image?: string };
+type CardItem = {
+  title: string;
+  text?: string;
+  href?: string;
+  image?: string;
+  logo?: string;
+};
+
+// Organization card: logo on top, blue and gold box
+function LogoCard({ item }: { item: CardItem }) {
+  return (
+    <div className="flex h-full flex-col items-center rounded-3xl border-2 border-gold bg-navy p-5 text-center text-white shadow-lg transition duration-300 ease-out hover:-translate-y-1.5 hover:shadow-2xl hover:shadow-navy/40 motion-reduce:transform-none">
+      {item.logo && (
+        <div className="relative mb-4 h-32 w-full">
+          <Image
+            src={item.logo}
+            alt={`${item.title} logo`}
+            fill
+            sizes="(min-width: 1024px) 240px, 45vw"
+            className="object-contain"
+          />
+        </div>
+      )}
+      <h3 className="text-lg font-extrabold text-gold">{item.title}</h3>
+      {item.text && <p className="mt-1.5 text-sm text-white/85">{item.text}</p>}
+    </div>
+  );
+}
 
 function Heading({ children }: { children?: React.ReactNode }) {
   if (!children) return null;
@@ -95,6 +122,20 @@ function BlockView({ block }: { block: Block }) {
       );
 
     case "cards": {
+      // Cards with logos (organizations)
+      if (block.items.some((c) => c.logo)) {
+        return (
+          <section>
+            <Heading>{block.heading}</Heading>
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {block.items.map((c, i) => (
+                <LogoCard key={i} item={c} />
+              ))}
+            </div>
+          </section>
+        );
+      }
+
       // If any card has an image, show the whole block as sticker cards
       const hasImages = block.items.some((c) => c.image);
 

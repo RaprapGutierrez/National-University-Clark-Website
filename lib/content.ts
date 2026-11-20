@@ -7,7 +7,13 @@ export type Block =
   | {
       type: "cards";
       heading?: string;
-      items: { title: string; text?: string; href?: string; image?: string }[];
+      items: {
+        title: string;
+        text?: string;
+        href?: string;
+        image?: string;
+        logo?: string;
+      }[];
     }
   | { type: "list"; heading?: string; items: string[] }
   | {
@@ -145,33 +151,62 @@ export const pageContent: Record<string, Block[]> = {
       type: "cards",
       heading: "Student organizations",
       items: [
-        { title: "CODE", text: "Consortium of Data Enthusiasts" },
-        { title: "SCOA", text: "Student Commission on Audit" },
-        { title: "USC", text: "University Student Council" },
-        { title: "VOS", text: "Vanguards of Society" },
-        { title: "SOB", text: "Synergy of Bulldozers" },
-        { title: "ALPAS" },
+        {
+          title: "CODE",
+          text: "Consortium of Data Enthusiasts",
+          logo: "/org-code.png",
+        },
+        {
+          title: "SCOA",
+          text: "Student Commission on Audit",
+          logo: "/org-scoa.png",
+        },
+        {
+          title: "USC",
+          text: "University Student Council",
+          logo: "/org-usc.png",
+        },
+        { title: "VOS", text: "Vanguards of Society", logo: "/org-vos.png" },
+        { title: "SOB", text: "Synergy of Bulldozers", logo: "/org-sob.png" },
+        { title: "ALPAS", logo: "/org-alpas.png" },
         {
           title: "UAPSA",
           text: "United Architects of the Philippines Student Auxiliary – NU Clark Chapter",
+          logo: "/org-uapsa.png",
         },
-        { title: "PYS", text: "Psychology Society" },
+        { title: "PYS", text: "Psychology Society", logo: "/org-pys.png" },
         {
           title: "PHN",
-          text: "Pagsilay sa Hiraya at Namaya (Pahina)",
+          text: "Pagsilay sa Hiraya at Namayana (Pahina)",
+          logo: "/org-phn.png",
         },
-        { title: "NU Clark Model United Nations" },
-        { title: "Honors A+ Trium" },
-        { title: "Junior Philippine Institute of Accountants" },
-        { title: "PICE", text: "Philippine Institute of Civil Engineers" },
-        { title: "The Resurgence" },
-        { title: "Junior League of Marketers" },
+        { title: "NU Clark Model United Nations", logo: "/org-mun.png" },
+        { title: "Honors A+Trium", logo: "/org-honors.png" },
         {
-          title:
-            "Institute of Scholastic, Cooperative and Outstanding Scholars",
+          title: "Junior Philippine Institute of Accountants",
+          text: "NU Clark Chapter",
+          logo: "/org-jpia.png",
         },
-        { title: "Medical Technology Society" },
-        { title: "Pamiyabe" },
+        {
+          title: "PICE",
+          text: "Philippine Institute of Civil Engineers – NU Clark Student Chapter",
+          logo: "/org-pice.png",
+        },
+        { title: "The Resurgence", logo: "/org-resurgence.png" },
+        { title: "Junior League of Marketers", logo: "/org-jlm.png" },
+        {
+          title: "ISCOLAR",
+          text: "Institute of Scholastic, Cooperative, and Outstanding Scholars",
+          logo: "/org-iscolar.png",
+        },
+        { title: "Medical Technology Society", logo: "/org-medtech.png" },
+        { title: "Pamiyabe", logo: "/org-pamiyabe.png" },
+        {
+          title: "Senior High School Student Government",
+          logo: "/org-shs-sg.png",
+        },
+        { title: "Political Science Society", logo: "/org-polsci.png" },
+        { title: "BullBytes", logo: "/org-bullbytes.png" },
       ],
     },
   ],
