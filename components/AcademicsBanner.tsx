@@ -1,12 +1,5 @@
 import Link from "next/link";
-import { Montserrat } from "next/font/google";
-import Navbar from "@/components/Navbar";
 import { Dots } from "@/components/Shapes";
-
-const montserrat = Montserrat({
-  subsets: ["latin"],
-  weight: ["500", "700", "800"],
-});
 
 type Crumb = { label: string; href?: string };
 
@@ -24,19 +17,12 @@ export default function AcademicsBanner({
   /** Extra decorations like the home page hero. Pass decor={false} to turn them off. */
   decor?: boolean;
 }) {
-  // Long school names get a smaller title so they still fit
   const long = title.length > 28;
 
   return (
     <>
       <div className="relative">
-        {/* Space above the banner so the navbar overlaps its top edge a little */}
-        <div className="h-[100px] lg:h-[76px]" />
-
-        <section
-          className={`${montserrat.className} relative isolate overflow-hidden border-b-[6px] border-gold bg-navy text-white lg:min-h-[320px]`}
-        >
-          {/* Shapes on the right (desktop only) */}
+        <section className="relative isolate overflow-hidden border-b-4 border-gold bg-navy text-white sm:border-b-[6px] lg:min-h-[280px]">
           <svg
             aria-hidden="true"
             viewBox="0 0 2400 600"
@@ -70,12 +56,11 @@ export default function AcademicsBanner({
 
           {decor && (
             <>
-              {/* Corner shapes for phones and tablets, where the big shapes are hidden */}
               <svg
                 aria-hidden="true"
                 viewBox="0 0 400 300"
                 preserveAspectRatio="xMaxYMax slice"
-                className="pointer-events-none absolute inset-y-0 right-0 -z-10 h-full w-2/3 select-none lg:hidden"
+                className="pointer-events-none absolute inset-y-0 right-0 -z-10 h-full w-1/2 select-none opacity-90 sm:w-2/3 lg:hidden"
               >
                 <polygon
                   points="400,300 400,150 250,300"
@@ -86,116 +71,69 @@ export default function AcademicsBanner({
                   points="400,300 400,230 330,300"
                   className="fill-gold"
                 />
-                <polygon
-                  points="400,0 300,0 400,100"
-                  className="fill-royal"
-                  fillOpacity="0.45"
-                />
               </svg>
-
-              {/* Extra decoration on the left, like the home page hero */}
               <span
                 aria-hidden="true"
-                className="pointer-events-none absolute -bottom-20 -left-24 -z-10 h-72 w-72 rounded-full border-[28px] border-gold/10"
+                className="pointer-events-none absolute -bottom-16 -left-16 -z-10 hidden h-56 w-56 rounded-full border-[24px] border-gold/10 sm:block"
               />
-              <span
-                aria-hidden="true"
-                className="pointer-events-none absolute -bottom-16 left-1/3 -z-10 h-40 w-40 rounded-full bg-royal/30"
-              />
-              <span
-                aria-hidden="true"
-                className="pointer-events-none absolute left-[46%] top-12 -z-10 hidden h-4 w-4 rounded-full bg-gold lg:block"
-              />
-              <span
-                aria-hidden="true"
-                className="pointer-events-none absolute left-8 top-10 -z-10 hidden h-3 w-3 rotate-45 bg-gold/80 md:block"
-              />
-              <Dots className="absolute bottom-6 left-6 -z-10 hidden text-white/15 md:block" />
+              <Dots className="absolute bottom-4 left-4 -z-10 hidden text-white/15 md:block" />
             </>
           )}
 
-          <div className="mx-auto max-w-6xl px-5 pb-12 pt-10 lg:pb-14 lg:pt-16">
+          <div className="mx-auto max-w-6xl px-4 pb-8 pt-7 sm:px-5 sm:pb-12 sm:pt-10 lg:pb-14 lg:pt-14">
             <div className="lg:max-w-[55%] xl:max-w-3xl">
               {label && (
-                <p className="text-sm font-bold uppercase tracking-[0.2em] text-gold sm:text-base">
+                <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-gold sm:text-sm sm:tracking-[0.2em]">
                   {label}
                 </p>
               )}
               <h1
-                className={`mt-3 text-4xl font-extrabold leading-[1.08] tracking-tight sm:text-5xl ${
-                  long ? "lg:text-5xl" : "lg:text-7xl"
+                className={`mt-2 text-[1.85rem] font-extrabold leading-[1.12] tracking-tight sm:mt-3 sm:text-5xl ${
+                  long ? "lg:text-5xl" : "lg:text-6xl"
                 }`}
               >
                 {title}
               </h1>
-              <div className="mt-5 h-1.5 w-24 rounded-full bg-gold" />
+              <div className="mt-3 h-1 w-16 rounded-full bg-gold sm:mt-5 sm:h-1.5 sm:w-24" />
               {subtitle && (
-                <p className="mt-5 text-base font-medium text-white/90 sm:text-lg">
+                <p className="mt-3 max-w-xl text-sm font-medium text-white/90 sm:mt-5 sm:text-lg">
                   {subtitle}
                 </p>
               )}
             </div>
           </div>
         </section>
-
-        {/* Navbar floats over the top of the banner */}
-        <div className="absolute inset-x-0 top-0 z-20">
-          <div className="mx-auto max-w-6xl px-4 sm:px-5">
-            <Navbar />
-          </div>
-        </div>
       </div>
 
       {crumbs && crumbs.length > 0 && (
-        <nav aria-label="Breadcrumb" className="mx-auto max-w-6xl px-5 pt-6">
-          <ol className="inline-flex flex-wrap items-center gap-1 rounded-full border border-line bg-white px-2 py-1.5 text-sm text-slate shadow-sm">
+        <nav
+          aria-label="Breadcrumb"
+          className="border-b border-line bg-white/80"
+        >
+          <ol className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-1.5 gap-y-1 px-4 py-3 text-[13px] text-slate sm:px-5 sm:py-3.5 sm:text-sm">
             {crumbs.map((c, i) => {
               const last = i === crumbs.length - 1;
               return (
-                <li key={i} className="flex items-center gap-1">
+                <li key={i} className="flex min-w-0 items-center gap-1.5">
                   {c.href ? (
                     <Link
                       href={c.href}
-                      className="flex items-center gap-1.5 rounded-full px-3 py-1 font-bold text-royal transition hover:bg-royal/10"
+                      className="truncate font-semibold text-royal transition-colors hover:underline"
                     >
-                      {i === 0 && (
-                        <svg
-                          aria-hidden="true"
-                          viewBox="0 0 24 24"
-                          className="h-4 w-4"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2.2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        >
-                          <path d="M3 11l9-8 9 8" />
-                          <path d="M5 10v10h14V10" />
-                        </svg>
-                      )}
                       {c.label}
                     </Link>
                   ) : (
                     <span
                       aria-current="page"
-                      className="rounded-full bg-navy px-3 py-1 font-bold text-white"
+                      className="truncate font-bold text-navy"
                     >
                       {c.label}
                     </span>
                   )}
                   {!last && (
-                    <svg
-                      aria-hidden="true"
-                      viewBox="0 0 24 24"
-                      className="h-4 w-4 text-gold"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="3"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M9 6l6 6-6 6" />
-                    </svg>
+                    <span aria-hidden="true" className="text-gold">
+                      /
+                    </span>
                   )}
                 </li>
               );

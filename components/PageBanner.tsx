@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Navbar from "./Navbar";
 
 type Crumb = { label: string; href?: string };
 
@@ -14,8 +13,7 @@ export default function PageBanner({
     <>
       <header className="bg-linear-to-br from-navy via-royal to-sky pb-16 text-white">
         <div className="mx-auto max-w-6xl px-5">
-          <Navbar />
-          <h1 className="mt-14 max-w-3xl text-4xl font-extrabold tracking-tight sm:text-5xl">
+          <h1 className="pt-10 max-w-3xl text-4xl font-extrabold tracking-tight sm:pt-14 sm:text-5xl">
             {title}
           </h1>
         </div>

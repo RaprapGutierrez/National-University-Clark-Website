@@ -13,17 +13,41 @@
 
 html {
   color-scheme: light;
+  scroll-behavior: smooth;
+  --mobile-nav-h: 3.75rem;
+  --site-header-offset: 5.5rem;
+  --about-rail-top: 10.75rem;
+}
+
+@media (min-width: 1024px) {
+  html {
+    --site-header-offset: 7rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Keep About sidebar under the sticky header; collapse when the header hides */
+html[data-site-nav-hidden="true"]:not(:has([data-site-header]:focus-within)) {
+  --about-rail-top: 1.75rem;
+  --site-header-offset: 1.25rem;
 }
 
 body {
   background: var(--color-mist);
   color: var(--color-navy);
+  overflow-x: clip;
 }
 
-@font-face {
-  font-family: "Clan Pro";
-  src: url("/fonts/ClanPro-Bold.woff2") format("woff2");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
 }

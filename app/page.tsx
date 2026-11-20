@@ -1,10 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
-import Navbar from "@/components/Navbar";
 import Reveal from "@/components/Reveal";
 import HeroSlider from "@/components/HeroSlider";
 import LogoDivider from "@/components/LogoDivider";
 import SchoolCard from "@/components/SchoolCard";
+import AdmissionsPortalCards from "@/components/AdmissionsPortalCards";
 import { sections, APPLY_URL } from "@/lib/site";
 
 const CONTACT_URL = "/about"; // change to your contact page
@@ -90,7 +90,6 @@ const steps = [
 
 export default function Home() {
   const academics = sections.find((s) => s.slug === "academics")!;
-  const admissions = sections.find((s) => s.slug === "admissions")!;
   const schools = academics.pages.filter(
     (p) => p.slug !== "office-of-the-academic-director",
   );
@@ -163,7 +162,6 @@ export default function Home() {
           <Dots className="absolute bottom-24 left-6 -z-10 hidden text-white/15 md:block" />
 
           <div className="mx-auto max-w-6xl px-4 sm:px-5">
-            <Navbar />
             <div className="grid items-center gap-8 pt-8 sm:pt-12 lg:grid-cols-2 lg:gap-10 lg:pt-14">
               <Reveal>
                 <p className="inline-block rounded-full bg-gold/15 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-gold sm:text-sm">
@@ -208,29 +206,7 @@ export default function Home() {
       </div>
 
       <main className="mx-auto max-w-6xl px-4 sm:px-5">
-        {/* Admissions quick cards */}
-        <div className="relative z-10 -mt-14 grid gap-4 sm:-mt-16 sm:grid-cols-2 lg:grid-cols-4">
-          {admissions.pages.map((p, i) => (
-            <Reveal key={p.slug} delay={i * 100} className="h-full">
-              <Link
-                href={`/admissions/${p.slug}`}
-                className="group relative block h-full overflow-hidden rounded-2xl border border-line border-t-4 border-t-gold bg-white p-5 shadow-lg transition hover:-translate-y-1 hover:border-royal hover:border-t-gold"
-              >
-                <span
-                  aria-hidden="true"
-                  className="absolute -right-4 -top-4 h-16 w-16 rounded-full bg-gold/15 transition group-hover:scale-150"
-                />
-                <b className="relative block text-lg text-navy">{p.title}</b>
-                <span className="relative mt-1 block text-sm text-slate">
-                  {p.summary}
-                </span>
-                <span className="relative mt-3 inline-block text-sm font-bold text-royal transition group-hover:translate-x-1">
-                  Learn more →
-                </span>
-              </Link>
-            </Reveal>
-          ))}
-        </div>
+        <AdmissionsPortalCards />
 
         {/* Find your school */}
         <section className="relative pt-16 sm:pt-24">

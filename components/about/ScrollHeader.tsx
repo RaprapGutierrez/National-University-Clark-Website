@@ -9,6 +9,7 @@ export function ScrollHeader({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     let previousY = Math.max(window.scrollY, 0);
+    let ticking = false;
 
     function updateVisibility() {
       const currentY = Math.max(window.scrollY, 0);
@@ -21,16 +22,31 @@ export function ScrollHeader({ children }: { children: ReactNode }) {
         previousY = currentY;
         setHidden(distance > 0);
       }
+      ticking = false;
     }
 
-    window.addEventListener("scroll", updateVisibility, { passive: true });
-    return () => window.removeEventListener("scroll", updateVisibility);
+    function onScroll() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(updateVisibility);
+    }
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  useEffect(() => {
+    document.documentElement.dataset.siteNavHidden = hidden ? "true" : "false";
+    return () => {
+      delete document.documentElement.dataset.siteNavHidden;
+    };
+  }, [hidden]);
 
   return (
     <header
+      data-site-header=""
       data-about-nav-hidden={hidden}
-      className={`sticky top-0 z-30 transition-transform duration-200 ease-out motion-reduce:transition-none ${
+      className={`sticky top-0 z-30 transition-transform duration-200 ease-out will-change-transform motion-reduce:transition-none motion-reduce:will-change-auto ${
         hidden
           ? "pointer-events-none -translate-y-full has-[:focus-visible]:pointer-events-auto has-[:focus-visible]:translate-y-0"
           : ""

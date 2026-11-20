@@ -34,7 +34,7 @@ export default function EventsPage() {
               <Reveal key={e.slug} delay={(i % 2) * 100}>
                 <article
                   id={e.slug}
-                  className={`scroll-mt-24 overflow-hidden rounded-3xl border-2 shadow-lg ${
+                  className={`scroll-mt-[var(--site-header-offset)] overflow-hidden rounded-3xl border-2 shadow-lg ${
                     upcoming
                       ? "border-gold bg-navy text-white"
                       : "border-line bg-white text-slate"

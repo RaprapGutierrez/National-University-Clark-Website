@@ -1,27 +1,17 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
-import Navbar from "@/components/Navbar";
 import type { PageItem, Section } from "@/lib/site";
-import { campusContact, founderPortrait, qualityManagement } from "@/lib/about";
+import { founderPortrait } from "@/lib/about";
 import { AboutIcon } from "./AboutIcon";
 import { Accreditation, CampusTour, Leadership, OurStory, Vmgo } from "./AboutSections";
 import { CampusHighlights } from "./CampusHighlights";
 import { UniversityHymn } from "./CampusMedia";
-import { ScrollHeader } from "./ScrollHeader";
 
 const frame = "mx-auto w-full max-w-[77rem] px-5 sm:px-8";
 const heroFrame = "mx-auto max-w-6xl px-4 sm:px-5";
 const focus = "focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-royal";
-const surface = "bg-[#faf9f5] text-[#101f55] [--about-rail-top:10.75rem] [&:has([data-about-nav-hidden=true]:not(:has(:focus-visible)))]:[--about-rail-top:1.75rem] [&+footer]:mt-0";
-
-const utilityLinks = [
-  { label: "Strategic Quality Management", href: qualityManagement },
-  { label: "Institutional Linkages", href: "https://www.nu.edu.ph/institutional-linkages" },
-  { label: "Community Development", href: "https://www.nu.edu.ph/community-development" },
-  { label: "Careers", href: "https://www.nu.edu.ph/talent-hub" },
-  { label: "Contact Us", href: campusContact },
-];
+const surface = "bg-[#faf9f5] text-[#101f55] [&+footer]:mt-0";
 
 const details = {
   "our-story": { View: OurStory, icon: "book" },
@@ -38,24 +28,6 @@ export function aboutPageTitle(page: PageItem) {
 function AboutHeader({ page, children }: { page?: PageItem; children?: ReactNode }) {
   return (
     <>
-      <ScrollHeader>
-        <nav aria-label="University resources" className="bg-[#191f46] text-white">
-          <ul className={`${heroFrame} flex min-h-11 flex-wrap items-center justify-center gap-x-4 gap-y-1 py-2 text-xs font-semibold sm:justify-end sm:gap-x-6 sm:text-sm`}>
-            {utilityLinks.map(({ href, label }) => (
-              <li key={href}>
-                <a href={href} className="inline-block py-1 underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold">
-                  {label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
-        <div className="bg-navy py-3 text-white sm:pt-5">
-          <div className={`${heroFrame} [&>nav]:mt-0`}>
-            <Navbar currentPath={page ? `/about/${page.slug}` : "/about"} />
-          </div>
-        </div>
-      </ScrollHeader>
       {children && (
         <div className="bg-navy pb-16 text-white sm:pb-20">
           <div className={heroFrame}>{children}</div>

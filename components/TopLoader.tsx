@@ -21,8 +21,8 @@ export default function TopLoader() {
     setVisible(true);
     setWidth(12);
     trickle.current = setInterval(
-      () => setWidth((w) => w + (90 - w) * 0.12),
-      200,
+      () => setWidth((w) => w + (90 - w) * 0.18),
+      160,
     );
   };
 
@@ -32,22 +32,20 @@ export default function TopLoader() {
     hide.current = setTimeout(() => {
       setVisible(false);
       setWidth(0);
-    }, 350);
+    }, 280);
   };
 
-  // Page finished loading
   useEffect(() => {
     if (first.current) {
       first.current = false;
       start();
-      hide.current = setTimeout(done, 500);
+      hide.current = setTimeout(done, 420);
       return;
     }
     done();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
-  // Link clicked
   useEffect(() => {
     const onClick = (e: MouseEvent) => {
       if (e.defaultPrevented || e.button !== 0) return;
@@ -56,6 +54,7 @@ export default function TopLoader() {
       if (!a || a.target === "_blank" || a.hasAttribute("download")) return;
       const url = new URL(a.href, window.location.href);
       if (url.origin !== window.location.origin) return;
+      if (url.pathname === window.location.pathname && url.hash) return;
       if (url.pathname === window.location.pathname) return;
       start();
     };
@@ -72,7 +71,7 @@ export default function TopLoader() {
       className="pointer-events-none fixed left-0 top-0 z-[100] h-[3px] w-full"
     >
       <div
-        className="h-full bg-[#3b82f6] shadow-[0_0_8px_#3b82f6] transition-[width,opacity] duration-200 ease-out"
+        className="h-full bg-gold shadow-[0_0_8px_rgba(245,197,24,0.65)] transition-[width,opacity] duration-150 ease-out"
         style={{ width: `${width}%`, opacity: visible ? 1 : 0 }}
       />
     </div>

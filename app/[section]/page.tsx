@@ -182,7 +182,7 @@ export default async function SectionPage({ params }: SectionProps) {
           <div className="space-y-14 sm:space-y-16">
             {/* 1. Senior High School */}
             {shs && (
-              <section id="senior-high" className="scroll-mt-24">
+              <section id="senior-high" className="scroll-mt-[var(--site-header-offset)]">
                 <Reveal>
                   <GroupHeading
                     kicker="Grades 11 and 12"
@@ -218,7 +218,7 @@ export default async function SectionPage({ params }: SectionProps) {
             {/* 2. Colleges and schools */}
             <section
               id="colleges"
-              className="relative scroll-mt-24 overflow-x-clip"
+              className="relative scroll-mt-[var(--site-header-offset)] overflow-x-clip"
             >
               <span
                 aria-hidden="true"
@@ -265,7 +265,7 @@ export default async function SectionPage({ params }: SectionProps) {
 
             {/* 3. Office of the Academic Director */}
             {office && (
-              <section id="office" className="scroll-mt-24">
+              <section id="office" className="scroll-mt-[var(--site-header-offset)]">
                 <Reveal>
                   <GroupHeading
                     kicker="Academic support"
@@ -301,7 +301,7 @@ export default async function SectionPage({ params }: SectionProps) {
               const c = studentLifeCopy[p.slug];
               const flip = i % 2 === 1;
               return (
-                <section key={p.slug} id={p.slug} className="scroll-mt-24">
+                <section key={p.slug} id={p.slug} className="scroll-mt-[var(--site-header-offset)]">
                   <div className="grid items-center gap-8 md:grid-cols-2 md:gap-12">
                     <Reveal className={flip ? "md:order-2" : ""}>
                       <div className="border-l-4 border-gold pl-5">
