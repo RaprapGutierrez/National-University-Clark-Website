@@ -10,6 +10,9 @@ const montserrat = Montserrat({
 
 type Crumb = { label: string; href?: string };
 
+// Banner title font. Falls back to Montserrat if Clan Pro isn't loaded.
+const TITLE_FONT = '"Clan Pro", "ClanPro", Montserrat, sans-serif';
+
 export default function AcademicsBanner({
   title,
   subtitle,
@@ -122,6 +125,7 @@ export default function AcademicsBanner({
                 </p>
               )}
               <h1
+                style={{ fontFamily: TITLE_FONT }}
                 className={`mt-3 text-4xl font-extrabold leading-[1.08] tracking-tight sm:text-5xl ${
                   long ? "lg:text-5xl" : "lg:text-7xl"
                 }`}

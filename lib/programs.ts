@@ -5,8 +5,8 @@ export type Program = {
   image?: string;
   about: string[];
   careers?: string[];
-  mission: string;
-  vision: string;
+  mission?: string; // optional: only some programs show mission and vision
+  vision?: string;
   objectives: string[];
   outcomes: string[];
   // Format: "Label" or "Label · detail · detail"
@@ -23,8 +23,6 @@ function program(
     slug,
     title,
     about: ["Add the official overview of this program here."],
-    mission: "Add the official mission here.",
-    vision: "Add the official vision here.",
     objectives: [
       "Add program educational objective 1",
       "Add program educational objective 2",
@@ -45,18 +43,6 @@ const SABM_MISSION =
 
 const SABM_VISION =
   "To be one of the top ten (10) business schools in the country, producing graduates that will excel in their chosen careers in professional practice, industry and government, and who will be responsible citizens and members of the community.";
-
-const SEAS_MISSION =
-  "The College of Education, Arts and Sciences at National University is dedicated to advancing education, arts and sciences in the spirit of innovation and excellence. The college provides accessible, high-quality education, and nurturing a sense of responsibility to the community and nation. Guided by its commitment to sustainability and intellectual freedom, the college ignites the minds of students making them ethical and moral citizens, catalysts for positive change and empowering them as lifelong learners.";
-
-const SEAS_VISION =
-  "The College of Education, Arts and Sciences envisions being integral to the sustainable development and progress of the nation. Engaged in transformative endeavors and raising the banner of Dynamic Filipinism and innovation. It foresees international recognition in education and research through sustaining quality teaching, research, and service. The college leaves an indelible mark on the world while anchored in the pursuit of knowledge, intellectual freedom, social justice, and artistic expression.";
-
-const ENGINEERING_MISSION =
-  "The College of Engineering shall be known for producing competent, ethical, and responsible engineers responsive to the needs and aspirations of the country.";
-
-const ENGINEERING_VISION =
-  "The College of Engineering aims to produce graduates who can respond to the demands of the local society and the global market by providing adequate resources, including high-technology facilities, rich intellectual experiences, and excellent training.";
 
 const ACCOUNTING_OBJECTIVES = [
   "Make a positive change contribution over their lifetimes to the profession and society which they work.",
@@ -90,8 +76,6 @@ export const programsBySchool: Record<string, Program[]> = {
         "Provides general accounting education to students wanting to pursue a professional career in Management Accounting. Complies with the latest competency framework for professional accountants issued by the International Federation of Accountants (IFAC) through their International Education Standards.",
         "The graduates of this program are qualified to take assessments leading to certifications in Management Accounting given by global professional Management Accounting organizations. By working across functions, Management Accountants understand the links between operational activity, financial resource generation and consumption, and value generation and preservation.",
       ],
-      mission: SABM_MISSION,
-      vision: SABM_VISION,
       objectives: ACCOUNTING_OBJECTIVES,
       outcomes: [
         "Resolve business issues and problems, with a global and strategic perspective using their knowledge and technical proficiency in the areas of financial accounting and reporting, cost accounting and management, management accounting and control, taxation, and accounting information systems.",
@@ -107,8 +91,6 @@ export const programsBySchool: Record<string, Program[]> = {
         "Provides general accounting education to students wanting to pursue a professional career in Accountancy in general and in Public Accounting in particular.",
         "Complies with the latest competency framework for professional accountants issued by the International Federation of Accountants (IFAC) through their International Education Standards. The graduates of this program are qualified to take assessments leading to certifications in Accountancy given by the PRC-BOA, as mandated by the Accountancy Law of the Philippines (RA 9298), and other global professional Accountancy organizations.",
       ],
-      mission: SABM_MISSION,
-      vision: SABM_VISION,
       objectives: ACCOUNTING_OBJECTIVES,
       outcomes: [
         "Resolve business issues and problems, with a global and strategic perspective using their knowledge and technical proficiency in the areas of financial accounting and reporting, cost accounting and management, management accounting and control, taxation, and accounting information systems.",
@@ -182,10 +164,6 @@ export const programsBySchool: Record<string, Program[]> = {
       about: [
         "The Bachelor of Science in Tourism Management (BSTM) prepares students for professional roles in travel and tour operations, airlines and airports, events and MICE, destination and tourism product development, cruise and leisure services, and hospitality-related entrepreneurship. Students progress from general education and foundational tourism knowledge to specialized professional coursework, supervised industry practice, research, and graduation.",
       ],
-      mission:
-        "To be recognized as one of the country's premier learning institutions in the field of Tourism & Hospitality Management, renowned for its world-class learners and mentors with distinct Filipino character – Adaptable, Hardworking, and Persevering in life.",
-      vision:
-        "The College of Tourism and Hospitality Management commits to uphold a nurturing learning environment for the refinement and ultimate advancement of our future industry practitioners.",
       objectives: [
         "Implement plans, programs, and policies related to the tourism and hospitality industry in a supervisory or managerial capacity through adherence to pertinent laws, active community engagement, and research projects.",
         "Analyze and evaluate reports, trends, and risks associated with Tourism industry standards and practices.",
@@ -211,8 +189,6 @@ export const programsBySchool: Record<string, Program[]> = {
         "The AB Political Science program studies how power, government, and public policy shape society. Students learn political theory, comparative politics, public administration, and international relations, while building skills in research, writing, and public speaking.",
         "The program prepares graduates for roles in government service, public policy, advocacy, and community leadership, and for further study in related fields.",
       ],
-      mission: SEAS_MISSION,
-      vision: SEAS_VISION,
       objectives: [
         "Practice social, civic responsibility and human rights through competent leadership.",
         "Work in harmonious partnership with everyone without exhibiting any forms of discrimination.",
@@ -249,8 +225,6 @@ export const programsBySchool: Record<string, Program[]> = {
         "The AB Communication program develops students who can research, write, design, and deliver clear messages across print, broadcast, and digital media. Students study communication theories and practice, media content production, and communication management.",
         "The program prepares graduates for careers in media, public relations, corporate communication, and digital content, grounded in ethical and professional standards.",
       ],
-      mission: SEAS_MISSION,
-      vision: SEAS_VISION,
       objectives: [
         "Demonstrate Professional Excellence",
         "Exhibit Effective Leadership and Innovation",
@@ -276,8 +250,6 @@ export const programsBySchool: Record<string, Program[]> = {
         "The BS Psychology program introduces students to the scientific study of behavior and mental processes. Students learn the foundations of psychology, research methods, and human development, and how these apply to individuals, families, and communities.",
         "The program prepares graduates for helping professions and for further study, with an emphasis on care, ethics, and service to society.",
       ],
-      mission: SEAS_MISSION,
-      vision: SEAS_VISION,
       objectives: [], // no objectives provided, section is hidden
       outcomes: [
         "Productive helping professionals that promote development to the community.",
@@ -297,10 +269,6 @@ export const programsBySchool: Record<string, Program[]> = {
         "The BS Architecture program trains students in architectural design, building technology, and the built environment. Students develop design skills, technical knowledge, and an understanding of the laws, codes, and standards that guide the practice.",
         "The program prepares graduates for professional practice, construction management, and further study, with attention to sustainability and Filipino context.",
       ],
-      mission:
-        "Guided by National University’s commitment to nation-building and Dynamic Filipinism, the College of Architecture, Planning, and Sustainable Built Environment strives to educate future architects and environmental planners through a rigorous and innovative curriculum that integrates design excellence, technological competence, and cultural sensitivity. It fosters critical and ethical thinking, empowering graduates to address the challenges of resilience, sustainability, and equity in the built environment. It engages with communities, industry, and government in the co-creation of knowledge and solutions that improve quality of life. It also contributes to research and discourse that position Filipino architecture and environmental planning within global conversations while remaining grounded in local contexts.",
-      vision:
-        "The College of Architecture, Planning, and Sustainable Built Environment envisions itself as a leading center of architectural and environmental planning education in the Philippines—cultivating critical, ethical, and creative thinkers who advance resilient, sustainable, and inclusive built environments for the Filipino nation and beyond.",
       objectives: [
         "Identify global trends and development in architecture and planning.",
         "Participate as a team player in a multi-disciplinary and multi-nation milieu.",
@@ -372,8 +340,6 @@ export const programsBySchool: Record<string, Program[]> = {
         "The BS Civil Engineering program prepares students to plan, design, and build the infrastructure society depends on, such as roads, bridges, buildings, and water systems. Students build a foundation in mathematics, natural science, and engineering, then specialize in a chosen field of practice.",
         "The program prepares graduates for professional practice, project management, and further study, guided by ethics and a commitment to nation-building.",
       ],
-      mission: ENGINEERING_MISSION,
-      vision: ENGINEERING_VISION,
       objectives: [
         "Demonstrate knowledge and skills in civil engineering to solve complex problems using various available technology tools.",
         "Exhibit ethical commitment as a civil engineer following the fundamental principles and canons in the community contributing to nation-building.",
@@ -405,8 +371,6 @@ export const programsBySchool: Record<string, Program[]> = {
         "The BS Computer Engineering program combines electronics, computer hardware, and software to design and build computer-based systems. Students learn engineering fundamentals, programming, digital systems, and embedded and networked technologies.",
         "The program prepares graduates for careers in systems design, computing, and technology development, guided by ethics and a commitment to lifelong learning.",
       ],
-      mission: ENGINEERING_MISSION,
-      vision: ENGINEERING_VISION,
       objectives: [
         "Demonstrate knowledge and skills in computer engineering to solve complex problems using various technology tools.",
         "Exhibit ethical commitment as a computer engineer in the community contributing to nation-building.",
@@ -445,10 +409,6 @@ export const programsBySchool: Record<string, Program[]> = {
       about: [
         "The National University College of Allied Health (CAH) prepares healthcare professionals on public health promotion and disease prevention, management of healthcare systems, and evidence-based practice. The College embraces diversity and is committed to creating an atmosphere of inclusion and equity among its students and academic staff.",
       ],
-      mission:
-        "Guided by the core values of the University, the College of Allied Health commits itself to deliver innovative and responsive education towards improvement of the quality of life.",
-      vision:
-        "The National University College of Allied Health (CAH) envisions to be the leading academic institution embodying excellence in research, instruction, and community service that transform students into health care professionals recognized in the global community.",
       objectives: [
         "Develop the knowledge, skills, professional attitude, and values in the performance of clinical laboratory procedures needed to help the physician in the proper diagnosis, treatment, prognosis, and prevention of diseases.",
         "Acquire critical thinking skills in Medical Technology/Medical Laboratory Science.",

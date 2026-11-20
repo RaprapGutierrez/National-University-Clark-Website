@@ -92,11 +92,18 @@ export default async function ProgramPage({
   );
   const careers = data.careers ?? [];
 
+  // Mission and vision only show for programs that have them
+  const hasMissionVision = Boolean(data.mission && data.vision);
+
   // Sections that exist for this program (used by the sidebar jump links)
   const toc = [
     { id: "about", label: "About the program", show: true },
     { id: "careers", label: "Career opportunities", show: careers.length > 0 },
-    { id: "mission-vision", label: "Mission and vision", show: true },
+    {
+      id: "mission-vision",
+      label: "Mission and vision",
+      show: hasMissionVision,
+    },
     {
       id: "objectives",
       label: "Educational objectives",
@@ -160,30 +167,37 @@ export default async function ProgramPage({
             </section>
           )}
 
-          {/* Mission and vision */}
-          <section id="mission-vision" className="scroll-mt-24">
-            <Reveal>
-              <SectionTitle kicker="Our direction" title="Mission and vision" />
-            </Reveal>
-            <div className="grid gap-4 md:grid-cols-2">
-              <Reveal className="h-full">
-                <div className="h-full rounded-3xl border-2 border-gold bg-navy p-6 text-white shadow-lg sm:p-8">
-                  <p className="text-sm font-bold uppercase tracking-[0.2em] text-gold">
-                    Our Mission
-                  </p>
-                  <p className="mt-3 text-white/90">{data.mission}</p>
-                </div>
+          {/* Mission and vision (hidden when the program has none) */}
+          {hasMissionVision && (
+            <section id="mission-vision" className="scroll-mt-24">
+              <Reveal>
+                <SectionTitle
+                  kicker="Our direction"
+                  title="Mission and vision"
+                />
               </Reveal>
-              <Reveal delay={100} className="h-full">
-                <div className="h-full rounded-3xl border-2 border-navy bg-gold p-6 text-navy shadow-lg sm:p-8">
-                  <p className="text-sm font-bold uppercase tracking-[0.2em]">
-                    Our Vision
-                  </p>
-                  <p className="mt-3 font-medium text-navy/90">{data.vision}</p>
-                </div>
-              </Reveal>
-            </div>
-          </section>
+              <div className="grid gap-4 md:grid-cols-2">
+                <Reveal className="h-full">
+                  <div className="h-full rounded-3xl border-2 border-gold bg-navy p-6 text-white shadow-lg sm:p-8">
+                    <p className="text-sm font-bold uppercase tracking-[0.2em] text-gold">
+                      Our Mission
+                    </p>
+                    <p className="mt-3 text-white/90">{data.mission}</p>
+                  </div>
+                </Reveal>
+                <Reveal delay={100} className="h-full">
+                  <div className="h-full rounded-3xl border-2 border-navy bg-gold p-6 text-navy shadow-lg sm:p-8">
+                    <p className="text-sm font-bold uppercase tracking-[0.2em]">
+                      Our Vision
+                    </p>
+                    <p className="mt-3 font-medium text-navy/90">
+                      {data.vision}
+                    </p>
+                  </div>
+                </Reveal>
+              </div>
+            </section>
+          )}
 
           {/* Objectives */}
           {data.objectives.length > 0 && (
