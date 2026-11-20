@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Montserrat } from "next/font/google";
 import Navbar from "@/components/Navbar";
+import { Dots } from "@/components/Shapes";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -14,11 +15,14 @@ export default function AcademicsBanner({
   subtitle,
   label,
   crumbs,
+  decor = true,
 }: {
   title: string;
   subtitle?: string;
   label?: string;
   crumbs?: Crumb[];
+  /** Extra decorations like the home page hero. Pass decor={false} to turn them off. */
+  decor?: boolean;
 }) {
   // Long school names get a smaller title so they still fit
   const long = title.length > 28;
@@ -63,6 +67,52 @@ export default function AcademicsBanner({
               className="fill-gold"
             />
           </svg>
+
+          {decor && (
+            <>
+              {/* Corner shapes for phones and tablets, where the big shapes are hidden */}
+              <svg
+                aria-hidden="true"
+                viewBox="0 0 400 300"
+                preserveAspectRatio="xMaxYMax slice"
+                className="pointer-events-none absolute inset-y-0 right-0 -z-10 h-full w-2/3 select-none lg:hidden"
+              >
+                <polygon
+                  points="400,300 400,150 250,300"
+                  fill="#f5a000"
+                  fillOpacity="0.9"
+                />
+                <polygon
+                  points="400,300 400,230 330,300"
+                  className="fill-gold"
+                />
+                <polygon
+                  points="400,0 300,0 400,100"
+                  className="fill-royal"
+                  fillOpacity="0.45"
+                />
+              </svg>
+
+              {/* Extra decoration on the left, like the home page hero */}
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute -bottom-20 -left-24 -z-10 h-72 w-72 rounded-full border-[28px] border-gold/10"
+              />
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute -bottom-16 left-1/3 -z-10 h-40 w-40 rounded-full bg-royal/30"
+              />
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute left-[46%] top-12 -z-10 hidden h-4 w-4 rounded-full bg-gold lg:block"
+              />
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute left-8 top-10 -z-10 hidden h-3 w-3 rotate-45 bg-gold/80 md:block"
+              />
+              <Dots className="absolute bottom-6 left-6 -z-10 hidden text-white/15 md:block" />
+            </>
+          )}
 
           <div className="mx-auto max-w-6xl px-5 pb-12 pt-10 lg:pb-14 lg:pt-16">
             <div className="lg:max-w-[55%] xl:max-w-3xl">

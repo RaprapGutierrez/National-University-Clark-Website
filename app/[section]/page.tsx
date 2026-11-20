@@ -5,6 +5,13 @@ import type { Metadata } from "next";
 import { AboutOverview } from "@/components/about/AboutPages";
 import AcademicsBanner from "@/components/AcademicsBanner";
 import Reveal from "@/components/Reveal";
+import {
+  CardCorner,
+  CardDecor,
+  Dots,
+  GoldPanelShapes,
+  PanelShapes,
+} from "@/components/Shapes";
 import { sections, APPLY_URL } from "@/lib/site";
 
 const CONTACT_URL = "/about"; // change to your contact page
@@ -122,8 +129,9 @@ export default async function SectionPage({ params }: SectionProps) {
       <main className="mx-auto max-w-6xl px-5 py-8">
         {isAcademics ? (
           <Reveal>
-            <div className="mb-12 rounded-3xl border border-line bg-white p-6 shadow-sm sm:p-8">
-              <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+            <div className="relative mb-12 overflow-hidden rounded-3xl border border-line bg-white p-6 shadow-sm sm:p-8">
+              <CardDecor />
+              <div className="relative flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
                 <div className="border-l-4 border-gold pl-4">
                   <h2 className="text-2xl font-extrabold text-navy sm:text-3xl">
                     Find where you belong
@@ -155,8 +163,9 @@ export default async function SectionPage({ params }: SectionProps) {
           </Reveal>
         ) : (
           <Reveal>
-            <div className="mb-12 rounded-3xl border border-line bg-white p-6 shadow-sm sm:p-8">
-              <div className="border-l-4 border-gold pl-4">
+            <div className="relative mb-12 overflow-hidden rounded-3xl border border-line bg-white p-6 shadow-sm sm:p-8">
+              <CardDecor />
+              <div className="relative border-l-4 border-gold pl-4">
                 <p className="text-sm font-bold uppercase tracking-[0.2em] text-royal">
                   {copy.kicker}
                 </p>
@@ -184,8 +193,9 @@ export default async function SectionPage({ params }: SectionProps) {
                 <Reveal>
                   <Link
                     href={`/${data.slug}/${shs.slug}`}
-                    className="group grid items-center gap-6 rounded-3xl border-2 border-gold bg-navy p-6 text-white shadow-lg transition duration-300 ease-out hover:-translate-y-2 hover:shadow-2xl hover:shadow-navy/40 motion-reduce:transform-none sm:p-10 md:grid-cols-[1fr_auto]"
+                    className="group relative isolate grid items-center gap-6 overflow-hidden rounded-3xl border-2 border-gold bg-navy p-6 text-white shadow-lg transition duration-300 ease-out hover:-translate-y-2 hover:shadow-2xl hover:shadow-navy/40 motion-reduce:transform-none sm:p-10 md:grid-cols-[1fr_auto]"
                   >
+                    <PanelShapes />
                     <div>
                       <span className="inline-block rounded-full bg-gold/20 px-3 py-1 text-xs font-bold uppercase tracking-wider text-gold">
                         Start here
@@ -206,33 +216,50 @@ export default async function SectionPage({ params }: SectionProps) {
             )}
 
             {/* 2. Colleges and schools */}
-            <section id="colleges" className="scroll-mt-24">
-              <Reveal>
-                <GroupHeading
-                  kicker="College"
-                  title="Colleges and Schools"
-                  text="Pick the school that matches the course you want to take. Each page lists its programs, mission, and vision."
-                />
-              </Reveal>
-              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                {colleges.map((p, i) => (
-                  <Reveal key={p.slug} delay={(i % 3) * 100} className="h-full">
-                    <Link
-                      href={`/${data.slug}/${p.slug}`}
-                      className="group flex h-full flex-col rounded-3xl border-2 border-gold bg-navy p-6 text-white shadow-lg transition duration-300 ease-out hover:-translate-y-2 hover:shadow-2xl hover:shadow-navy/40 motion-reduce:transform-none"
+            <section
+              id="colleges"
+              className="relative scroll-mt-24 overflow-x-clip"
+            >
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute -right-10 top-0 h-44 w-44 rounded-full bg-gold/20"
+              />
+              <Dots className="absolute right-4 top-24 hidden text-royal/20 md:block" />
+              <div className="relative">
+                <Reveal>
+                  <GroupHeading
+                    kicker="College"
+                    title="Colleges and Schools"
+                    text="Pick the school that matches the course you want to take. Each page lists its programs, mission, and vision."
+                  />
+                </Reveal>
+                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                  {colleges.map((p, i) => (
+                    <Reveal
+                      key={p.slug}
+                      delay={(i % 3) * 100}
+                      className="h-full"
                     >
-                      <h3 className="text-xl font-extrabold text-gold">
-                        {p.title}
-                      </h3>
-                      <p className="mt-2 text-sm text-white/85">{p.summary}</p>
-                      <span className="mt-auto inline-block self-start pt-5">
-                        <span className="inline-block rounded-full bg-gold px-5 py-2 text-sm font-bold text-navy transition-transform duration-300 group-hover:translate-x-1">
-                          Learn more →
+                      <Link
+                        href={`/${data.slug}/${p.slug}`}
+                        className="group relative isolate flex h-full flex-col overflow-hidden rounded-3xl border-2 border-gold bg-navy p-6 text-white shadow-lg transition duration-300 ease-out hover:-translate-y-2 hover:shadow-2xl hover:shadow-navy/40 motion-reduce:transform-none"
+                      >
+                        <CardCorner />
+                        <h3 className="pr-8 text-xl font-extrabold text-gold">
+                          {p.title}
+                        </h3>
+                        <p className="mt-2 text-sm text-white/85">
+                          {p.summary}
+                        </p>
+                        <span className="mt-auto inline-block self-start pt-5">
+                          <span className="inline-block rounded-full bg-gold px-5 py-2 text-sm font-bold text-navy transition-transform duration-300 group-hover:translate-x-1">
+                            Learn more →
+                          </span>
                         </span>
-                      </span>
-                    </Link>
-                  </Reveal>
-                ))}
+                      </Link>
+                    </Reveal>
+                  ))}
+                </div>
               </div>
             </section>
 
@@ -249,8 +276,9 @@ export default async function SectionPage({ params }: SectionProps) {
                 <Reveal>
                   <Link
                     href={`/${data.slug}/${office.slug}`}
-                    className="group grid items-center gap-6 rounded-3xl border-2 border-navy bg-gold p-6 text-navy shadow-lg transition duration-300 ease-out hover:-translate-y-2 hover:shadow-2xl hover:shadow-navy/30 motion-reduce:transform-none sm:p-10 md:grid-cols-[1fr_auto]"
+                    className="group relative isolate grid items-center gap-6 overflow-hidden rounded-3xl border-2 border-navy bg-gold p-6 text-navy shadow-lg transition duration-300 ease-out hover:-translate-y-2 hover:shadow-2xl hover:shadow-navy/30 motion-reduce:transform-none sm:p-10 md:grid-cols-[1fr_auto]"
                   >
+                    <GoldPanelShapes />
                     <div>
                       <h3 className="text-2xl font-extrabold sm:text-3xl">
                         {office.title}
@@ -339,8 +367,9 @@ export default async function SectionPage({ params }: SectionProps) {
               <Reveal key={p.slug} delay={(i % 3) * 100} className="h-full">
                 <Link
                   href={`/${data.slug}/${p.slug}`}
-                  className="group flex h-full flex-col rounded-3xl border-2 border-gold bg-navy p-6 text-white shadow-lg transition duration-300 ease-out hover:-translate-y-2 hover:shadow-2xl hover:shadow-navy/40 motion-reduce:transform-none"
+                  className="group relative isolate flex h-full flex-col overflow-hidden rounded-3xl border-2 border-gold bg-navy p-6 text-white shadow-lg transition duration-300 ease-out hover:-translate-y-2 hover:shadow-2xl hover:shadow-navy/40 motion-reduce:transform-none"
                 >
+                  <CardCorner />
                   <span className="flex h-10 w-10 items-center justify-center rounded-full bg-gold text-sm font-extrabold text-navy">
                     {String(i + 1).padStart(2, "0")}
                   </span>
@@ -361,7 +390,8 @@ export default async function SectionPage({ params }: SectionProps) {
 
         {/* Enrollment block (all sections) */}
         <Reveal className="mt-14 sm:mt-20">
-          <section className="grid items-center gap-8 rounded-3xl bg-navy p-6 text-white sm:p-10 md:grid-cols-[1fr_auto]">
+          <section className="relative isolate grid items-center gap-8 overflow-hidden rounded-3xl bg-navy p-6 text-white sm:p-10 md:grid-cols-[1fr_auto]">
+            <PanelShapes />
             <div className="text-center md:text-left">
               <h2 className="text-2xl font-extrabold sm:text-3xl">
                 Ready to become a Nationalian?
