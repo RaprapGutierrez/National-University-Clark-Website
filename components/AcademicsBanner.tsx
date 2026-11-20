@@ -1,11 +1,16 @@
 import Link from "next/link";
-import { Montserrat } from "next/font/google";
+import { Montserrat, Barlow_Semi_Condensed } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import { Dots } from "@/components/Shapes";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
-  weight: ["500", "700", "800"],
+  weight: ["500", "700"],
+});
+
+const titleFont = Barlow_Semi_Condensed({
+  subsets: ["latin"],
+  weight: ["700"],
 });
 
 type Crumb = { label: string; href?: string };
@@ -122,7 +127,7 @@ export default function AcademicsBanner({
                 </p>
               )}
               <h1
-                className={`mt-3 text-4xl font-extrabold leading-[1.08] tracking-tight sm:text-5xl ${
+                className={`${titleFont.className} mt-3 text-4xl font-bold leading-[1.08] tracking-tight sm:text-5xl ${
                   long ? "lg:text-5xl" : "lg:text-7xl"
                 }`}
               >
