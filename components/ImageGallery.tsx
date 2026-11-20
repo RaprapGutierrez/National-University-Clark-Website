@@ -8,9 +8,22 @@ type Photo = { src: string; alt: string };
 const navButton =
   "inline-grid size-11 shrink-0 place-items-center rounded-full border border-gold/60 text-white transition-colors hover:bg-gold hover:text-navy focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold";
 
+const iconProps = {
+  width: 20,
+  height: 20,
+  viewBox: "0 0 24 24",
+  fill: "none",
+  stroke: "currentColor",
+  strokeWidth: 2.5,
+  strokeLinecap: "round" as const,
+  strokeLinejoin: "round" as const,
+  "aria-hidden": true,
+};
+
 export default function ImageGallery({ items }: { items: Photo[] }) {
   const dialog = useRef<HTMLDialogElement>(null);
   const trigger = useRef<HTMLButtonElement | null>(null);
+  const touchX = useRef<number | null>(null);
   const [selected, setSelected] = useState(0);
   const photo = items[selected];
 
@@ -20,7 +33,8 @@ export default function ImageGallery({ items }: { items: Photo[] }) {
 
   return (
     <>
-      <ul className="grid gap-4 sm:grid-cols-2">
+      {/* Posters are portrait, so tiles show the whole poster instead of a square crop */}
+      <ul className="grid grid-cols-2 gap-4 md:grid-cols-4">
         {items.map((p, i) => (
           <li key={p.src}>
             <button
@@ -31,17 +45,28 @@ export default function ImageGallery({ items }: { items: Photo[] }) {
                 setSelected(i);
                 dialog.current?.showModal();
               }}
-              className="group relative block aspect-square w-full overflow-hidden rounded-2xl border-2 border-gold bg-navy shadow-md transition duration-300 hover:-translate-y-1 hover:shadow-xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-royal motion-reduce:transform-none"
+              className="group relative block aspect-[3/4] w-full overflow-hidden rounded-2xl border-2 border-gold bg-navy shadow-md transition duration-300 hover:-translate-y-1 hover:shadow-xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-royal motion-reduce:transform-none"
             >
               <Image
                 src={p.src}
                 alt=""
                 fill
-                sizes="(min-width: 1024px) 400px, 50vw"
-                className="object-cover"
+                sizes="(min-width: 1024px) 240px, 45vw"
+                className="object-contain transition-transform duration-500 group-hover:scale-[1.03] motion-reduce:transform-none"
               />
-              <span className="absolute bottom-2 right-2 rounded-full bg-navy/90 px-3 py-1 text-xs font-bold text-gold">
-                Enlarge
+              <span className="absolute inset-x-0 bottom-0 flex items-center justify-between bg-gradient-to-t from-navy/95 to-transparent px-3 pb-2.5 pt-10 text-xs font-bold text-gold">
+                <span className="tabular-nums">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <span className="inline-flex items-center gap-1.5">
+                  Enlarge
+                  <svg {...iconProps} width="14" height="14">
+                    <path d="M15 3h6v6" />
+                    <path d="m21 3-7 7" />
+                    <path d="M9 21H3v-6" />
+                    <path d="m3 21 7-7" />
+                  </svg>
+                </span>
               </span>
             </button>
           </li>
@@ -70,13 +95,28 @@ export default function ImageGallery({ items }: { items: Photo[] }) {
           <button
             type="button"
             onClick={() => dialog.current?.close()}
-            className="inline-flex min-h-11 items-center px-2 text-sm font-semibold hover:underline focus-visible:outline-2 focus-visible:outline-gold"
+            className="inline-flex min-h-11 items-center gap-2 px-2 text-sm font-semibold hover:underline focus-visible:outline-2 focus-visible:outline-gold"
           >
             Close
+            <svg {...iconProps} width="16" height="16">
+              <path d="M18 6 6 18" />
+              <path d="m6 6 12 12" />
+            </svg>
           </button>
         </div>
 
-        <div className="relative h-[min(72dvh,52rem)] bg-[#0a1240]">
+        <div
+          className="relative h-[min(72dvh,52rem)] bg-[#0a1240]"
+          onTouchStart={(e) => {
+            touchX.current = e.touches[0].clientX;
+          }}
+          onTouchEnd={(e) => {
+            if (touchX.current === null) return;
+            const dx = e.changedTouches[0].clientX - touchX.current;
+            if (Math.abs(dx) > 40) move(dx < 0 ? 1 : -1);
+            touchX.current = null;
+          }}
+        >
           <Image
             key={photo.src}
             src={photo.src}
@@ -95,17 +135,7 @@ export default function ImageGallery({ items }: { items: Photo[] }) {
             onClick={() => move(-1)}
             className={navButton}
           >
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
-            >
+            <svg {...iconProps}>
               <path d="m15 18-6-6 6-6" />
             </svg>
           </button>
@@ -126,17 +156,7 @@ export default function ImageGallery({ items }: { items: Photo[] }) {
             onClick={() => move(1)}
             className={navButton}
           >
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
-            >
+            <svg {...iconProps}>
               <path d="m9 18 6-6-6-6" />
             </svg>
           </button>

@@ -2,7 +2,8 @@ import { APPLY_URL } from "./site";
 import { programsBySchool } from "./programs";
 
 export type Block =
-  | { type: "text"; heading?: string; body: string[] }
+  // lede: show the first paragraph larger, news style
+  | { type: "text"; heading?: string; lede?: boolean; body: string[] }
   | { type: "mv"; items: { label: string; text: string }[] }
   | {
       type: "cards";
@@ -22,7 +23,16 @@ export type Block =
       items: { title: string; text: string }[];
     }
   | { type: "table"; heading?: string; columns: string[]; rows: string[][] }
-  | { type: "stats"; items: { value: string; label: string }[] }
+  | {
+      type: "stats";
+      heading?: string;
+      // tone adds a gold, silver or bronze bar on top of the card
+      items: {
+        value: string;
+        label: string;
+        tone?: "gold" | "silver" | "bronze";
+      }[];
+    }
   | { type: "image"; src: string; alt: string; caption?: string }
   | {
       type: "carousel";
@@ -226,10 +236,24 @@ export const pageContent: Record<string, Block[]> = {
     {
       type: "text",
       heading: "4th Nationalian Friendship Games",
+      lede: true,
       body: [
         "LOOK: NU Clark athletes emerge CHAMPIONS in Badminton Men and Table Tennis Men, with SILVER winnings in Chess Women and BRONZE in Chess Men during the Day 2 of this year’s Nationalian Friendship Games (NFG) at NU Laguna.",
         "Yesterday, together with the KabaleNU athletes, their coaches and the campus directors, Dr. Arnel A. Diego, Executive Director; Prof. Priscilla M. Evangelista, Academic Director; and Prof. Richard John W. Hernandez, Academic Services Director; as well as the Campus Sports Development Coordinator, Dr. Francisco Gabriel Prevandos, and other campus unit officials attended the NFG Opening Ceremonies.",
         "📸 NU Clark Campus Sports Development Office, Coaches Cynthia Mae Ylarde & co.",
+      ],
+    },
+    {
+      type: "stats",
+      heading: "Day 2 results",
+      items: [
+        {
+          value: "2",
+          label: "Champions: Badminton Men, Table Tennis Men",
+          tone: "gold",
+        },
+        { value: "1", label: "Silver: Chess Women", tone: "silver" },
+        { value: "1", label: "Bronze: Chess Men", tone: "bronze" },
       ],
     },
     {
@@ -277,6 +301,7 @@ export const pageContent: Record<string, Block[]> = {
     {
       type: "text",
       heading: "Ready to show your talent and passion, Nationalians!",
+      lede: true,
       body: [
         "The PRISAA Tryouts are happening on November 9–13, 2026!",
         "This is your chance to showcase your skills, push your limits, and earn the opportunity to represent NU Clark in the upcoming PRISAA competitions.",

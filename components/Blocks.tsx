@@ -12,6 +12,13 @@ const STICKER =
   "drop-shadow(0 -4px 0 var(--color-gold, #f7c600)) " +
   "drop-shadow(0 10px 14px rgba(0, 0, 0, 0.25))";
 
+// Top bar color on a stat card, for medal results
+const TONE_BAR = {
+  gold: "bg-gold",
+  silver: "bg-[#c7ced9]",
+  bronze: "bg-[#cd7f32]",
+} as const;
+
 type CardItem = {
   title: string;
   text?: string;
@@ -41,9 +48,44 @@ function LogoCard({ item }: { item: CardItem }) {
   );
 }
 
-function Heading({ children }: { children?: React.ReactNode }) {
+// accent adds a gold bar on the left, used for news-style sections
+function Heading({
+  children,
+  accent = false,
+}: {
+  children?: React.ReactNode;
+  accent?: boolean;
+}) {
   if (!children) return null;
-  return <h2 className="mb-5 text-2xl font-extrabold text-navy">{children}</h2>;
+  return (
+    <h2
+      className={`mb-5 text-2xl font-extrabold text-navy ${
+        accent ? "border-l-4 border-gold pl-4" : ""
+      }`}
+    >
+      {children}
+    </h2>
+  );
+}
+
+function CameraIcon() {
+  return (
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      className="mt-0.5 shrink-0"
+    >
+      <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3z" />
+      <circle cx="12" cy="13" r="3" />
+    </svg>
+  );
 }
 
 // Card with a sticker photo on top and a blue and gold box below
@@ -97,17 +139,41 @@ function StickerCard({ item }: { item: CardItem }) {
 
 function BlockView({ block }: { block: Block }) {
   switch (block.type) {
-    case "text":
+    case "text": {
+      // Lines that start with the camera emoji are photo credits: shown small, under the text.
+      const credits = block.body.filter((p) => p.startsWith("📸"));
+      const paragraphs = block.body.filter((p) => !p.startsWith("📸"));
       return (
         <section>
-          <Heading>{block.heading}</Heading>
+          <Heading accent={block.lede}>{block.heading}</Heading>
           <div className="max-w-3xl space-y-4 text-slate">
-            {block.body.map((p, i) => (
-              <p key={i}>{p}</p>
-            ))}
+            {paragraphs.map((p, i) =>
+              block.lede && i === 0 ? (
+                <p
+                  key={i}
+                  className="text-xl font-semibold leading-snug text-navy"
+                >
+                  {p}
+                </p>
+              ) : (
+                <p key={i} className="leading-relaxed">
+                  {p}
+                </p>
+              ),
+            )}
           </div>
+          {credits.map((c, i) => (
+            <p
+              key={i}
+              className="mt-6 flex max-w-3xl items-start gap-2 border-t border-line pt-3 text-xs text-slate/80"
+            >
+              <CameraIcon />
+              <span>{c.replace(/^📸\s*/, "")}</span>
+            </p>
+          ))}
         </section>
       );
+    }
 
     case "mv":
       return (
@@ -275,13 +341,27 @@ function BlockView({ block }: { block: Block }) {
 
     case "stats":
       return (
-        <section className="grid gap-4 sm:grid-cols-3">
-          {block.items.map((s, i) => (
-            <div key={i} className="rounded-2xl bg-navy p-6 text-white">
-              <div className="text-4xl font-extrabold text-gold">{s.value}</div>
-              <div className="mt-1 text-sm text-white/80">{s.label}</div>
-            </div>
-          ))}
+        <section>
+          <Heading accent>{block.heading}</Heading>
+          <div className="grid gap-4 sm:grid-cols-3">
+            {block.items.map((s, i) => (
+              <div
+                key={i}
+                className="relative overflow-hidden rounded-2xl bg-navy p-6 text-white"
+              >
+                {s.tone && (
+                  <span
+                    className={`absolute inset-x-0 top-0 h-1.5 ${TONE_BAR[s.tone]}`}
+                    aria-hidden="true"
+                  />
+                )}
+                <div className="text-4xl font-extrabold text-gold">
+                  {s.value}
+                </div>
+                <div className="mt-1 text-sm text-white/80">{s.label}</div>
+              </div>
+            ))}
+          </div>
         </section>
       );
 
