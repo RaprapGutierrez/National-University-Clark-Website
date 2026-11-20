@@ -9,8 +9,8 @@ import {
   CardCorner,
   CardDecor,
   Dots,
-  GoldPanelShapes,
   PanelShapes,
+  WidePanelShapes,
 } from "@/components/Shapes";
 import { sections, APPLY_URL } from "@/lib/site";
 
@@ -195,7 +195,7 @@ export default async function SectionPage({ params }: SectionProps) {
                     href={`/${data.slug}/${shs.slug}`}
                     className="group relative isolate grid items-center gap-6 overflow-hidden rounded-3xl border-2 border-gold bg-navy p-6 text-white shadow-lg transition duration-300 ease-out hover:-translate-y-2 hover:shadow-2xl hover:shadow-navy/40 motion-reduce:transform-none sm:p-10 md:grid-cols-[1fr_auto]"
                   >
-                    <PanelShapes />
+                    <WidePanelShapes tone="navy" />
                     <div>
                       <span className="inline-block rounded-full bg-gold/20 px-3 py-1 text-xs font-bold uppercase tracking-wider text-gold">
                         Start here
@@ -278,7 +278,7 @@ export default async function SectionPage({ params }: SectionProps) {
                     href={`/${data.slug}/${office.slug}`}
                     className="group relative isolate grid items-center gap-6 overflow-hidden rounded-3xl border-2 border-navy bg-gold p-6 text-navy shadow-lg transition duration-300 ease-out hover:-translate-y-2 hover:shadow-2xl hover:shadow-navy/30 motion-reduce:transform-none sm:p-10 md:grid-cols-[1fr_auto]"
                   >
-                    <GoldPanelShapes />
+                    <WidePanelShapes tone="gold" />
                     <div>
                       <h3 className="text-2xl font-extrabold sm:text-3xl">
                         {office.title}

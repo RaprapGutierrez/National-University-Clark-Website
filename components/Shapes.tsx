@@ -37,7 +37,11 @@ export function PanelShapes() {
         preserveAspectRatio="xMaxYMin slice"
         className="pointer-events-none absolute right-0 top-0 -z-10 h-full w-2/3 select-none"
       >
-        <polygon points="400,0 220,0 400,200" fill="#f5a000" fillOpacity="0.9" />
+        <polygon
+          points="400,0 220,0 400,200"
+          fill="#f5a000"
+          fillOpacity="0.9"
+        />
         <polygon points="400,0 330,0 400,70" className="fill-gold" />
       </svg>
       <svg
@@ -57,27 +61,72 @@ export function PanelShapes() {
   );
 }
 
-// Same idea for a gold panel: navy and white triangles
-export function GoldPanelShapes() {
+// For wide, short link cards (Senior High, Academic Office).
+// Shapes stay on the right (and bottom right on phones), so they never sit under the text.
+export function WidePanelShapes({ tone }: { tone: "navy" | "gold" }) {
+  const navy = tone === "navy";
   return (
     <>
+      {/* Phones: small corner at the bottom right, next to the button */}
+      <svg
+        aria-hidden="true"
+        viewBox="0 0 80 80"
+        className="pointer-events-none absolute bottom-0 right-0 -z-10 h-16 w-16 select-none sm:hidden"
+      >
+        {navy ? (
+          <>
+            <polygon
+              points="80,80 80,20 20,80"
+              fill="#f5a000"
+              fillOpacity="0.9"
+            />
+            <polygon points="80,80 80,55 55,80" className="fill-gold" />
+          </>
+        ) : (
+          <>
+            <polygon
+              points="80,80 80,20 20,80"
+              className="fill-navy"
+              fillOpacity="0.12"
+            />
+            <polygon
+              points="80,80 80,55 55,80"
+              className="fill-navy"
+              fillOpacity="0.85"
+            />
+          </>
+        )}
+      </svg>
+      {/* Tablet and desktop: slim triangles on the right edge */}
       <svg
         aria-hidden="true"
         viewBox="0 0 400 300"
         preserveAspectRatio="xMaxYMin slice"
-        className="pointer-events-none absolute right-0 top-0 -z-10 h-full w-2/3 select-none"
+        className="pointer-events-none absolute right-0 top-0 -z-10 hidden h-full w-2/5 select-none sm:block lg:w-1/3"
       >
-        <polygon points="400,0 220,0 400,200" className="fill-navy" fillOpacity="0.12" />
-        <polygon points="400,0 330,0 400,70" className="fill-navy" fillOpacity="0.85" />
-      </svg>
-      <svg
-        aria-hidden="true"
-        viewBox="0 0 300 300"
-        preserveAspectRatio="xMinYMax slice"
-        className="pointer-events-none absolute bottom-0 left-0 -z-10 h-2/3 w-1/2 select-none"
-      >
-        <polygon points="0,300 0,120 180,300" className="fill-white" fillOpacity="0.28" />
-        <polygon points="0,300 0,220 80,300" className="fill-navy" fillOpacity="0.85" />
+        {navy ? (
+          <>
+            <polygon
+              points="400,0 220,0 400,200"
+              fill="#f5a000"
+              fillOpacity="0.9"
+            />
+            <polygon points="400,0 330,0 400,70" className="fill-gold" />
+          </>
+        ) : (
+          <>
+            <polygon
+              points="400,0 220,0 400,200"
+              className="fill-navy"
+              fillOpacity="0.12"
+            />
+            <polygon
+              points="400,0 330,0 400,70"
+              className="fill-navy"
+              fillOpacity="0.85"
+            />
+          </>
+        )}
       </svg>
     </>
   );
