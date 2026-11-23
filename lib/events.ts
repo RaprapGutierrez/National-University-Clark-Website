@@ -18,28 +18,64 @@ export type EventPost = {
   }[];
   /** Buttons, e.g. register forms or the Facebook post */
   links?: { label: string; href: string }[];
-  /** Facebook video link (opens in a new tab, see note below) */
+  /** Facebook video link (opens in a new tab) */
   video?: string;
+  /** Video file saved in /public/events/ (plays on the page) */
+  videoSrc?: string;
   hashtags?: string[];
   credits?: string[];
 };
 
 const HASHTAGS = ["#NUClarkSDAO", "#NUClark", "#EducationThatWorks"];
+const PASKO_TAGS = ["#PaskungKabaleNU2026", "#NUClark", "#EducationThatWorks"];
 
-const DEANS_LIST_BODY = [
-  "The Student Development and Activities Office is pleased to announce the official list of Dean’s List Awardees for the First Term of Academic Year 2026–2027.",
-  "With great pride and admiration, we extend our heartfelt congratulations to all awardees. Your perseverance, and unwavering commitment to academic excellence have truly earned you this recognition. Your achievements stand as a testament to the determination and discipline that define true Nationalian excellence.",
-  "As we honor your success, may this milestone continue to inspire you to strive higher and pursue greater accomplishments in the journey ahead.",
-];
+const IRR_NOTE =
+  "Complete IRR and registration/submission details are in the comment section of our Facebook post.";
 
-const DEANS_LIST_TAGS = [
-  "#NUCGantingPagal",
-  "#NUClarkSDAO",
-  "#NUClark",
-  "#EducationThatWorks",
-];
+/** tree-lighting-01.jpg ... tree-lighting-25.jpg */
+const TREE_LIGHTING_COUNT = 25;
+const treeLighting = Array.from({ length: TREE_LIGHTING_COUNT }, (_, i) => {
+  const n = String(i + 1).padStart(2, "0");
+  return `/events/christmas-tree-lighting/tree-lighting-${n}.jpg`;
+});
 
 export const events: EventPost[] = [
+  // ---------------------------------------------------------------
+  // LATEST EVENT
+  // ---------------------------------------------------------------
+  {
+    slug: "christmas-tree-lighting-ceremony",
+    tag: "Highlights",
+    title: "Christmas Tree Lighting Ceremony",
+    date: "November 2026",
+    venue: "NU Clark",
+    body: [
+      "As the lights begin to glow, so does the spirit of the season.",
+      "The NU Clark community gathered to celebrate the Christmas Tree Lighting Ceremony, a beautiful reminder of hope, joy, and togetherness.",
+      "As we officially welcome the most wonderful time of the year, may the warm glow of Christmas inspire kindness, gratitude, and meaningful moments with the people who matter most.",
+      "From all of us at NU Clark, may your Christmas season be merry, meaningful, and filled with blessings. 💛💙",
+    ],
+    // Main picture: tree-lighting-01.jpg
+    images: [
+      {
+        src: treeLighting[0],
+        alt: "Christmas Tree Lighting Ceremony at NU Clark",
+      },
+    ],
+    // More pictures: tree-lighting-02.jpg to tree-lighting-25.jpg
+    gallery: [
+      {
+        title: "More photos",
+        items: treeLighting.slice(1).map((src, i) => ({
+          src,
+          alt: `Christmas Tree Lighting Ceremony photo ${i + 2}`,
+          caption: `Photo ${i + 2} of ${TREE_LIGHTING_COUNT}`,
+        })),
+      },
+    ],
+    hashtags: ["#NUClark", "#EducationThatWorks"],
+  },
+
   {
     slug: "micd-up-events-hosting-workshop",
     tag: "Upcoming event",
@@ -73,9 +109,197 @@ export const events: EventPost[] = [
         href: "https://forms.cloud.microsoft/r/aZKvrrTsft",
       },
     ],
-    hashtags: ["#NUClarkSDAO", "#NUClark", "#EducationThatWorks"],
+    hashtags: HASHTAGS,
   },
 
+  // ---------------------------------------------------------------
+  // PASKUNG KABALENU 2026
+  // ---------------------------------------------------------------
+  {
+    slug: "jingle-all-the-nuway",
+    tag: "Upcoming event",
+    title:
+      "Jingle All the NU-Way: Four Days of Christmas Magic at Paskung KabaleNU",
+    date: "December 1–4, 2026",
+    venue: "NU Clark",
+    body: [
+      "Four days of Christmas festivities, surprises, laughter, and memories are coming to NU Clark!",
+      "Join us as we celebrate the season and the Nationalian community at Paskung KabaleNU.",
+    ],
+    images: [
+      {
+        src: "/events/paskung-kabalenu/jingle-all-the-nuway.jpg",
+        alt: "Jingle All the NU-Way: Four Days of Christmas Magic at Paskung KabaleNU, December 1 to 4, 2026",
+      },
+    ],
+    credits: ["Graphics: Bea Mei Cabral", "Written by: Marc Paguia"],
+    hashtags: PASKO_TAGS,
+  },
+
+  {
+    slug: "paskung-kabalenu-prizes",
+    tag: "Upcoming event",
+    title:
+      "Paskung KabaleNU 2026 Just Got a Whole Lot Brighter, and Significantly More Rewarding!",
+    date: "December 1–4, 2026",
+    body: [
+      "The University Student Council and the Senior High School Student Government are bringing bigger prizes to this year's Paskung KabaleNU competitions.",
+      "Paskong All-Out: up to an ₱8,000 SM Gift Card for the Overall Champion.",
+      "Parol Making: Champion ₱5,000, 1st Runner-Up ₱3,000, 2nd Runner-Up ₱2,000, and 3rd Runner-Up ₱1,500 in SM Gift Cards.",
+      "Bibingka Fest: Champion ₱3,000, 1st Runner-Up ₱2,000, and 2nd Runner-Up ₱1,500 in SM Gift Cards.",
+      "Paskong Pelikula: 1st Place ₱3,000, 2nd Place ₱2,000, 3rd Place ₱1,000, and 4th and 5th Place ₱500 each in SM Gift Cards.",
+      "The 12 Days of Christmas Hunt: a high-capacity powerbank, wireless earbuds, a handheld fan, and many more!",
+      "Questions? Email usc@nu-clark.edu.ph or message @nucusc.",
+    ],
+    images: [
+      {
+        src: "/events/paskung-kabalenu/prizes-paskong-all-out.jpg",
+        alt: "Paskong All-Out prizes",
+      },
+      {
+        src: "/events/paskung-kabalenu/prizes-parol-making.jpg",
+        alt: "Parol Making prizes: Champion ₱5,000 SM Gift Card",
+      },
+      {
+        src: "/events/paskung-kabalenu/prizes-bibingka-fest.jpg",
+        alt: "Bibingka Fest prizes: Champion ₱3,000 SM Gift Card",
+      },
+      {
+        src: "/events/paskung-kabalenu/prizes-paskong-pelikula.jpg",
+        alt: "Paskong Pelikula prizes: 1st Place ₱3,000 SM Gift Card",
+      },
+      {
+        src: "/events/paskung-kabalenu/prizes-12-days-hunt.jpg",
+        alt: "The 12 Days of Christmas Hunt prizes: powerbank, wireless earbuds, handheld fan",
+      },
+    ],
+    links: [{ label: "Email the USC", href: "mailto:usc@nu-clark.edu.ph" }],
+    credits: ["Image credit: Lady Sophia Molina"],
+    hashtags: PASKO_TAGS,
+  },
+
+  {
+    slug: "paskong-pelikula",
+    tag: "Upcoming event",
+    title: "Paskong Pelikula",
+    date: "Deadline: November 30, 2026",
+    body: [
+      "Create a short vertical film inspired by the theme “Alab ng Puso, Liyab ng Pag-asa,” highlighting gratitude, joy, and unity.",
+      IRR_NOTE,
+    ],
+    images: [
+      {
+        src: "/events/paskung-kabalenu/paskong-pelikula.jpg",
+        alt: "Paskong Pelikula poster",
+      },
+    ],
+    credits: ["Image credit: Bea Mei Cabral"],
+    hashtags: PASKO_TAGS,
+  },
+
+  {
+    slug: "parol-making-contest",
+    tag: "Upcoming event",
+    title: "Parol Making Contest",
+    date: "December 1, 2026",
+    body: [
+      "Programs are invited to create a large parol that shows creativity, craftsmanship, innovation, teamwork, and Kapampangan Christmas identity under the theme “Alab ng Puso, Liyab ng Pag-asa.”",
+      IRR_NOTE,
+    ],
+    images: [
+      {
+        src: "/events/paskung-kabalenu/parol-making.jpg",
+        alt: "Parol Making Contest poster",
+      },
+    ],
+    credits: ["Image credit: Bea Mei Cabral"],
+    hashtags: PASKO_TAGS,
+  },
+
+  {
+    slug: "bibingka-fest",
+    tag: "Upcoming event",
+    title: "Bibingka Fest",
+    date: "December 1, 2026",
+    body: [
+      "Calling all student foodies and aspiring chefs! Represent your school in a live cooking competition and create an innovative bibingka while preserving its Kapampangan identity.",
+      IRR_NOTE,
+    ],
+    images: [
+      {
+        src: "/events/paskung-kabalenu/bibingka-fest.jpg",
+        alt: "Bibingka Fest poster",
+      },
+    ],
+    credits: ["Image credit: Bea Mei Cabral"],
+    hashtags: PASKO_TAGS,
+  },
+
+  {
+    slug: "pawskung-tiangge",
+    tag: "Upcoming event",
+    title: "PAWSkung Tiangge",
+    date: "December 1–4, 2026",
+    body: [
+      "Our invited concessionaires are coming to campus! Visit between classes, support the concessionaires, and enjoy snacks, keychains, trinkets, and holiday finds.",
+    ],
+    images: [
+      {
+        src: "/events/paskung-kabalenu/pawskung-tiangge.jpg",
+        alt: "PAWSkung Tiangge poster",
+      },
+    ],
+    credits: ["Image credit: Bea Mei Cabral"],
+    hashtags: PASKO_TAGS,
+  },
+
+  {
+    slug: "12-days-of-christmas-hunt",
+    tag: "Upcoming event",
+    title: "The 12 Days of Christmas Hunt",
+    date: "December 2, 2026",
+    body: [
+      "A campus-wide hunt with hidden tokens and clues! Form your squad, decode the clues, and race to find the prizes.",
+      "Turn on post notifications so you don't miss any updates.",
+      IRR_NOTE,
+    ],
+    images: [
+      {
+        src: "/events/paskung-kabalenu/12-days-hunt.jpg",
+        alt: "The 12 Days of Christmas Hunt poster",
+      },
+    ],
+    credits: ["Image credit: Bea Mei Cabral"],
+    hashtags: PASKO_TAGS,
+  },
+
+  {
+    slug: "paskong-all-out",
+    tag: "Upcoming event",
+    title: "Paskong All-Out",
+    date: "December 4, 2026",
+    body: [
+      "Schools, bring your dancers, singers, and rappers for a Christmas performance under the theme “Alab ng Puso, Liyab ng Pag-asa.”",
+    ],
+    images: [
+      {
+        src: "/events/paskung-kabalenu/paskong-all-out.jpg",
+        alt: "Paskong All-Out poster",
+      },
+    ],
+    links: [
+      {
+        label: "IRR, criteria, and entry forms",
+        href: "https://tinyurl.com/2b94nzdb",
+      },
+    ],
+    credits: ["Image credit: Bea Mei Cabral"],
+    hashtags: PASKO_TAGS,
+  },
+
+  // ---------------------------------------------------------------
+  // EARLIER POSTS
+  // ---------------------------------------------------------------
   {
     slug: "plugged-into-progress-look-back",
     tag: "A look back",
@@ -86,199 +310,9 @@ export const events: EventPost[] = [
       "Relive the highlights of the Term 1 Executive Assembly last October 29, 2026, as College and SHS RSOs and AcSOs came together to strengthen organizational leadership, build meaningful connections, and embrace greater accountability.",
       "The journey continues. Stay plugged into purpose!",
     ],
+    videoSrc: "/events/plugged-into-progress/plugged-into-progress.mp4",
     video: "https://www.facebook.com/share/r/1E6bjXCCps/",
     hashtags: HASHTAGS,
-  },
-
-  {
-    slug: "ganting-pagal-engineering",
-    tag: "Dean’s List",
-    title: "Ganting Pagal 2026: School of Engineering",
-    images: [
-      {
-        src: "/events/ganting-pagal/cover.jpg",
-        alt: "Ganting Pagal, First Term A.Y. 2026-2027, NU Clark SDAO",
-      },
-    ],
-    gallery: [
-      {
-        title: "BS Civil Engineering",
-        items: [
-          {
-            src: "/events/ganting-pagal/civil-1st-first-honors.jpg",
-            alt: "BS Civil Engineering, First Year, First Honors",
-            caption: "First Year · First Honors",
-          },
-          {
-            src: "/events/ganting-pagal/civil-1st-second-honors-a.jpg",
-            alt: "BS Civil Engineering, First Year, Second Honors, ranks 1 to 4",
-            caption: "First Year · Second Honors (1 of 2)",
-          },
-          {
-            src: "/events/ganting-pagal/civil-1st-second-honors-b.jpg",
-            alt: "BS Civil Engineering, First Year, Second Honors, ranks 5 to 7",
-            caption: "First Year · Second Honors (2 of 2)",
-          },
-          {
-            src: "/events/ganting-pagal/civil-2nd-first-honors.jpg",
-            alt: "BS Civil Engineering, Second Year, First Honors",
-            caption: "Second Year · First Honors",
-          },
-          {
-            src: "/events/ganting-pagal/civil-2nd-second-honors.jpg",
-            alt: "BS Civil Engineering, Second Year, Second Honors",
-            caption: "Second Year · Second Honors",
-          },
-          {
-            src: "/events/ganting-pagal/civil-4th-first-honors.jpg",
-            alt: "BS Civil Engineering, Fourth Year, First Honors",
-            caption: "Fourth Year · First Honors",
-          },
-          {
-            src: "/events/ganting-pagal/civil-4th-second-honors.jpg",
-            alt: "BS Civil Engineering, Fourth Year, Second Honors",
-            caption: "Fourth Year · Second Honors",
-          },
-        ],
-      },
-      {
-        title: "BS Computer Engineering",
-        items: [
-          {
-            src: "/events/ganting-pagal/comp-1st-first-honors.jpg",
-            alt: "BS Computer Engineering, First Year, First Honors",
-            caption: "First Year · First Honors",
-          },
-          {
-            src: "/events/ganting-pagal/comp-1st-second-honors.jpg",
-            alt: "BS Computer Engineering, First Year, Second Honors",
-            caption: "First Year · Second Honors",
-          },
-          {
-            src: "/events/ganting-pagal/comp-2nd-first-honors.jpg",
-            alt: "BS Computer Engineering, Second Year, First Honors",
-            caption: "Second Year · First Honors",
-          },
-          {
-            src: "/events/ganting-pagal/comp-2nd-second-honors.jpg",
-            alt: "BS Computer Engineering, Second Year, Second Honors",
-            caption: "Second Year · Second Honors",
-          },
-          {
-            src: "/events/ganting-pagal/comp-3rd-first-honors.jpg",
-            alt: "BS Computer Engineering, Third Year, First Honors",
-            caption: "Third Year · First Honors",
-          },
-          {
-            src: "/events/ganting-pagal/comp-3rd-second-honors.jpg",
-            alt: "BS Computer Engineering, Third Year, Second Honors",
-            caption: "Third Year · Second Honors",
-          },
-          {
-            src: "/events/ganting-pagal/comp-4th-first-honors.jpg",
-            alt: "BS Computer Engineering, Fourth Year, First Honors",
-            caption: "Fourth Year · First Honors",
-          },
-          {
-            src: "/events/ganting-pagal/comp-4th-second-honors.jpg",
-            alt: "BS Computer Engineering, Fourth Year, Second Honors",
-            caption: "Fourth Year · Second Honors",
-          },
-        ],
-      },
-    ],
-    date: "Term 1 | A.Y. 2026–2027",
-    venue: "BS Civil Engineering · BS Computer Engineering",
-    body: [
-      "Recognizing Excellence. Celebrating Achievement.",
-      ...DEANS_LIST_BODY,
-    ],
-    links: [
-      {
-        label: "See the Facebook post",
-        href: "https://m.facebook.com/story.php?story_fbid=pfbid02EyZFsD86WiJovRP7h2MqVUCFySFF94ZKDHqZAxrTuHFPzyGUxwEC9sFRQo5n1NGCl&id=100093697247608&mibextid=ZbWKwL",
-      },
-    ],
-    hashtags: DEANS_LIST_TAGS,
-  },
-
-  {
-    slug: "ganting-pagal-satc",
-    tag: "Dean’s List",
-    title:
-      "Ganting Pagal 2026: School of Architecture, Technology, and Computing",
-    date: "Term 1 | A.Y. 2026–2027",
-    venue: "BS Architecture · BS Computer Science · BS Information Technology",
-    body: [
-      "Recognizing Excellence. Celebrating Achievement.",
-      ...DEANS_LIST_BODY,
-    ],
-    links: [
-      {
-        label: "See the Facebook post",
-        href: "https://m.facebook.com/story.php?story_fbid=pfbid02UP2L415faWW9ceYTgevuHMsQHFr6qZszMSBNVsnA7rCC77Uf25Y6gsVvNhirJ3tdl&id=100093697247608&mibextid=ZbWKwL",
-      },
-    ],
-    hashtags: DEANS_LIST_TAGS,
-  },
-
-  {
-    slug: "ganting-pagal-sabm",
-    tag: "Dean’s List",
-    title:
-      "Ganting Pagal 2026: School of Accountancy, Business, and Management",
-    date: "Term 1 | A.Y. 2026–2027",
-    venue:
-      "BS Accountancy · BS Management Accounting · BS Business Administration (Major in Marketing Management) · BS Tourism Management",
-    body: [
-      "Recognizing Excellence. Celebrating Achievement.",
-      ...DEANS_LIST_BODY,
-    ],
-    links: [
-      {
-        label: "See the Facebook post",
-        href: "https://m.facebook.com/story.php?story_fbid=pfbid02ZKhZv1G4YaavVCbiFr6Sq33KYoN49odKH15x2pXwUypkEdnJuSXR6y8W7JcawEVzl&id=100093697247608&mibextid=ZbWKwL",
-      },
-    ],
-    hashtags: DEANS_LIST_TAGS,
-  },
-
-  {
-    slug: "ganting-pagal-dentistry-allied-health",
-    tag: "Dean’s List",
-    title: "Ganting Pagal 2026: School of Dentistry and Allied Health",
-    date: "Term 1 | A.Y. 2026–2027",
-    venue: "BS Medical Technology · Doctor of Dental Medicine",
-    body: [
-      "Recognizing Excellence. Celebrating Achievement.",
-      ...DEANS_LIST_BODY,
-    ],
-    links: [
-      {
-        label: "See the Facebook post",
-        href: "https://m.facebook.com/story.php?story_fbid=pfbid023Q2M11Fuy5FXEPVtx11i7UyCTp2X8zThX1aHsafwyFBwaTZXdeS8hBoiYcJJbHNUl&id=100093697247608&mibextid=ZbWKwL",
-      },
-    ],
-    hashtags: DEANS_LIST_TAGS,
-  },
-
-  {
-    slug: "ganting-pagal-seas",
-    tag: "Dean’s List",
-    title: "Ganting Pagal 2026: School of Education, Arts, and Sciences",
-    date: "Term 1 | A.Y. 2026–2027",
-    venue: "AB Communication · AB Political Science · BS Psychology",
-    body: [
-      "Recognizing Excellence. Celebrating Achievement.",
-      ...DEANS_LIST_BODY,
-    ],
-    links: [
-      {
-        label: "See the Facebook post",
-        href: "https://m.facebook.com/story.php?story_fbid=pfbid027zH6H7JTLEvZnkETQjmsHm57tprmYLQEcUkV96Pcx5xhf929GzTZbupymRSxKPi7l&id=100093697247608&mibextid=ZbWKwL",
-      },
-    ],
-    hashtags: DEANS_LIST_TAGS,
   },
 
   {

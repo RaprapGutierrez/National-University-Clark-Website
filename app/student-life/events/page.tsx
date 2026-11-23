@@ -7,7 +7,7 @@ import { events } from "@/lib/events";
 export const metadata: Metadata = {
   title: "Events | NU Clark Student Life",
   description:
-    "Keep up with what's happening at NU Clark, from workshops and assemblies to Dean's List announcements.",
+    "Keep up with what's happening at NU Clark, from workshops and assemblies to Christmas celebrations and Paskung KabaleNU.",
 };
 
 const crumbs = [
@@ -104,6 +104,17 @@ export default function EventsPage() {
                         </div>
                       )}
 
+                      {/* Video saved in /public/events/ */}
+                      {e.videoSrc && (
+                        <video
+                          controls
+                          playsInline
+                          preload="metadata"
+                          src={e.videoSrc}
+                          className="mt-6 w-full rounded-2xl border-2 border-gold bg-black"
+                        />
+                      )}
+
                       {(e.links?.length || e.video) && (
                         <div className="mt-6 flex flex-wrap gap-3">
                           {e.video && (
@@ -165,10 +176,12 @@ export default function EventsPage() {
                       </div>
                     )}
                   </div>
+
+                  {/* Photo gallery */}
                   {e.gallery && e.gallery.length > 0 && (
                     <div className="border-t border-line px-6 pb-8 pt-6 sm:px-8">
                       <p className="mb-6 text-sm text-slate">
-                        Tap a picture to see the full list of names.
+                        Tap a picture to view it full size.
                       </p>
                       <div className="space-y-8">
                         {e.gallery.map((group) => (
