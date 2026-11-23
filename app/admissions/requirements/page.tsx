@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import AcademicsBanner from "@/components/AcademicsBanner";
-import AdmissionsTabs from "@/components/AdmissionsTabs";
 import Reveal from "@/components/Reveal";
 import { APPLY_URL, requirementGroups } from "@/lib/admissions";
 
@@ -25,7 +24,6 @@ export default function RequirementsPage() {
         label="Admissions"
         crumbs={crumbs}
       />
-      <AdmissionsTabs active="requirements" />
 
       <main className="mx-auto max-w-6xl px-5 py-8">
         <div className="grid gap-6 md:grid-cols-2">

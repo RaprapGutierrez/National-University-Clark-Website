@@ -91,53 +91,6 @@ export const requirementGroups = [
   },
 ];
 
-export const academicScholarships = [
-  {
-    id: 259,
-    name: "Doña Miguela M. Jhocson Blue Scholar",
-    for: "Graduates with High Honors",
-    benefits: [
-      "100% discount on Tuition Fee",
-      "100% discount on Miscellaneous Fee",
-    ],
-    requirements: [
-      "Certificate from the high school, signed by the Principal, stating the award received",
-      "Original Grade 12 Report Card (incoming freshmen)",
-      "Certificate of Good Moral Character from high school (incoming freshmen)",
-      "Photocopy of PSA Birth Certificate",
-      "No grade lower than 90 in any subject",
-    ],
-    note: "Can be kept for 4 or 5 years (depending on the degree program) if the student meets the University's retention requirements.",
-  },
-  {
-    id: 260,
-    name: "Doña Pacita J. Ocampo White Scholar",
-    for: "Graduates with Honors",
-    benefits: ["100% discount on Tuition Fee"],
-    requirements: [
-      "Certificate from the high school, signed by the Principal, stating the award received",
-      "Original Grade 12 Report Card (incoming freshmen)",
-      "Certificate of Good Moral Character from high school (incoming freshmen)",
-      "Photocopy of PSA Birth Certificate",
-      "No grade lower than 88 in any subject",
-    ],
-    note: "The discount applies to the term of entry only.",
-  },
-  {
-    id: 261,
-    name: "Nationalian Scholarship Program",
-    for: "Students who keep an 88% average in every Senior High School subject",
-    benefits: ["50% discount on Tuition Fee"],
-    requirements: [
-      "Original Grade 12 Report Card",
-      "Certificate of Good Moral Character from high school",
-      "Photocopy of PSA Birth Certificate",
-      "At least 88% in all academic subjects, 1st to 4th grading period",
-    ],
-    note: "The discount applies to the term of entry only.",
-  },
-];
-
 export const otherDiscounts = [
   { id: 262, name: "SM Employee and Affiliate Discount" },
   { id: 263, name: "Armed Forces of the Philippines" },

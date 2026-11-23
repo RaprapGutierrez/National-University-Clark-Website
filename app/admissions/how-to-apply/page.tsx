@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import AcademicsBanner from "@/components/AcademicsBanner";
-import AdmissionsTabs from "@/components/AdmissionsTabs";
 import Reveal from "@/components/Reveal";
 import {
   APPLY_URL,
@@ -10,7 +9,7 @@ import {
 } from "@/lib/admissions";
 
 export const metadata: Metadata = {
-  title: "How to Apply | NU Clark Admissions",
+  title: "Apply Now | NU Clark Admissions",
   description:
     "Follow these six steps to apply and enroll at National University Clark.",
 };
@@ -18,19 +17,18 @@ export const metadata: Metadata = {
 const crumbs = [
   { label: "Home", href: "/" },
   { label: "Admissions", href: "/admissions" },
-  { label: "How to Apply" },
+  { label: "Apply Now" },
 ];
 
-export default function HowToApplyPage() {
+export default function ApplyNowPage() {
   return (
     <>
       <AcademicsBanner
-        title="How to Apply"
+        title="Apply Now"
         subtitle="From your application form to your Certificate of Registration, in six steps."
         label="Admissions"
         crumbs={crumbs}
       />
-      <AdmissionsTabs active="apply-now" />
 
       <main className="mx-auto max-w-6xl px-5 py-8">
         {ENROLLMENT_NOTE && (
