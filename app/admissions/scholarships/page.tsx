@@ -1,6 +1,6 @@
-import Image from "next/image";
 import type { Metadata } from "next";
 import AcademicsBanner from "@/components/AcademicsBanner";
+import ProtectedPic from "@/components/ProtectedPic";
 import Reveal from "@/components/Reveal";
 import { APPLY_URL, SCHOLARSHIPS_URL, otherDiscounts } from "@/lib/admissions";
 import {
@@ -31,26 +31,6 @@ const crumbs = [
   { label: "Admissions", href: "/admissions" },
   { label: "Scholarships" },
 ];
-
-// Square picture that opens full size in a new tab
-function Pic({ src, alt }: { src: string; alt: string }) {
-  return (
-    <a
-      href={src}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="relative block aspect-square overflow-hidden rounded-2xl border-2 border-gold bg-navy transition hover:-translate-y-1 hover:shadow-lg"
-    >
-      <Image
-        src={src}
-        alt={alt}
-        fill
-        sizes="(min-width: 1024px) 320px, (min-width: 640px) 45vw, 100vw"
-        className="object-cover"
-      />
-    </a>
-  );
-}
 
 // Check icon (replaces the emoji check mark)
 function CheckIcon() {
@@ -116,7 +96,7 @@ export default function ScholarshipsPage() {
                 </a>
               </div>
             </div>
-            <Pic {...pics.programs} />
+            <ProtectedPic {...pics.programs} />
           </section>
         </Reveal>
 
@@ -129,7 +109,7 @@ export default function ScholarshipsPage() {
             {programs.map((p, i) => (
               <Reveal key={p.name} delay={(i % 2) * 100}>
                 <article className="flex h-full flex-col rounded-3xl border-2 border-gold bg-navy p-5 text-white shadow-lg">
-                  <Pic {...p.image} />
+                  <ProtectedPic {...p.image} />
                   <div className="mt-5 flex flex-1 flex-col">
                     <p className="text-xs font-bold uppercase tracking-wider text-gold">
                       {p.label}
@@ -241,12 +221,12 @@ export default function ScholarshipsPage() {
           </div>
 
           <p className="mt-6 text-sm text-slate">
-            Tap a picture to view it full size.
+            Tap a picture to preview it.
           </p>
           <div className="mt-3 grid gap-4 sm:grid-cols-3">
-            <Pic {...pics.steps} />
-            <Pic {...pics.requirements} />
-            <Pic {...pics.reminders} />
+            <ProtectedPic {...pics.steps} />
+            <ProtectedPic {...pics.requirements} />
+            <ProtectedPic {...pics.reminders} />
           </div>
         </section>
 
@@ -306,11 +286,11 @@ export default function ScholarshipsPage() {
           </div>
 
           <p className="mt-6 text-sm text-white/70">
-            Tap a picture to view it full size.
+            Tap a picture to preview it.
           </p>
           <div className="mt-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {uaeb.images.map((img) => (
-              <Pic key={img.src} {...img} />
+              <ProtectedPic key={img.src} {...img} />
             ))}
           </div>
 
