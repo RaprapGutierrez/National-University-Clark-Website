@@ -37,10 +37,10 @@ export default function ApplyNowPage() {
           </p>
         )}
 
-        <ol className="grid gap-6 md:grid-cols-2">
+        <div className="grid gap-6 md:grid-cols-2">
           {steps.map((s, i) => (
             <Reveal key={s.title} delay={(i % 2) * 100}>
-              <li className="flex h-full gap-4 rounded-3xl border-2 border-line bg-white p-6 shadow-lg">
+              <article className="flex h-full gap-4 rounded-3xl border-2 border-line bg-white p-6 shadow-lg">
                 <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-navy text-xl font-extrabold text-gold">
                   {i + 1}
                 </span>
@@ -50,10 +50,10 @@ export default function ApplyNowPage() {
                   </h2>
                   <p className="mt-2 text-slate">{s.text}</p>
                 </div>
-              </li>
+              </article>
             </Reveal>
           ))}
-        </ol>
+        </div>
 
         <div className="mt-10 flex flex-wrap gap-3">
           <a

@@ -15,6 +15,26 @@ const crumbs = [
   { label: "Requirements" },
 ];
 
+// Check icon (replaces the emoji check mark)
+function CheckIcon() {
+  return (
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="3"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      className="mt-0.5 shrink-0 text-gold"
+    >
+      <path d="M20 6 9 17l-5-5" />
+    </svg>
+  );
+}
+
 export default function RequirementsPage() {
   return (
     <>
@@ -39,9 +59,7 @@ export default function RequirementsPage() {
                 <ul className="mt-4 space-y-2 text-slate">
                   {g.items.map((item) => (
                     <li key={item} className="flex gap-3">
-                      <span aria-hidden className="mt-1 text-gold">
-                        ✔
-                      </span>
+                      <CheckIcon />
                       <span>{item}</span>
                     </li>
                   ))}

@@ -52,6 +52,26 @@ function Pic({ src, alt }: { src: string; alt: string }) {
   );
 }
 
+// Check icon (replaces the emoji check mark)
+function CheckIcon() {
+  return (
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="3"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      className="mt-0.5 shrink-0 text-gold"
+    >
+      <path d="M20 6 9 17l-5-5" />
+    </svg>
+  );
+}
+
 export default function ScholarshipsPage() {
   return (
     <>
@@ -117,7 +137,9 @@ export default function ScholarshipsPage() {
                     <h3 className="mt-1 text-xl font-extrabold text-gold">
                       {p.name}
                     </h3>
-                    <p className="mt-3 text-sm text-white/90">{p.eligibility}</p>
+                    <p className="mt-3 text-sm text-white/90">
+                      {p.eligibility}
+                    </p>
 
                     <p className="mt-4 text-xs font-bold uppercase tracking-wider text-gold">
                       Benefits
@@ -154,7 +176,9 @@ export default function ScholarshipsPage() {
                 </span>
                 <div>
                   <p className="text-sm font-bold text-royal">{s.date}</p>
-                  <h3 className="text-xl font-extrabold text-navy">{s.title}</h3>
+                  <h3 className="text-xl font-extrabold text-navy">
+                    {s.title}
+                  </h3>
                   <p className="mt-2 text-slate">{s.text}</p>
                 </div>
               </li>
@@ -172,7 +196,7 @@ export default function ScholarshipsPage() {
               <ul className="mt-4 space-y-2 text-slate">
                 {documents.map((d) => (
                   <li key={d} className="flex gap-3">
-                    <span aria-hidden className="mt-1 text-gold">✔</span>
+                    <CheckIcon />
                     <span>{d}</span>
                   </li>
                 ))}
@@ -211,7 +235,9 @@ export default function ScholarshipsPage() {
                 </li>
               ))}
             </ul>
-            <p className="mt-4 font-bold text-navy">Important: {importantNote}</p>
+            <p className="mt-4 font-bold text-navy">
+              Important: {importantNote}
+            </p>
           </div>
 
           <p className="mt-6 text-sm text-slate">
@@ -245,7 +271,7 @@ export default function ScholarshipsPage() {
               <ul className="mt-3 space-y-2 text-white/90">
                 {uaeb.eligibility.map((e) => (
                   <li key={e} className="flex gap-3">
-                    <span aria-hidden className="mt-1 text-gold">✔</span>
+                    <CheckIcon />
                     <span>{e}</span>
                   </li>
                 ))}
@@ -256,7 +282,7 @@ export default function ScholarshipsPage() {
               <ul className="mt-3 space-y-2 text-white/90">
                 {uaeb.requirements.map((r) => (
                   <li key={r} className="flex gap-3">
-                    <span aria-hidden className="mt-1 text-gold">✔</span>
+                    <CheckIcon />
                     <span>{r}</span>
                   </li>
                 ))}
@@ -290,7 +316,10 @@ export default function ScholarshipsPage() {
 
           <p className="mt-6 text-sm text-white/80">
             Questions? Email{" "}
-            <a className="font-bold text-gold underline" href={`mailto:${SDAO_EMAIL}`}>
+            <a
+              className="font-bold text-gold underline"
+              href={`mailto:${SDAO_EMAIL}`}
+            >
               {SDAO_EMAIL}
             </a>
             .
@@ -325,7 +354,10 @@ export default function ScholarshipsPage() {
           </h2>
           <p className="mt-2 text-slate">
             Email{" "}
-            <a className="font-bold text-royal underline" href={`mailto:${ADMISSIONS_EMAIL}`}>
+            <a
+              className="font-bold text-royal underline"
+              href={`mailto:${ADMISSIONS_EMAIL}`}
+            >
               {ADMISSIONS_EMAIL}
             </a>{" "}
             or call {ADMISSIONS_PHONE}.
