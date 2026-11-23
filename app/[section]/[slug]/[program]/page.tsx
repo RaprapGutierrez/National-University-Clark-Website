@@ -2,19 +2,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import AcademicsBanner from "@/components/AcademicsBanner";
+import ProgramOutcomes from "@/components/ProgramOutcomes";
 import Reveal from "@/components/Reveal";
 import { sections, APPLY_URL } from "@/lib/site";
 import { programsBySchool } from "@/lib/programs";
 
 const CONTACT_URL = "/about"; // change to your contact page
-
-// Yellow outline that follows the shape of the cutout, like a sticker
-const STICKER =
-  "drop-shadow(4px 0 0 var(--color-gold, #f7c600)) " +
-  "drop-shadow(-4px 0 0 var(--color-gold, #f7c600)) " +
-  "drop-shadow(0 4px 0 var(--color-gold, #f7c600)) " +
-  "drop-shadow(0 -4px 0 var(--color-gold, #f7c600)) " +
-  "drop-shadow(0 10px 14px rgba(0, 0, 0, 0.25))";
 
 // Accreditation name (starts with) -> logo in /public
 const ACCREDITATION_LOGOS: Record<string, string> = {
@@ -40,17 +33,21 @@ function SectionTitle({
   text?: string;
 }) {
   return (
-    <div className="mb-6">
+    <div className="mb-4 sm:mb-6">
       {kicker && (
-        <p className="text-sm font-bold uppercase tracking-[0.2em] text-royal">
+        <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-royal sm:text-sm sm:tracking-[0.2em]">
           {kicker}
         </p>
       )}
-      <h2 className="mt-1 text-2xl font-extrabold text-navy sm:text-3xl">
+      <h2 className="mt-1 text-xl font-extrabold text-navy sm:text-3xl">
         {title}
       </h2>
-      <div className="mt-3 h-1.5 w-16 rounded-full bg-gold" />
-      {text && <p className="mt-3 max-w-2xl text-slate">{text}</p>}
+      <div className="mt-2 h-1 w-12 rounded-full bg-gold sm:mt-3 sm:h-1.5 sm:w-16" />
+      {text && (
+        <p className="mt-2 max-w-2xl text-sm text-slate sm:mt-3 sm:text-base">
+          {text}
+        </p>
+      )}
     </div>
   );
 }
@@ -90,19 +87,39 @@ export default async function ProgramPage({
   const accreditations = data.accreditation.filter(
     (a) => !a.startsWith("Add "),
   );
+  const about = data.about.filter((p) => !p.startsWith("Add "));
   const careers = data.careers ?? [];
 
   // Mission and vision only show for programs that have them
   const hasMissionVision = Boolean(data.mission && data.vision);
 
   // Sections that exist for this program (used by the sidebar jump links)
+  const aboutAfterMission = Boolean(data.aboutAfterMission);
+  const aboutHeadings = aboutAfterMission
+    ? ["About BS Computer Science", "Specialization in Artificial Intelligence"]
+    : [];
+
   const toc = [
-    { id: "about", label: "About the program", show: true },
+    {
+      id: "about",
+      label: "About the program",
+      show: about.length > 0 && !aboutAfterMission,
+    },
     { id: "careers", label: "Career opportunities", show: careers.length > 0 },
     {
       id: "mission-vision",
       label: "Mission and vision",
       show: hasMissionVision,
+    },
+    {
+      id: "about",
+      label: "About the program",
+      show: about.length > 0 && aboutAfterMission,
+    },
+    {
+      id: "specialization",
+      label: "Specialization",
+      show: aboutAfterMission && about.length > 1,
     },
     {
       id: "objectives",
@@ -126,38 +143,56 @@ export default async function ProgramPage({
         crumbs={crumbs}
       />
 
-      <main className="mx-auto grid max-w-6xl gap-10 px-5 py-8 lg:grid-cols-[1fr_300px]">
-        <article className="min-w-0 space-y-14 sm:space-y-16">
-          {/* About */}
-          <section id="about" className="scroll-mt-24">
-            <Reveal>
-              <SectionTitle
-                kicker="Overview"
-                title={`About the ${data.title}`}
-              />
-              <div className="rounded-3xl border border-line bg-white p-6 shadow-sm sm:p-8">
-                <div className="space-y-4 border-l-4 border-gold pl-4 text-lg text-slate">
-                  {data.about.map((para, i) => (
-                    <p key={i}>{para}</p>
-                  ))}
-                </div>
-              </div>
-            </Reveal>
-          </section>
+      <main className="mx-auto grid max-w-6xl gap-6 px-4 py-5 sm:gap-10 sm:px-5 sm:py-8 lg:grid-cols-[1fr_280px] lg:items-start">
+        {/* Mobile section nav — underline tabs, not pills */}
+        <nav
+          aria-label="On this page"
+          className="-mx-4 border-b border-line bg-white lg:col-span-2 lg:hidden"
+        >
+          <div className="flex snap-x snap-mandatory gap-0 overflow-x-auto overscroll-x-contain px-4 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            {toc.map((t) => (
+              <a
+                key={t.id}
+                href={`#${t.id}`}
+                className="shrink-0 snap-start border-b-2 border-transparent px-3 py-3 text-[12px] font-bold text-slate transition-colors active:text-navy hover:border-gold hover:text-navy"
+              >
+                {t.label}
+              </a>
+            ))}
+          </div>
+        </nav>
 
-          {/* Careers */}
+        <article className="min-w-0 space-y-9 sm:space-y-14 lg:space-y-16">
+          {about.length > 0 && !aboutAfterMission && (
+            <section id="about" className="scroll-mt-[var(--site-header-offset)]">
+              <Reveal>
+                <SectionTitle
+                  kicker="Overview"
+                  title={`About the ${data.title}`}
+                />
+                <div className="rounded-2xl border border-line bg-white p-4 shadow-sm sm:rounded-3xl sm:p-8">
+                  <div className="space-y-3 border-l-[3px] border-gold pl-3 text-[15px] leading-relaxed text-slate sm:space-y-4 sm:border-l-4 sm:pl-4 sm:text-lg">
+                    {about.map((para, i) => (
+                      <p key={i}>{para}</p>
+                    ))}
+                  </div>
+                </div>
+              </Reveal>
+            </section>
+          )}
+
           {careers.length > 0 && (
-            <section id="careers" className="scroll-mt-24">
+            <section id="careers" className="scroll-mt-[var(--site-header-offset)]">
               <Reveal>
                 <SectionTitle
                   kicker="After graduation"
                   title="Career opportunities"
                 />
-                <div className="flex flex-wrap gap-3">
+                <div className="flex flex-wrap gap-2 sm:gap-3">
                   {careers.map((c) => (
                     <span
                       key={c}
-                      className="rounded-full border-2 border-gold bg-navy px-4 py-2 text-sm font-bold text-white shadow-sm"
+                      className="rounded-full border border-gold bg-navy px-3 py-1.5 text-xs font-bold text-white sm:border-2 sm:px-4 sm:py-2 sm:text-sm"
                     >
                       {c}
                     </span>
@@ -167,30 +202,31 @@ export default async function ProgramPage({
             </section>
           )}
 
-          {/* Mission and vision (hidden when the program has none) */}
           {hasMissionVision && (
-            <section id="mission-vision" className="scroll-mt-24">
+            <section id="mission-vision" className="scroll-mt-[var(--site-header-offset)]">
               <Reveal>
                 <SectionTitle
                   kicker="Our direction"
                   title="Mission and vision"
                 />
               </Reveal>
-              <div className="grid gap-4 md:grid-cols-2">
+              <div className="grid gap-3 sm:gap-4 md:grid-cols-2">
                 <Reveal className="h-full">
-                  <div className="h-full rounded-3xl border-2 border-gold bg-navy p-6 text-white shadow-lg sm:p-8">
-                    <p className="text-sm font-bold uppercase tracking-[0.2em] text-gold">
+                  <div className="h-full rounded-2xl border-2 border-gold bg-navy p-4 text-white shadow-md sm:rounded-3xl sm:p-8 sm:shadow-lg">
+                    <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-gold sm:text-sm sm:tracking-[0.2em]">
                       Our Mission
                     </p>
-                    <p className="mt-3 text-white/90">{data.mission}</p>
+                    <p className="mt-2 text-sm leading-relaxed text-white/90 sm:mt-3 sm:text-base">
+                      {data.mission}
+                    </p>
                   </div>
                 </Reveal>
                 <Reveal delay={100} className="h-full">
-                  <div className="h-full rounded-3xl border-2 border-navy bg-gold p-6 text-navy shadow-lg sm:p-8">
-                    <p className="text-sm font-bold uppercase tracking-[0.2em]">
+                  <div className="h-full rounded-2xl border-2 border-navy bg-gold p-4 text-navy shadow-md sm:rounded-3xl sm:p-8 sm:shadow-lg">
+                    <p className="text-[11px] font-bold uppercase tracking-[0.18em] sm:text-sm sm:tracking-[0.2em]">
                       Our Vision
                     </p>
-                    <p className="mt-3 font-medium text-navy/90">
+                    <p className="mt-2 text-sm font-medium leading-relaxed text-navy/90 sm:mt-3 sm:text-base">
                       {data.vision}
                     </p>
                   </div>
@@ -199,9 +235,29 @@ export default async function ProgramPage({
             </section>
           )}
 
-          {/* Objectives */}
+          {aboutAfterMission &&
+            about.map((para, i) => (
+              <section
+                key={i}
+                id={i === 0 ? "about" : "specialization"}
+                className="scroll-mt-[var(--site-header-offset)]"
+              >
+                <Reveal>
+                  <SectionTitle
+                    kicker={i === 0 ? "Overview" : "Focus"}
+                    title={aboutHeadings[i] ?? `About the ${data.title}`}
+                  />
+                  <div className="rounded-2xl border border-line bg-white p-4 shadow-sm sm:rounded-3xl sm:p-8">
+                    <p className="border-l-[3px] border-gold pl-3 text-[15px] leading-relaxed text-slate sm:border-l-4 sm:pl-4 sm:text-lg">
+                      {para}
+                    </p>
+                  </div>
+                </Reveal>
+              </section>
+            ))}
+
           {data.objectives.length > 0 && (
-            <section id="objectives" className="scroll-mt-24">
+            <section id="objectives" className="scroll-mt-[var(--site-header-offset)]">
               <Reveal>
                 <SectionTitle
                   kicker="What we aim for"
@@ -209,14 +265,16 @@ export default async function ProgramPage({
                   text="What graduates are expected to achieve in their careers and communities a few years after graduating."
                 />
               </Reveal>
-              <div className="grid gap-4 sm:grid-cols-2">
+              <div className="grid gap-3 sm:grid-cols-2 sm:gap-4">
                 {data.objectives.map((o, i) => (
                   <Reveal key={i} delay={(i % 2) * 100} className="h-full">
-                    <div className="flex h-full gap-4 rounded-3xl border border-line bg-white p-5 shadow-sm transition duration-300 hover:-translate-y-1 hover:border-royal hover:shadow-md motion-reduce:transform-none">
-                      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-navy text-sm font-extrabold text-gold">
+                    <div className="flex h-full gap-3 rounded-2xl border border-line bg-white p-3.5 shadow-sm transition duration-300 hover:-translate-y-1 hover:border-royal hover:shadow-md motion-reduce:transform-none sm:gap-4 sm:rounded-3xl sm:p-5">
+                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-navy text-xs font-extrabold text-gold sm:h-11 sm:w-11 sm:text-sm">
                         {String(i + 1).padStart(2, "0")}
                       </span>
-                      <p className="text-slate">{o}</p>
+                      <p className="text-sm leading-snug text-slate sm:text-base sm:leading-relaxed">
+                        {o}
+                      </p>
                     </div>
                   </Reveal>
                 ))}
@@ -224,59 +282,24 @@ export default async function ProgramPage({
             </section>
           )}
 
-          {/* Outcomes */}
-          <section id="outcomes" className="scroll-mt-24">
-            <Reveal>
-              <SectionTitle
-                kicker="What you will be able to do"
-                title="Program outcomes"
-                text="The skills and abilities students gain by the time they finish the program."
-              />
-            </Reveal>
-            <div className="grid gap-4 sm:grid-cols-2">
-              {data.outcomes.map((o, i) => (
-                <Reveal key={i} delay={(i % 2) * 100} className="h-full">
-                  <div className="flex h-full gap-4 rounded-3xl border-l-4 border-gold bg-white p-5 shadow-sm ring-1 ring-line transition duration-300 hover:-translate-y-1 hover:shadow-md motion-reduce:transform-none">
-                    <span
-                      aria-hidden="true"
-                      className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gold text-navy"
-                    >
-                      <svg
-                        viewBox="0 0 24 24"
-                        className="h-5 w-5"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="3"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <path d="M5 12l5 5L20 7" />
-                      </svg>
-                    </span>
-                    <p className="text-slate">{o}</p>
-                  </div>
-                </Reveal>
-              ))}
-            </div>
-          </section>
+          <ProgramOutcomes outcomes={data.outcomes} />
 
-          {/* Accreditation */}
           {accreditations.length > 0 && (
-            <section id="accreditation" className="scroll-mt-24">
+            <section id="accreditation" className="scroll-mt-[var(--site-header-offset)]">
               <Reveal>
                 <SectionTitle
                   kicker="Recognition"
                   title="Accreditation"
                   text="Our certifications reflect independent verification of the University’s systems and practices against recognized standards."
                 />
-                <div className="grid gap-4 sm:grid-cols-2">
+                <div className="grid gap-3 sm:grid-cols-2 sm:gap-4">
                   {accreditations.map((entry) => {
                     const [label, ...details] = entry.split(" · ");
                     const logo = logoFor(label);
                     return (
                       <div
                         key={entry}
-                        className="flex items-center gap-5 rounded-3xl border border-line bg-white p-5 shadow-sm"
+                        className="flex items-center gap-3 rounded-2xl border border-line bg-white p-3.5 shadow-sm sm:gap-5 sm:rounded-3xl sm:p-5"
                       >
                         {logo && (
                           <Image
@@ -284,18 +307,18 @@ export default async function ProgramPage({
                             alt={`${label} logo`}
                             width={96}
                             height={96}
-                            className="h-24 w-24 shrink-0 object-contain"
+                            className="h-14 w-14 shrink-0 object-contain sm:h-24 sm:w-24"
                           />
                         )}
-                        <div className="border-l-4 border-gold pl-4">
-                          <p className="text-xs font-bold uppercase tracking-wider text-royal">
+                        <div className="border-l-[3px] border-gold pl-3 sm:border-l-4 sm:pl-4">
+                          <p className="text-[10px] font-bold uppercase tracking-wider text-royal sm:text-xs">
                             Accredited by
                           </p>
-                          <b className="mt-1 block text-lg text-navy">
+                          <b className="mt-0.5 block text-base text-navy sm:mt-1 sm:text-lg">
                             {label}
                           </b>
                           {details.length > 0 && (
-                            <span className="mt-1 block text-sm text-slate">
+                            <span className="mt-1 block text-xs text-slate sm:text-sm">
                               {details.join(" · ")}
                             </span>
                           )}
@@ -309,25 +332,25 @@ export default async function ProgramPage({
           )}
         </article>
 
-        <aside className="space-y-4 lg:sticky lg:top-6 lg:self-start">
+        <aside className="space-y-3 sm:space-y-4 lg:sticky lg:top-[var(--site-header-offset)] lg:self-start">
           {data.image && (
-            <div
-              className="mx-auto mb-8 aspect-[4/3] w-3/4 lg:w-full"
-              style={{ filter: STICKER }}
-            >
-              <div className="relative h-full w-full">
+            <div className="relative mx-auto hidden aspect-[4/3] w-3/4 lg:mb-2 lg:block lg:w-full">
+              <div
+                className="absolute inset-x-[10%] bottom-0 top-[20%] rounded-[28%] bg-gold/90 blur-[1px]"
+                aria-hidden="true"
+              />
+              <div className="relative h-full w-full drop-shadow-[0_10px_14px_rgba(0,0,0,0.25)]">
                 <Image
                   src={data.image}
                   alt={data.title}
                   fill
-                  sizes="300px"
+                  sizes="280px"
                   className="object-contain object-bottom"
                 />
               </div>
             </div>
           )}
 
-          {/* On this page */}
           <nav
             aria-label="On this page"
             className="hidden rounded-3xl border border-line bg-white p-4 shadow-sm lg:block"
@@ -348,12 +371,11 @@ export default async function ProgramPage({
             </div>
           </nav>
 
-          {/* More programs */}
-          <div className="rounded-3xl border border-line bg-white p-4 shadow-sm">
-            <h2 className="mb-3 px-3 pt-1 text-sm font-extrabold uppercase tracking-[0.15em] text-navy">
+          <div className="rounded-2xl border border-line bg-white p-3 shadow-sm sm:rounded-3xl sm:p-4">
+            <h2 className="mb-2 px-2 pt-1 text-[11px] font-extrabold uppercase tracking-[0.14em] text-navy sm:mb-3 sm:px-3 sm:text-sm sm:tracking-[0.15em]">
               More in {school.title}
             </h2>
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-0.5">
               {programs.map((p) => {
                 const active = p.slug === program;
                 return (
@@ -374,26 +396,25 @@ export default async function ProgramPage({
             </div>
             <Link
               href={`/${sec.slug}/${school.slug}`}
-              className="mt-3 inline-block px-3 text-sm font-semibold text-royal hover:underline"
+              className="mt-2 inline-block px-3 py-1 text-sm font-semibold text-royal hover:underline"
             >
-              ← Back to {school.title}
+              ← Back to school
             </Link>
           </div>
         </aside>
       </main>
 
-      {/* Apply block */}
-      <div className="mx-auto max-w-6xl px-5 pb-12">
+      <div className="mx-auto max-w-6xl px-4 pb-8 sm:px-5 sm:pb-12">
         <Reveal>
-          <section className="grid items-center gap-8 rounded-3xl bg-navy p-6 text-white sm:p-10 md:grid-cols-[1fr_auto]">
+          <section className="grid items-center gap-5 rounded-2xl bg-navy p-5 text-white sm:gap-8 sm:rounded-3xl sm:p-10 md:grid-cols-[1fr_auto]">
             <div className="text-center md:text-left">
-              <p className="text-sm font-bold uppercase tracking-[0.2em] text-gold">
+              <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-gold sm:text-sm sm:tracking-[0.2em]">
                 Enrollment
               </p>
-              <h2 className="mt-2 text-2xl font-extrabold sm:text-4xl">
+              <h2 className="mt-1.5 text-xl font-extrabold sm:mt-2 sm:text-4xl">
                 Ready to Apply in {data.title}?
               </h2>
-              <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-center md:justify-start">
+              <div className="mt-4 flex flex-col gap-2.5 sm:mt-6 sm:flex-row sm:justify-center md:justify-start">
                 <a
                   href={APPLY_URL}
                   className="inline-block rounded-full bg-gold px-6 py-3 text-center font-bold text-navy transition hover:-translate-y-0.5"
@@ -409,13 +430,15 @@ export default async function ProgramPage({
               </div>
             </div>
 
-            <div className="mx-auto text-center">
+            <div className="mx-auto hidden text-center sm:block">
               <div className="rounded-2xl bg-white p-3 shadow-lg">
                 <Image
                   src="/qr-nu-clark.webp"
                   alt="QR code for NU Clark"
                   width={160}
                   height={160}
+                  sizes="160px"
+                  loading="lazy"
                   className="h-36 w-36 sm:h-40 sm:w-40"
                 />
               </div>

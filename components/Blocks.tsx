@@ -4,14 +4,6 @@ import type { Block } from "@/lib/content";
 import ImageCarousel from "@/components/ImageCarousel";
 import ImageGallery from "@/components/ImageGallery";
 
-// Yellow outline that follows the shape of the cutout, like a sticker
-const STICKER =
-  "drop-shadow(4px 0 0 var(--color-gold, #f7c600)) " +
-  "drop-shadow(-4px 0 0 var(--color-gold, #f7c600)) " +
-  "drop-shadow(0 4px 0 var(--color-gold, #f7c600)) " +
-  "drop-shadow(0 -4px 0 var(--color-gold, #f7c600)) " +
-  "drop-shadow(0 10px 14px rgba(0, 0, 0, 0.25))";
-
 // Top bar color on a stat card, for medal results
 const TONE_BAR = {
   gold: "bg-gold",
@@ -93,17 +85,20 @@ function StickerCard({ item }: { item: CardItem }) {
   const inner = (
     <>
       {item.image && (
-        <div
-          className="relative z-10 mx-auto -mb-10 aspect-[4/3] w-3/4 transition-transform duration-300 ease-out group-hover:-translate-y-3 group-hover:rotate-1 motion-reduce:transform-none"
-          style={{ filter: STICKER }}
-        >
-          <Image
-            src={item.image}
-            alt={item.title}
-            fill
-            sizes="(min-width: 1024px) 260px, 70vw"
-            className="object-contain object-bottom"
+        <div className="relative z-10 mx-auto -mb-10 aspect-[4/3] w-3/4 transition-transform duration-300 ease-out group-hover:-translate-y-3 group-hover:rotate-1 motion-reduce:transform-none">
+          <div
+            className="absolute inset-x-[8%] bottom-0 top-[18%] rounded-[28%] bg-gold/90 blur-[1px]"
+            aria-hidden="true"
           />
+          <div className="relative h-full w-full drop-shadow-[0_10px_14px_rgba(0,0,0,0.25)]">
+            <Image
+              src={item.image}
+              alt={item.title}
+              fill
+              sizes="(min-width: 1024px) 260px, 70vw"
+              className="object-contain object-bottom"
+            />
+          </div>
         </div>
       )}
 

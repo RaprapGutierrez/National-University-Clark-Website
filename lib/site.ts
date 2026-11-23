@@ -1,6 +1,18 @@
 export const APPLY_URL =
   "https://onlineapp.national-u.edu.ph/quest/register.php";
 
+export const APPLY_LOGIN_URL =
+  "https://onlineapp.national-u.edu.ph/quest/home.php";
+
+export const NUIS_LOGIN_URL =
+  "https://onlineapp.nu-clark.edu.ph/portal/services.php";
+
+export const BILLS_LOGIN_URL =
+  "https://onlineapp.national-u.edu.ph/bills/login2.php";
+
+export const BILLS_REGISTER_URL =
+  "https://onlineapp.national-u.edu.ph/bills/register.php";
+
 export type PageItem = {
   slug: string;
   title: string;
@@ -111,11 +123,6 @@ export const sections: Section[] = [
         slug: "scholarships",
         title: "Scholarships",
         summary: "Find financial support options.",
-      },
-      {
-        slug: "tuition-fees",
-        title: "Tuition & Fees",
-        summary: "See what each term costs.",
       },
     ],
   },

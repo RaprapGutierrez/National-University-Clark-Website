@@ -182,7 +182,7 @@ export default async function SectionPage({ params }: SectionProps) {
           <div className="space-y-14 sm:space-y-16">
             {/* 1. Senior High School */}
             {shs && (
-              <section id="senior-high" className="scroll-mt-24">
+              <section id="senior-high" className="scroll-mt-[var(--site-header-offset)]">
                 <Reveal>
                   <GroupHeading
                     kicker="Grades 11 and 12"
@@ -207,8 +207,11 @@ export default async function SectionPage({ params }: SectionProps) {
                         {shs.summary}
                       </p>
                     </div>
-                    <span className="inline-block justify-self-start rounded-full bg-gold px-6 py-3 font-bold text-navy transition-transform duration-300 group-hover:translate-x-1 md:justify-self-end">
-                      Learn more →
+                    <span className="inline-flex items-center justify-center gap-2 justify-self-start rounded-full bg-gold px-6 py-3 font-bold leading-none text-navy transition-transform duration-300 group-hover:translate-x-1 md:justify-self-end">
+                      Learn more
+                      <span aria-hidden="true" className="translate-y-px">
+                        →
+                      </span>
                     </span>
                   </Link>
                 </Reveal>
@@ -218,7 +221,7 @@ export default async function SectionPage({ params }: SectionProps) {
             {/* 2. Colleges and schools */}
             <section
               id="colleges"
-              className="relative scroll-mt-24 overflow-x-clip"
+              className="relative scroll-mt-[var(--site-header-offset)] overflow-x-clip"
             >
               <span
                 aria-hidden="true"
@@ -252,8 +255,11 @@ export default async function SectionPage({ params }: SectionProps) {
                           {p.summary}
                         </p>
                         <span className="mt-auto inline-block self-start pt-5">
-                          <span className="inline-block rounded-full bg-gold px-5 py-2 text-sm font-bold text-navy transition-transform duration-300 group-hover:translate-x-1">
-                            Learn more →
+                          <span className="inline-flex items-center gap-2 rounded-full bg-gold px-5 py-2.5 text-sm font-bold leading-none text-navy transition-transform duration-300 group-hover:translate-x-1">
+                            Learn more
+                            <span aria-hidden="true" className="translate-y-px">
+                              →
+                            </span>
                           </span>
                         </span>
                       </Link>
@@ -265,7 +271,7 @@ export default async function SectionPage({ params }: SectionProps) {
 
             {/* 3. Office of the Academic Director */}
             {office && (
-              <section id="office" className="scroll-mt-24">
+              <section id="office" className="scroll-mt-[var(--site-header-offset)]">
                 <Reveal>
                   <GroupHeading
                     kicker="Academic support"
@@ -273,25 +279,52 @@ export default async function SectionPage({ params }: SectionProps) {
                     text="Questions about academic policies or support? This office is where to start."
                   />
                 </Reveal>
-                <Reveal>
-                  <Link
-                    href={`/${data.slug}/${office.slug}`}
-                    className="group relative isolate grid items-center gap-6 overflow-hidden rounded-3xl border-2 border-navy bg-gold p-6 text-navy shadow-lg transition duration-300 ease-out hover:-translate-y-2 hover:shadow-2xl hover:shadow-navy/30 motion-reduce:transform-none sm:p-10 md:grid-cols-[1fr_auto]"
-                  >
-                    <WidePanelShapes tone="gold" />
-                    <div>
-                      <h3 className="text-2xl font-extrabold sm:text-3xl">
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <Reveal>
+                    <Link
+                      href={`/${data.slug}/${office.slug}`}
+                      className="group relative isolate flex h-full flex-col overflow-hidden rounded-3xl border-2 border-navy bg-gold p-6 text-navy shadow-lg transition duration-300 ease-out hover:-translate-y-2 hover:shadow-2xl hover:shadow-navy/30 motion-reduce:transform-none"
+                    >
+                      <WidePanelShapes tone="gold" />
+                      <h3 className="relative text-xl font-extrabold sm:text-2xl">
                         {office.title}
                       </h3>
-                      <p className="mt-2 max-w-xl font-medium text-navy/85">
+                      <p className="relative mt-2 text-sm font-medium text-navy/85">
                         {office.summary}
                       </p>
-                    </div>
-                    <span className="inline-block justify-self-start rounded-full bg-navy px-6 py-3 font-bold text-white transition-transform duration-300 group-hover:translate-x-1 md:justify-self-end">
-                      Learn more →
-                    </span>
-                  </Link>
-                </Reveal>
+                      <span className="relative mt-auto inline-flex items-center gap-2 self-start pt-5">
+                        <span className="inline-flex items-center gap-2 rounded-full bg-navy px-5 py-2.5 text-sm font-bold leading-none text-white transition-transform duration-300 group-hover:translate-x-1">
+                          Learn more
+                          <span aria-hidden="true" className="translate-y-px">
+                            →
+                          </span>
+                        </span>
+                      </span>
+                    </Link>
+                  </Reveal>
+                  <Reveal delay={100}>
+                    <Link
+                      href="/academics/office-of-the-academic-director/language-center"
+                      className="group relative isolate flex h-full flex-col overflow-hidden rounded-3xl border-2 border-gold bg-navy p-6 text-white shadow-lg transition duration-300 ease-out hover:-translate-y-2 hover:shadow-2xl hover:shadow-navy/40 motion-reduce:transform-none"
+                    >
+                      <CardCorner />
+                      <h3 className="text-xl font-extrabold text-gold sm:text-2xl">
+                        Language Center
+                      </h3>
+                      <p className="mt-2 text-sm text-white/85">
+                        Programs and support from the NU Clark Language Center.
+                      </p>
+                      <span className="mt-auto inline-flex items-center gap-2 self-start pt-5">
+                        <span className="inline-flex items-center gap-2 rounded-full bg-gold px-5 py-2.5 text-sm font-bold leading-none text-navy transition-transform duration-300 group-hover:translate-x-1">
+                          Learn more
+                          <span aria-hidden="true" className="translate-y-px">
+                            →
+                          </span>
+                        </span>
+                      </span>
+                    </Link>
+                  </Reveal>
+                </div>
               </section>
             )}
           </div>
@@ -301,7 +334,7 @@ export default async function SectionPage({ params }: SectionProps) {
               const c = studentLifeCopy[p.slug];
               const flip = i % 2 === 1;
               return (
-                <section key={p.slug} id={p.slug} className="scroll-mt-24">
+                <section key={p.slug} id={p.slug} className="scroll-mt-[var(--site-header-offset)]">
                   <div className="grid items-center gap-8 md:grid-cols-2 md:gap-12">
                     <Reveal className={flip ? "md:order-2" : ""}>
                       <div className="border-l-4 border-gold pl-5">
@@ -317,9 +350,12 @@ export default async function SectionPage({ params }: SectionProps) {
                         </p>
                         <Link
                           href={`/${data.slug}/${p.slug}`}
-                          className="mt-6 inline-block rounded-full bg-navy px-6 py-3 font-bold text-white transition hover:-translate-y-0.5 hover:bg-royal"
+                          className="mt-6 inline-flex items-center gap-2 rounded-full bg-navy px-6 py-3 font-bold leading-none text-white transition hover:-translate-y-0.5 hover:bg-royal"
                         >
-                          {c?.button ?? "Learn more"} →
+                          {c?.button ?? "Learn more"}
+                          <span aria-hidden="true" className="translate-y-px">
+                            →
+                          </span>
                         </Link>
                       </div>
                     </Reveal>
@@ -378,8 +414,11 @@ export default async function SectionPage({ params }: SectionProps) {
                   </h3>
                   <p className="mt-2 text-sm text-white/85">{p.summary}</p>
                   <span className="mt-auto inline-block self-start pt-5">
-                    <span className="inline-block rounded-full bg-gold px-5 py-2 text-sm font-bold text-navy transition-transform duration-300 group-hover:translate-x-1">
-                      Learn more →
+                    <span className="inline-flex items-center gap-2 rounded-full bg-gold px-5 py-2.5 text-sm font-bold leading-none text-navy transition-transform duration-300 group-hover:translate-x-1">
+                      Learn more
+                      <span aria-hidden="true" className="translate-y-px">
+                        →
+                      </span>
                     </span>
                   </span>
                 </Link>

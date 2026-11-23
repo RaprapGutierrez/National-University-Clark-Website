@@ -79,6 +79,17 @@ export const pageContent: Record<string, Block[]> = {
       heading: "About the Office of the Academic Director",
       body: ["Add the official overview of this office here."],
     },
+    {
+      type: "cards",
+      heading: "Units and centers",
+      items: [
+        {
+          title: "Language Center",
+          text: "Programs and support from the NU Clark Language Center.",
+          href: "/academics/office-of-the-academic-director/language-center",
+        },
+      ],
+    },
   ],
 
   // ---------- ADMISSIONS ----------
@@ -141,28 +152,6 @@ export const pageContent: Record<string, Block[]> = {
         },
         { title: "Government grants", text: "Add available programs." },
       ],
-    },
-  ],
-
-  "admissions/tuition-fees": [
-    {
-      type: "table",
-      heading: "Tuition and fees per term",
-      columns: ["Program", "Tuition", "Misc. fees", "Total"],
-      rows: [
-        ["Senior High School", "₱ —", "₱ —", "₱ —"],
-        ["School of Engineering", "₱ —", "₱ —", "₱ —"],
-        [
-          "School of Architecture, Technology, and Computing",
-          "₱ —",
-          "₱ —",
-          "₱ —",
-        ],
-      ],
-    },
-    {
-      type: "note",
-      text: "Add the official amounts and the school year they apply to.",
     },
   ],
 
