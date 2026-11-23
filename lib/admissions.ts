@@ -3,10 +3,12 @@
 
 export const APPLY_URL = "https://onlineapp.nu-clark.edu.ph/quest/register.php";
 export const CONTACT_URL = "https://www.nu.edu.ph/nu-clark/contact-us";
-export const SCHOLARSHIPS_URL = "https://www.nu.edu.ph/nu-clark/admissions/scholarships";
+export const SCHOLARSHIPS_URL =
+  "https://www.nu.edu.ph/nu-clark/admissions/scholarships";
 
 /** Shown on the admissions pages. Change or set to "" when it no longer applies. */
-export const ENROLLMENT_NOTE = "Enrollment is ongoing for 2nd Term A.Y. 2026–2027.";
+export const ENROLLMENT_NOTE =
+  "Enrollment is ongoing for 2nd Term A.Y. 2026–2027.";
 
 export const steps = [
   {
@@ -94,7 +96,10 @@ export const academicScholarships = [
     id: 259,
     name: "Doña Miguela M. Jhocson Blue Scholar",
     for: "Graduates with High Honors",
-    benefits: ["100% discount on Tuition Fee", "100% discount on Miscellaneous Fee"],
+    benefits: [
+      "100% discount on Tuition Fee",
+      "100% discount on Miscellaneous Fee",
+    ],
     requirements: [
       "Certificate from the high school, signed by the Principal, stating the award received",
       "Original Grade 12 Report Card (incoming freshmen)",
@@ -138,7 +143,10 @@ export const otherDiscounts = [
   { id: 263, name: "Armed Forces of the Philippines" },
   { id: 264, name: "Alumni Discount" },
   { id: 265, name: "Siblings Discount" },
-  { id: 266, name: "NU Nazareth School and NU Senior High School Loyalty Discount" },
+  {
+    id: 266,
+    name: "NU Nazareth School and NU Senior High School Loyalty Discount",
+  },
   { id: 267, name: "BFP Discount" },
   { id: 268, name: "PWD Discount" },
   { id: 269, name: "Philippine Coast Guard (PCG)" },

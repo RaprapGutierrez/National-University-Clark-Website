@@ -1,9 +1,17 @@
 import Link from "next/link";
 
 const tabs = [
-  { key: "how-to-apply", label: "How to Apply", href: "/admissions/how-to-apply" },
-  { key: "requirements", label: "Requirements", href: "/admissions/requirements" },
-  { key: "scholarships", label: "Scholarships", href: "/admissions/scholarships" },
+  { key: "apply-now", label: "How to Apply", href: "/admissions/apply-now" },
+  {
+    key: "requirements",
+    label: "Requirements",
+    href: "/admissions/requirements",
+  },
+  {
+    key: "scholarships",
+    label: "Scholarships",
+    href: "/admissions/scholarships",
+  },
 ];
 
 export default function AdmissionsTabs({ active }: { active?: string }) {

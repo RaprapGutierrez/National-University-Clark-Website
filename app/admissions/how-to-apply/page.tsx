@@ -30,7 +30,7 @@ export default function HowToApplyPage() {
         label="Admissions"
         crumbs={crumbs}
       />
-      <AdmissionsTabs active="how-to-apply" />
+      <AdmissionsTabs active="apply-now" />
 
       <main className="mx-auto max-w-6xl px-5 py-8">
         {ENROLLMENT_NOTE && (
@@ -47,7 +47,9 @@ export default function HowToApplyPage() {
                   {i + 1}
                 </span>
                 <div>
-                  <h2 className="text-xl font-extrabold text-navy">{s.title}</h2>
+                  <h2 className="text-xl font-extrabold text-navy">
+                    {s.title}
+                  </h2>
                   <p className="mt-2 text-slate">{s.text}</p>
                 </div>
               </li>

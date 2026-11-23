@@ -33,7 +33,9 @@ export default function ScholarshipsPage() {
       <AdmissionsTabs active="scholarships" />
 
       <main className="mx-auto max-w-6xl px-5 py-8">
-        <h2 className="text-2xl font-extrabold text-navy">Academic scholarships</h2>
+        <h2 className="text-2xl font-extrabold text-navy">
+          Academic scholarships
+        </h2>
         <div className="mt-5 grid gap-6 lg:grid-cols-3">
           {academicScholarships.map((s, i) => (
             <Reveal key={s.id} delay={i * 100}>

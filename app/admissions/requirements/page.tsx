@@ -41,7 +41,9 @@ export default function RequirementsPage() {
                 <ul className="mt-4 space-y-2 text-slate">
                   {g.items.map((item) => (
                     <li key={item} className="flex gap-3">
-                      <span aria-hidden className="mt-1 text-gold">✔</span>
+                      <span aria-hidden className="mt-1 text-gold">
+                        ✔
+                      </span>
                       <span>{item}</span>
                     </li>
                   ))}
