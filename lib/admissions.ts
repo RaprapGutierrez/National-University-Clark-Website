@@ -41,6 +41,7 @@ export const steps = [
 export type RequirementGroup = {
   level: string;
   title: string;
+  blurb: string;
   items: string[];
 };
 
@@ -48,6 +49,7 @@ export const requirementGroups: RequirementGroup[] = [
   {
     level: "Senior High School",
     title: "Grade 11",
+    blurb: "For Grade 10 completers entering Senior High at NU Clark.",
     items: [
       "Grade 10 Report Card",
       "Certificate of Good Moral Character",
@@ -60,6 +62,7 @@ export const requirementGroups: RequirementGroup[] = [
   {
     level: "College",
     title: "Freshman",
+    blurb: "For Senior High graduates starting their first college degree.",
     items: [
       "Grade 12 Report Card",
       "Certificate of Good Moral Character",
@@ -73,6 +76,7 @@ export const requirementGroups: RequirementGroup[] = [
   {
     level: "College",
     title: "Transferee",
+    blurb: "For students moving to NU Clark from another college or university.",
     items: [
       "Honorable Dismissal / Transfer Credentials",
       "Official Transcript of Records (TOR) / Scholastic Records",
@@ -86,6 +90,7 @@ export const requirementGroups: RequirementGroup[] = [
   {
     level: "College",
     title: "Second Degree",
+    blurb: "For graduates pursuing another undergraduate program.",
     items: [
       "Honorable Dismissal / Transfer Credentials",
       "Official Transcript of Records (TOR) / Scholastic Records",
@@ -95,6 +100,21 @@ export const requirementGroups: RequirementGroup[] = [
       "Recent two (2) pieces 2×2 colored ID pictures",
       "Photocopy of Diploma",
     ],
+  },
+];
+
+export const requirementTips = [
+  {
+    title: "Keep copies clear",
+    text: "Scan or photograph documents so names, grades, and seals are easy to read.",
+  },
+  {
+    title: "Wait for the email",
+    text: "After you apply online, Admissions sends the exact list for your case.",
+  },
+  {
+    title: "Bring originals later",
+    text: "You may need to present original documents at the Admissions Office when asked.",
   },
 ];
 

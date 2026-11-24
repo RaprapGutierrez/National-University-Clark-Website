@@ -12,33 +12,31 @@ const tabs = [
     label: "Scholarships",
     href: "/admissions/scholarships",
   },
-];
+] as const;
 
 export default function AdmissionsTabs({ active }: { active?: string }) {
   return (
-    <div className="sticky top-[var(--site-header-offset)] z-30 border-b border-line bg-mist/95 backdrop-blur-md">
-      <nav
-        aria-label="Admissions"
-        className="mx-auto flex max-w-6xl gap-1 overflow-x-auto px-4 py-3 sm:px-5 sm:gap-2"
-      >
+    <nav aria-label="Admissions pages" className="mx-auto max-w-6xl px-4 sm:px-5">
+      <ul className="flex gap-1 overflow-x-auto py-3 sm:gap-2 sm:py-3.5">
         {tabs.map((t) => {
           const on = active === t.key;
           return (
-            <Link
-              key={t.key}
-              href={t.href}
-              aria-current={on ? "page" : undefined}
-              className={`shrink-0 rounded-full px-5 py-2 text-sm font-bold transition ${
-                on
-                  ? "bg-navy text-gold shadow-sm"
-                  : "bg-white text-navy ring-1 ring-line hover:ring-gold"
-              }`}
-            >
-              {t.label}
-            </Link>
+            <li key={t.key} className="shrink-0">
+              <Link
+                href={t.href}
+                aria-current={on ? "page" : undefined}
+                className={`inline-flex items-center rounded-full px-5 py-2 text-sm font-bold transition ${
+                  on
+                    ? "bg-navy text-gold shadow-sm"
+                    : "bg-mist text-navy ring-1 ring-line hover:ring-gold"
+                }`}
+              >
+                {t.label}
+              </Link>
+            </li>
           );
         })}
-      </nav>
-    </div>
+      </ul>
+    </nav>
   );
 }

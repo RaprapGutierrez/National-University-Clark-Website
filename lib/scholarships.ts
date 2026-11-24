@@ -25,12 +25,12 @@ export const pics = {
 };
 
 export const intro = {
-  title: "NU Clark Scholarship Programs and Application for A.Y. 2026–2027",
-  lead: "Attention Incoming Freshmen and Grade 11 Students!",
+  title: "NU Clark Scholarship Programs for A.Y. 2026–2027",
+  lead: "For incoming freshmen and Grade 11 students",
   body: [
-    "Applications for the NU Clark Scholarship Programs are open from May 14, 2026 (5:00 AM) to May 15, 2026 (12:00 MN).",
-    "Don’t miss this chance to join one of Central Luzon’s fastest-growing universities and gain access to quality education through our prestigious scholarship programs.",
-    "Follow the application steps carefully and keep track of all important dates throughout the process.",
+    "The call for A.Y. 2026–2027 scholarship applications ran May 14–15, 2026. Review the tracks below so you know what to prepare for the next opening.",
+    "Gold, Blue, White, and Nationalian scholarships reward strong academic performance with tuition support — and limited slots each cycle.",
+    "When the next call opens, submit complete requirements through NU Quest and watch your email for exam schedules.",
   ],
 };
 

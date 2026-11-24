@@ -32,7 +32,11 @@ export default function SectionTitle({
         <span className="h-1.5 w-1.5 rounded-full bg-gold/30" />
       </div>
       {text && (
-        <p className={`mt-3 max-w-2xl ${light ? "text-white/85" : "text-slate"}`}>
+        <p
+          className={`mt-3 max-w-2xl text-base leading-relaxed ${
+            light ? "text-white" : "text-slate"
+          }`}
+        >
           {text}
         </p>
       )}
