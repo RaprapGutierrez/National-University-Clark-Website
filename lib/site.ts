@@ -1,8 +1,8 @@
 export const APPLY_URL =
-  "https://onlineapp.national-u.edu.ph/quest/register.php";
+  "https://onlineapp.nu-clark.edu.ph/quest/register.php";
 
 export const APPLY_LOGIN_URL =
-  "https://onlineapp.national-u.edu.ph/quest/home.php";
+  "https://onlineapp.nu-clark.edu.ph/quest/home.php";
 
 export const NUIS_LOGIN_URL =
   "https://onlineapp.nu-clark.edu.ph/portal/services.php";

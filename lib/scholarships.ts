@@ -2,7 +2,7 @@
 // Sources: NU Clark scholarship posts for A.Y. 2026–2027 and the SDAO UAEB announcement.
 // Pictures go in public/scholarships/
 
-export const ADMISSIONS_EMAIL = "admissions@nu-clark.edu.ph";
+export const ADMISSIONS_EMAIL = "nuclarkadmissions@national-u.edu.ph";
 export const ADMISSIONS_PHONE = "0919-081-4634";
 export const SDAO_EMAIL = "sdao@nu-clark.edu.ph";
 
@@ -11,7 +11,8 @@ export const SDAO_EMAIL = "sdao@nu-clark.edu.ph";
  * "Applications for A.Y. 2026–2027 are closed. Watch our Facebook page for the next call."
  * Leave "" to hide it.
  */
-export const SCHOLARSHIP_NOTICE = "";
+export const SCHOLARSHIP_NOTICE =
+  "Applications for A.Y. 2026–2027 scholarship programs and UAEB are closed. Watch the NU Clark Facebook page for the next call.";
 
 const P = "/scholarships";
 

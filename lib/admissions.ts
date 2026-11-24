@@ -1,7 +1,8 @@
 // Content source: https://www.nu.edu.ph/nu-clark/admissions
 // Update this file when the admissions office changes anything.
 
-export const APPLY_URL = "https://onlineapp.nu-clark.edu.ph/quest/register.php";
+export { APPLY_URL } from "@/lib/site";
+
 export const CONTACT_URL = "https://www.nu.edu.ph/nu-clark/contact-us";
 export const SCHOLARSHIPS_URL =
   "https://www.nu.edu.ph/nu-clark/admissions/scholarships";
@@ -37,7 +38,13 @@ export const steps = [
   },
 ];
 
-export const requirementGroups = [
+export type RequirementGroup = {
+  level: string;
+  title: string;
+  items: string[];
+};
+
+export const requirementGroups: RequirementGroup[] = [
   {
     level: "Senior High School",
     title: "Grade 11",

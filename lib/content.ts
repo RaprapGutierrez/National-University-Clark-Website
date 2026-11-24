@@ -1,4 +1,3 @@
-import { APPLY_URL } from "./site";
 import { programsBySchool } from "./programs";
 
 export type Block =
@@ -82,89 +81,7 @@ export const pageContent: Record<string, Block[]> = {
   ],
 
   // ---------- ADMISSIONS ----------
-  "admissions/apply-now": [
-    {
-      type: "steps",
-      heading: "How to apply",
-      items: [
-        {
-          title: "Create an account",
-          text: "Register on the NU online application portal.",
-        },
-        {
-          title: "Fill out the application",
-          text: "Complete the form and upload your requirements.",
-        },
-        {
-          title: "Complete admission steps",
-          text: "Take any required test or interview.",
-        },
-        { title: "Enroll", text: "Pay the fees and finish your enrollment." },
-      ],
-    },
-    {
-      type: "note",
-      text: "Confirm these steps with the NU Clark admissions office before publishing.",
-    },
-  ],
-
-  "admissions/requirements": [
-    {
-      type: "list",
-      heading: "Senior High School",
-      items: ["Add requirement 1", "Add requirement 2", "Add requirement 3"],
-    },
-    {
-      type: "list",
-      heading: "College freshmen",
-      items: ["Add requirement 1", "Add requirement 2", "Add requirement 3"],
-    },
-    {
-      type: "list",
-      heading: "Transferees",
-      items: ["Add requirement 1", "Add requirement 2", "Add requirement 3"],
-    },
-  ],
-
-  "admissions/scholarships": [
-    {
-      type: "cards",
-      heading: "Scholarships and financial aid",
-      items: [
-        {
-          title: "Academic scholarship",
-          text: "Add who qualifies and the benefits.",
-        },
-        {
-          title: "Athletic scholarship",
-          text: "Add who qualifies and the benefits.",
-        },
-        { title: "Government grants", text: "Add available programs." },
-      ],
-    },
-  ],
-
-  "admissions/tuition-fees": [
-    {
-      type: "table",
-      heading: "Tuition and fees per term",
-      columns: ["Program", "Tuition", "Misc. fees", "Total"],
-      rows: [
-        ["Senior High School", "₱ —", "₱ —", "₱ —"],
-        ["School of Engineering", "₱ —", "₱ —", "₱ —"],
-        [
-          "School of Architecture, Technology, and Computing",
-          "₱ —",
-          "₱ —",
-          "₱ —",
-        ],
-      ],
-    },
-    {
-      type: "note",
-      text: "Add the official amounts and the school year they apply to.",
-    },
-  ],
+  // Admissions pages live under app/admissions/* (apply-now, requirements, scholarships).
 
   // ---------- STUDENT LIFE ----------
   "student-life/organizations": [
@@ -333,63 +250,5 @@ export const pageContent: Record<string, Block[]> = {
     },
   ],
 
-  "student-life/events": [
-    {
-      type: "text",
-      heading: "What's happening on campus",
-      body: ["Add yearly traditions and major events here."],
-    },
-    {
-      type: "cards",
-      heading: "Upcoming events",
-      items: [
-        { title: "Event name", text: "Date and place." },
-        { title: "Event name", text: "Date and place." },
-      ],
-    },
-  ],
-  "student-life/services": [
-    {
-      type: "cards",
-      heading: "Student services",
-      items: [
-        {
-          title: "Guidance Services Office",
-          text: "Counseling and support for your academic, personal, and career concerns. Email: gso@nu-clark.edu.ph",
-        },
-        {
-          title: "Admissions Office",
-          text: "Help with applying, requirements, scholarships, and enrollment. Call 0919-081-4634 or email admissions@nu-clark.edu.ph. Tap to apply online.",
-          href: APPLY_URL,
-        },
-        {
-          title: "Registrar’s Office",
-          text: "Student records, transcript of records, certificates, and your Certificate of Registration. Email: registrar@nu-clark.edu.ph",
-        },
-        {
-          title: "Accounting and Treasury Office",
-          text: "Tuition and fee payments, and your Official Receipt. Email: accounting@nu-clark.edu.ph",
-        },
-        {
-          title: "Health Services Office (Clinic)",
-          text: "Basic health care and first aid on campus. Email: hso@nu-clark.edu.ph",
-        },
-        {
-          title: "Information Technology Services Office (ITSO)",
-          text: "Help with school systems, accounts, and campus IT services. Email: itso@nu-clark.edu.ph",
-        },
-        {
-          title: "Discipline Office",
-          text: "Student conduct, school rules, and discipline concerns. Add the office email or local number here.",
-        },
-      ],
-    },
-    {
-      type: "text",
-      heading: "Office hours",
-      body: [
-        "Administrative and academic support offices are open Monday to Friday, 8:00 AM to 5:00 PM.",
-      ],
-    },
-  ],
+  // Events and services live under app/student-life/events and app/student-life/services.
 };

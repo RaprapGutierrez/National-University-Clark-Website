@@ -16,7 +16,7 @@ const footerLinks = [
     links: [
       { label: "Programs Offered", href: "https://www.nu.edu.ph/nu-clark/admissions/programs" },
       { label: "Colleges & Departments", href: "/academics" },
-      { label: "How to Apply", href: "/admissions/apply-now" },
+      { label: "Apply Now", href: "/admissions/apply-now" },
       { label: "Scholarships", href: "/admissions/scholarships" },
       { label: "For International Students", href: "https://www.nu.edu.ph/nu-clark/campus-life/international-students-support" },
       { label: "Admission Requirements", href: "/admissions/requirements" },
