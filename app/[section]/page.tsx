@@ -3,6 +3,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { AboutOverview } from "@/components/about/AboutPages";
+import { JourneyPanel } from "@/components/admissions/JourneyVisuals";
 import AcademicsBanner from "@/components/AcademicsBanner";
 import Reveal from "@/components/Reveal";
 import {
@@ -20,6 +21,28 @@ const CONTACT_URL = "/about"; // change to your contact page
 const introCopy: Record<string, { kicker: string; heading: string }> = {
   admissions: { kicker: "Admissions", heading: "Start your journey" },
   "student-life": { kicker: "Campus life", heading: "More than the classroom" },
+};
+
+// Text for each Admissions section (key = page slug in lib/site.ts)
+const admissionsCopy: Record<
+  string,
+  { kicker: string; text: string; button: string; highlights?: string[] }
+> = {
+  "apply-now": {
+    kicker: "Apply online",
+    text: "Start your online application today. You can also scan the QR code at the bottom of this page with your phone.",
+    button: "Start applying",
+  },
+  requirements: {
+    kicker: "Be prepared",
+    text: "See what to prepare before you enroll, so everything is ready when you apply.",
+    button: "View requirements",
+  },
+  scholarships: {
+    kicker: "Financial support",
+    text: "Find financial support options for Nationalians and see how to apply.",
+    button: "Explore scholarships",
+  },
 };
 
 // Text for each Student Life section (key = page slug in lib/site.ts)
@@ -182,7 +205,10 @@ export default async function SectionPage({ params }: SectionProps) {
           <div className="space-y-14 sm:space-y-16">
             {/* 1. Senior High School */}
             {shs && (
-              <section id="senior-high" className="scroll-mt-[var(--site-header-offset)]">
+              <section
+                id="senior-high"
+                className="scroll-mt-[var(--site-header-offset)]"
+              >
                 <Reveal>
                   <GroupHeading
                     kicker="Grades 11 and 12"
@@ -271,7 +297,10 @@ export default async function SectionPage({ params }: SectionProps) {
 
             {/* 3. Office of the Academic Director */}
             {office && (
-              <section id="office" className="scroll-mt-[var(--site-header-offset)]">
+              <section
+                id="office"
+                className="scroll-mt-[var(--site-header-offset)]"
+              >
                 <Reveal>
                   <GroupHeading
                     kicker="Academic support"
@@ -280,19 +309,20 @@ export default async function SectionPage({ params }: SectionProps) {
                   />
                 </Reveal>
                 <div className="grid gap-4 sm:grid-cols-2">
-                  <Reveal>
+                  <Reveal className="h-full">
                     <Link
                       href={`/${data.slug}/${office.slug}`}
                       className="group relative isolate flex h-full flex-col overflow-hidden rounded-3xl border-2 border-navy bg-gold p-6 text-navy shadow-lg transition duration-300 ease-out hover:-translate-y-2 hover:shadow-2xl hover:shadow-navy/30 motion-reduce:transform-none"
                     >
-                      <WidePanelShapes tone="gold" />
-                      <h3 className="relative text-xl font-extrabold sm:text-2xl">
+                      {/* Half-width card, so the small corner (not the wide shapes) */}
+                      <CardCorner tone="gold" />
+                      <h3 className="pr-8 text-xl font-extrabold sm:text-2xl">
                         {office.title}
                       </h3>
-                      <p className="relative mt-2 text-sm font-medium text-navy/85">
+                      <p className="mt-2 text-sm font-medium text-navy/85">
                         {office.summary}
                       </p>
-                      <span className="relative mt-auto inline-flex items-center gap-2 self-start pt-5">
+                      <span className="mt-auto inline-flex items-center gap-2 self-start pt-5">
                         <span className="inline-flex items-center gap-2 rounded-full bg-navy px-5 py-2.5 text-sm font-bold leading-none text-white transition-transform duration-300 group-hover:translate-x-1">
                           Learn more
                           <span aria-hidden="true" className="translate-y-px">
@@ -302,13 +332,13 @@ export default async function SectionPage({ params }: SectionProps) {
                       </span>
                     </Link>
                   </Reveal>
-                  <Reveal delay={100}>
+                  <Reveal delay={100} className="h-full">
                     <Link
                       href="/academics/office-of-the-academic-director/language-center"
                       className="group relative isolate flex h-full flex-col overflow-hidden rounded-3xl border-2 border-gold bg-navy p-6 text-white shadow-lg transition duration-300 ease-out hover:-translate-y-2 hover:shadow-2xl hover:shadow-navy/40 motion-reduce:transform-none"
                     >
                       <CardCorner />
-                      <h3 className="text-xl font-extrabold text-gold sm:text-2xl">
+                      <h3 className="pr-8 text-xl font-extrabold text-gold sm:text-2xl">
                         Language Center
                       </h3>
                       <p className="mt-2 text-sm text-white/85">
@@ -334,7 +364,11 @@ export default async function SectionPage({ params }: SectionProps) {
               const c = studentLifeCopy[p.slug];
               const flip = i % 2 === 1;
               return (
-                <section key={p.slug} id={p.slug} className="scroll-mt-[var(--site-header-offset)]">
+                <section
+                  key={p.slug}
+                  id={p.slug}
+                  className="scroll-mt-[var(--site-header-offset)]"
+                >
                   <div className="grid items-center gap-8 md:grid-cols-2 md:gap-12">
                     <Reveal className={flip ? "md:order-2" : ""}>
                       <div className="border-l-4 border-gold pl-5">
@@ -391,6 +425,90 @@ export default async function SectionPage({ params }: SectionProps) {
                           {String(i + 1).padStart(2, "0")}
                         </span>
                       </div>
+                    </Reveal>
+                  </div>
+                </section>
+              );
+            })}
+          </div>
+        ) : data.slug === "admissions" ? (
+          <div className="space-y-14 sm:space-y-20">
+            {/* Journey strip: the steps at a glance, each one jumps to its section */}
+            <Reveal>
+              <ol
+                aria-label="Admissions steps"
+                className="grid gap-3 sm:grid-cols-3"
+              >
+                {data.pages.map((p, i) => (
+                  <li key={p.slug}>
+                    <a
+                      href={`#${p.slug}`}
+                      className="group flex h-full items-center gap-4 rounded-2xl border border-line bg-white p-4 shadow-sm transition hover:-translate-y-0.5 hover:border-royal"
+                    >
+                      <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-gold text-sm font-extrabold text-navy shadow-md transition-transform duration-300 group-hover:scale-110">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <span className="min-w-0">
+                        <b className="block text-navy">{p.title}</b>
+                        <span className="block text-sm text-slate">
+                          {p.summary}
+                        </span>
+                      </span>
+                    </a>
+                  </li>
+                ))}
+              </ol>
+            </Reveal>
+
+            {data.pages.map((p, i) => {
+              const c = admissionsCopy[p.slug];
+              const flip = i % 2 === 1;
+              return (
+                <section
+                  key={p.slug}
+                  id={p.slug}
+                  className="scroll-mt-[var(--site-header-offset)]"
+                >
+                  <div className="grid items-center gap-8 md:grid-cols-2 md:gap-12">
+                    <Reveal className={flip ? "md:order-2" : ""}>
+                      <div className="border-l-4 border-gold pl-5">
+                        <p className="text-sm font-bold uppercase tracking-[0.2em] text-royal">
+                          {c?.kicker ?? "Admissions"}
+                        </p>
+                        <h2 className="mt-1 text-3xl font-extrabold text-navy sm:text-4xl">
+                          {p.title}
+                        </h2>
+                        <div className="mt-3 h-1.5 w-16 rounded-full bg-gold" />
+                        <p className="mt-4 max-w-xl text-lg text-slate">
+                          {c?.text ?? p.summary}
+                        </p>
+                        {c?.highlights && c.highlights.length > 0 && (
+                          <ul className="mt-5 grid max-w-xl gap-2 text-slate sm:grid-cols-2">
+                            {c.highlights.map((h) => (
+                              <li key={h} className="flex items-start gap-2">
+                                <span
+                                  aria-hidden="true"
+                                  className="mt-2 h-2 w-2 shrink-0 rounded-full bg-gold"
+                                />
+                                {h}
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                        <Link
+                          href={`/${data.slug}/${p.slug}`}
+                          className="mt-6 inline-flex items-center gap-2 rounded-full bg-navy px-6 py-3 font-bold leading-none text-white transition hover:-translate-y-0.5 hover:bg-royal"
+                        >
+                          {c?.button ?? "Learn more"}
+                          <span aria-hidden="true" className="translate-y-px">
+                            →
+                          </span>
+                        </Link>
+                      </div>
+                    </Reveal>
+
+                    <Reveal delay={100} className={flip ? "md:order-1" : ""}>
+                      <JourneyPanel slug={p.slug} index={i} />
                     </Reveal>
                   </div>
                 </section>

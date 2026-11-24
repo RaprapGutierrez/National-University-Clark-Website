@@ -1,6 +1,6 @@
 // Decorative shapes that match the home page. All are purely visual:
 // hidden from screen readers and they never block clicks.
-// Panels that use PanelShapes / GoldPanelShapes / CardCorner need: relative isolate overflow-hidden
+// Panels that use PanelShapes / WidePanelShapes / CardCorner need: relative isolate overflow-hidden
 
 // Small dotted pattern
 export function Dots({ className = "" }: { className?: string }) {
@@ -132,16 +132,33 @@ export function WidePanelShapes({ tone }: { tone: "navy" | "gold" }) {
   );
 }
 
-// Small amber corner for navy cards
-export function CardCorner() {
+// Small corner for cards: amber on navy cards, navy tint on gold cards
+export function CardCorner({ tone = "navy" }: { tone?: "navy" | "gold" }) {
   return (
     <svg
       aria-hidden="true"
       viewBox="0 0 80 80"
       className="pointer-events-none absolute right-0 top-0 -z-10 h-20 w-20 select-none"
     >
-      <polygon points="80,0 20,0 80,60" fill="#f5a000" fillOpacity="0.9" />
-      <polygon points="80,0 55,0 80,25" className="fill-gold" />
+      {tone === "navy" ? (
+        <>
+          <polygon points="80,0 20,0 80,60" fill="#f5a000" fillOpacity="0.9" />
+          <polygon points="80,0 55,0 80,25" className="fill-gold" />
+        </>
+      ) : (
+        <>
+          <polygon
+            points="80,0 20,0 80,60"
+            className="fill-navy"
+            fillOpacity="0.15"
+          />
+          <polygon
+            points="80,0 55,0 80,25"
+            className="fill-navy"
+            fillOpacity="0.85"
+          />
+        </>
+      )}
     </svg>
   );
 }
