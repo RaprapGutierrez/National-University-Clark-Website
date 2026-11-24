@@ -90,6 +90,9 @@ export default async function ProgramPage({
   const about = data.about.filter((p) => !p.startsWith("Add "));
   const careers = data.careers ?? [];
 
+  // Extra sections (Senior High School: track, strengths, related degrees, why study)
+  const extras = data.extraSections ?? [];
+
   // Mission and vision only show for programs that have them
   const hasMissionVision = Boolean(data.mission && data.vision);
 
@@ -121,12 +124,21 @@ export default async function ProgramPage({
       label: "Specialization",
       show: aboutAfterMission && about.length > 1,
     },
+    ...extras.map((s, i) => ({
+      id: `extra-${i}`,
+      label: s.label ?? s.title,
+      show: true,
+    })),
     {
       id: "objectives",
       label: "Educational objectives",
       show: data.objectives.length > 0,
     },
-    { id: "outcomes", label: "Program outcomes", show: true },
+    {
+      id: "outcomes",
+      label: "Program outcomes",
+      show: data.outcomes.length > 0,
+    },
     {
       id: "accreditation",
       label: "Accreditation",
@@ -164,7 +176,10 @@ export default async function ProgramPage({
 
         <article className="min-w-0 space-y-9 sm:space-y-14 lg:space-y-16">
           {about.length > 0 && !aboutAfterMission && (
-            <section id="about" className="scroll-mt-[var(--site-header-offset)]">
+            <section
+              id="about"
+              className="scroll-mt-[var(--site-header-offset)]"
+            >
               <Reveal>
                 <SectionTitle
                   kicker="Overview"
@@ -182,7 +197,10 @@ export default async function ProgramPage({
           )}
 
           {careers.length > 0 && (
-            <section id="careers" className="scroll-mt-[var(--site-header-offset)]">
+            <section
+              id="careers"
+              className="scroll-mt-[var(--site-header-offset)]"
+            >
               <Reveal>
                 <SectionTitle
                   kicker="After graduation"
@@ -203,7 +221,10 @@ export default async function ProgramPage({
           )}
 
           {hasMissionVision && (
-            <section id="mission-vision" className="scroll-mt-[var(--site-header-offset)]">
+            <section
+              id="mission-vision"
+              className="scroll-mt-[var(--site-header-offset)]"
+            >
               <Reveal>
                 <SectionTitle
                   kicker="Our direction"
@@ -256,8 +277,79 @@ export default async function ProgramPage({
               </section>
             ))}
 
+          {/* Extra sections (Senior High School) */}
+          {extras.map((s, i) => (
+            <section
+              key={s.title}
+              id={`extra-${i}`}
+              className="scroll-mt-[var(--site-header-offset)]"
+            >
+              <Reveal>
+                <SectionTitle kicker={s.kicker} title={s.title} />
+
+                {(s.paragraphs || s.items) && (
+                  <div className="rounded-2xl border border-line bg-white p-4 shadow-sm sm:rounded-3xl sm:p-8">
+                    {s.paragraphs && (
+                      <div className="space-y-3 border-l-[3px] border-gold pl-3 text-[15px] leading-relaxed text-slate sm:space-y-4 sm:border-l-4 sm:pl-4 sm:text-lg">
+                        {s.paragraphs.map((para, k) => (
+                          <p key={k}>{para}</p>
+                        ))}
+                      </div>
+                    )}
+                    {s.items && (
+                      <ul
+                        className={`space-y-2 text-[15px] text-slate sm:text-base ${
+                          s.paragraphs ? "mt-4 sm:mt-5" : ""
+                        }`}
+                      >
+                        {s.items.map((item) => (
+                          <li key={item} className="flex gap-3">
+                            <span
+                              className="mt-2 h-2 w-2 shrink-0 rounded-full bg-gold"
+                              aria-hidden="true"
+                            />
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                )}
+
+                {s.groups && (
+                  <div className="grid gap-3 sm:grid-cols-2 sm:gap-4">
+                    {s.groups.map((g) => (
+                      <div
+                        key={g.label}
+                        className="rounded-2xl border border-line bg-white p-4 shadow-sm sm:rounded-3xl sm:p-5"
+                      >
+                        <h3 className="text-base font-extrabold text-navy sm:text-lg">
+                          {g.label}
+                        </h3>
+                        <ul className="mt-3 space-y-1.5 text-sm text-slate">
+                          {g.items.map((item) => (
+                            <li key={item} className="flex gap-2.5">
+                              <span
+                                className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gold"
+                                aria-hidden="true"
+                              />
+                              <span>{item}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </Reveal>
+            </section>
+          ))}
+
           {data.objectives.length > 0 && (
-            <section id="objectives" className="scroll-mt-[var(--site-header-offset)]">
+            <section
+              id="objectives"
+              className="scroll-mt-[var(--site-header-offset)]"
+            >
               <Reveal>
                 <SectionTitle
                   kicker="What we aim for"
@@ -282,10 +374,15 @@ export default async function ProgramPage({
             </section>
           )}
 
-          <ProgramOutcomes outcomes={data.outcomes} />
+          {data.outcomes.length > 0 && (
+            <ProgramOutcomes outcomes={data.outcomes} />
+          )}
 
           {accreditations.length > 0 && (
-            <section id="accreditation" className="scroll-mt-[var(--site-header-offset)]">
+            <section
+              id="accreditation"
+              className="scroll-mt-[var(--site-header-offset)]"
+            >
               <Reveal>
                 <SectionTitle
                   kicker="Recognition"

@@ -66,7 +66,25 @@ function school(slug: string): Block[] {
 
 export const pageContent: Record<string, Block[]> = {
   // ---------- ACADEMICS ----------
-  "academics/senior-high-school": school("senior-high-school"),
+  "academics/senior-high-school": [
+    {
+      type: "text",
+      heading: "Academic Track",
+      body: [
+        "NU Clark Senior High School offers the Academic Track, with three clusters. Choose the cluster that fits the career you want.",
+      ],
+    },
+    {
+      type: "list",
+      heading: "Clusters and career pathways",
+      items: [
+        "STEM (Science, Technology, Engineering and Mathematics): Engineering and Architecture · Computing Technologies · Sciences and Allied Health",
+        "BUEN (Business and Entrepreneurship): Management and Accountancy",
+        "ASSH (Arts, Social Sciences and Humanities): Education, Arts and Social Sciences (EASS)",
+      ],
+    },
+    ...school("senior-high-school"),
+  ],
   "academics/sabm": school("sabm"),
   "academics/seas": school("seas"),
   "academics/satc": school("satc"),
@@ -82,68 +100,8 @@ export const pageContent: Record<string, Block[]> = {
   ],
 
   // ---------- ADMISSIONS ----------
-  "admissions/apply-now": [
-    {
-      type: "steps",
-      heading: "How to apply",
-      items: [
-        {
-          title: "Create an account",
-          text: "Register on the NU online application portal.",
-        },
-        {
-          title: "Fill out the application",
-          text: "Complete the form and upload your requirements.",
-        },
-        {
-          title: "Complete admission steps",
-          text: "Take any required test or interview.",
-        },
-        { title: "Enroll", text: "Pay the fees and finish your enrollment." },
-      ],
-    },
-    {
-      type: "note",
-      text: "Confirm these steps with the NU Clark admissions office before publishing.",
-    },
-  ],
-
-  "admissions/requirements": [
-    {
-      type: "list",
-      heading: "Senior High School",
-      items: ["Add requirement 1", "Add requirement 2", "Add requirement 3"],
-    },
-    {
-      type: "list",
-      heading: "College freshmen",
-      items: ["Add requirement 1", "Add requirement 2", "Add requirement 3"],
-    },
-    {
-      type: "list",
-      heading: "Transferees",
-      items: ["Add requirement 1", "Add requirement 2", "Add requirement 3"],
-    },
-  ],
-
-  "admissions/scholarships": [
-    {
-      type: "cards",
-      heading: "Scholarships and financial aid",
-      items: [
-        {
-          title: "Academic scholarship",
-          text: "Add who qualifies and the benefits.",
-        },
-        {
-          title: "Athletic scholarship",
-          text: "Add who qualifies and the benefits.",
-        },
-        { title: "Government grants", text: "Add available programs." },
-      ],
-    },
-  ],
-
+  // The Apply Now, Requirements and Scholarships pages now live in
+  // app/admissions/. Only Tuition and fees still uses this file.
   "admissions/tuition-fees": [
     {
       type: "table",
@@ -348,6 +306,7 @@ export const pageContent: Record<string, Block[]> = {
       ],
     },
   ],
+
   "student-life/services": [
     {
       type: "cards",
