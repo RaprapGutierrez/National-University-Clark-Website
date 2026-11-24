@@ -1,12 +1,9 @@
 import type { Metadata } from "next";
-import AcademicsBanner from "@/components/AcademicsBanner";
-import Reveal from "@/components/Reveal";
-import {
-  APPLY_URL,
-  CONTACT_URL,
-  ENROLLMENT_NOTE,
-  steps,
-} from "@/lib/admissions";
+import AdmissionsCta from "@/components/admissions/AdmissionsCta";
+import AdmissionsShell from "@/components/admissions/AdmissionsShell";
+import ApplySteps from "@/components/admissions/ApplySteps";
+import SectionTitle from "@/components/SectionTitle";
+import { ENROLLMENT_NOTE } from "@/lib/admissions";
 
 export const metadata: Metadata = {
   title: "Apply Now | NU Clark Admissions",
@@ -22,58 +19,25 @@ const crumbs = [
 
 export default function ApplyNowPage() {
   return (
-    <>
-      <AcademicsBanner
-        title="Apply Now"
-        subtitle="From your application form to your Certificate of Registration, in six steps."
-        label="Admissions"
-        crumbs={crumbs}
-      />
+    <AdmissionsShell
+      active="apply-now"
+      title="Apply Now"
+      subtitle="From your application form to your Certificate of Registration — six clear steps."
+      crumbs={crumbs}
+      notice={ENROLLMENT_NOTE || undefined}
+    >
+      <div className="mx-auto max-w-6xl px-4 py-10 sm:px-5 sm:py-14">
+        <SectionTitle
+          kicker="Your path"
+          title="How enrollment works"
+          text="Follow the sequence below. Start the online form anytime, then gather documents when Admissions emails you."
+        />
+        <ApplySteps />
+      </div>
 
-      <main className="mx-auto max-w-6xl px-5 py-8">
-        {ENROLLMENT_NOTE && (
-          <p className="mb-8 rounded-2xl border-2 border-gold bg-navy px-5 py-4 font-bold text-gold">
-            {ENROLLMENT_NOTE}
-          </p>
-        )}
-
-        <ol className="grid gap-6 md:grid-cols-2">
-          {steps.map((s, i) => (
-            <Reveal key={s.title} delay={(i % 2) * 100}>
-              <li className="flex h-full gap-4 rounded-3xl border-2 border-line bg-white p-6 shadow-lg">
-                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-navy text-xl font-extrabold text-gold">
-                  {i + 1}
-                </span>
-                <div>
-                  <h2 className="text-xl font-extrabold text-navy">
-                    {s.title}
-                  </h2>
-                  <p className="mt-2 text-slate">{s.text}</p>
-                </div>
-              </li>
-            </Reveal>
-          ))}
-        </ol>
-
-        <div className="mt-10 flex flex-wrap gap-3">
-          <a
-            href={APPLY_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="rounded-full bg-gold px-6 py-3 font-bold text-navy transition hover:-translate-y-0.5"
-          >
-            Start your application →
-          </a>
-          <a
-            href={CONTACT_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="rounded-full bg-navy px-6 py-3 font-bold text-white transition hover:bg-royal"
-          >
-            Have questions? Contact us →
-          </a>
-        </div>
-      </main>
-    </>
+      <div className="px-4 sm:px-5">
+        <AdmissionsCta />
+      </div>
+    </AdmissionsShell>
   );
 }

@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 const tabs = [
-  { key: "apply-now", label: "How to Apply", href: "/admissions/apply-now" },
+  { key: "apply-now", label: "Apply Now", href: "/admissions/apply-now" },
   {
     key: "requirements",
     label: "Requirements",
@@ -12,28 +12,31 @@ const tabs = [
     label: "Scholarships",
     href: "/admissions/scholarships",
   },
-];
+] as const;
 
 export default function AdmissionsTabs({ active }: { active?: string }) {
   return (
-    <nav
-      aria-label="Admissions"
-      className="mx-auto flex max-w-6xl flex-wrap gap-3 px-5 pt-8"
-    >
-      {tabs.map((t) => (
-        <Link
-          key={t.key}
-          href={t.href}
-          aria-current={active === t.key ? "page" : undefined}
-          className={`rounded-full border-2 px-5 py-2 text-sm font-bold transition hover:-translate-y-0.5 ${
-            active === t.key
-              ? "border-gold bg-navy text-gold"
-              : "border-line bg-white text-navy hover:border-gold"
-          }`}
-        >
-          {t.label}
-        </Link>
-      ))}
+    <nav aria-label="Admissions pages" className="mx-auto max-w-6xl px-4 sm:px-5">
+      <ul className="flex gap-1 overflow-x-auto py-3 sm:gap-2 sm:py-3.5">
+        {tabs.map((t) => {
+          const on = active === t.key;
+          return (
+            <li key={t.key} className="shrink-0">
+              <Link
+                href={t.href}
+                aria-current={on ? "page" : undefined}
+                className={`inline-flex items-center rounded-full px-5 py-2 text-sm font-bold transition ${
+                  on
+                    ? "bg-navy text-gold shadow-sm"
+                    : "bg-mist text-navy ring-1 ring-line hover:ring-gold"
+                }`}
+              >
+                {t.label}
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
     </nav>
   );
 }

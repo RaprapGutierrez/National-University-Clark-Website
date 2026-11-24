@@ -26,6 +26,10 @@ export type EventPost = {
   credits?: string[];
 };
 
+export function isUpcoming(event: EventPost) {
+  return event.tag.toLowerCase().startsWith("upcoming");
+}
+
 const HASHTAGS = ["#NUClarkSDAO", "#NUClark", "#EducationThatWorks"];
 const PASKO_TAGS = ["#PaskungKabaleNU2026", "#NUClark", "#EducationThatWorks"];
 
@@ -301,6 +305,113 @@ export const events: EventPost[] = [
   // EARLIER POSTS
   // ---------------------------------------------------------------
   {
+    slug: "ganting-pagal-academic-honors",
+    tag: "Highlights",
+    title: "Ganting Pagal: Celebrating Academic Excellence",
+    date: "A.Y. 2026–2027",
+    venue: "NU Clark",
+    body: [
+      "Ganting Pagal — “shining star” in Kapampangan — honors Nationalians whose hard work in the classroom deserves the spotlight.",
+      "Students from Civil Engineering and Computing programs were recognized for First and Second Honors across year levels, celebrating excellence, grit, and the culture of achievement at NU Clark.",
+      "Congratulations to every shining star. Keep aiming higher.",
+    ],
+    images: [
+      {
+        src: "/events/ganting-pagal/cover.jpg",
+        alt: "Ganting Pagal academic honors ceremony at NU Clark",
+      },
+    ],
+    gallery: [
+      {
+        title: "Civil Engineering honors",
+        items: [
+          {
+            src: "/events/ganting-pagal/civil-1st-first-honors.jpg",
+            alt: "Civil Engineering 1st year First Honors",
+            caption: "1st year · First Honors",
+          },
+          {
+            src: "/events/ganting-pagal/civil-1st-second-honors-a.jpg",
+            alt: "Civil Engineering 1st year Second Honors",
+            caption: "1st year · Second Honors",
+          },
+          {
+            src: "/events/ganting-pagal/civil-1st-second-honors-b.jpg",
+            alt: "Civil Engineering 1st year Second Honors",
+            caption: "1st year · Second Honors",
+          },
+          {
+            src: "/events/ganting-pagal/civil-2nd-first-honors.jpg",
+            alt: "Civil Engineering 2nd year First Honors",
+            caption: "2nd year · First Honors",
+          },
+          {
+            src: "/events/ganting-pagal/civil-2nd-second-honors.jpg",
+            alt: "Civil Engineering 2nd year Second Honors",
+            caption: "2nd year · Second Honors",
+          },
+          {
+            src: "/events/ganting-pagal/civil-4th-first-honors.jpg",
+            alt: "Civil Engineering 4th year First Honors",
+            caption: "4th year · First Honors",
+          },
+          {
+            src: "/events/ganting-pagal/civil-4th-second-honors.jpg",
+            alt: "Civil Engineering 4th year Second Honors",
+            caption: "4th year · Second Honors",
+          },
+        ],
+      },
+      {
+        title: "Computing honors",
+        items: [
+          {
+            src: "/events/ganting-pagal/comp-1st-first-honors.jpg",
+            alt: "Computing 1st year First Honors",
+            caption: "1st year · First Honors",
+          },
+          {
+            src: "/events/ganting-pagal/comp-1st-second-honors.jpg",
+            alt: "Computing 1st year Second Honors",
+            caption: "1st year · Second Honors",
+          },
+          {
+            src: "/events/ganting-pagal/comp-2nd-first-honors.jpg",
+            alt: "Computing 2nd year First Honors",
+            caption: "2nd year · First Honors",
+          },
+          {
+            src: "/events/ganting-pagal/comp-2nd-second-honors.jpg",
+            alt: "Computing 2nd year Second Honors",
+            caption: "2nd year · Second Honors",
+          },
+          {
+            src: "/events/ganting-pagal/comp-3rd-first-honors.jpg",
+            alt: "Computing 3rd year First Honors",
+            caption: "3rd year · First Honors",
+          },
+          {
+            src: "/events/ganting-pagal/comp-3rd-second-honors.jpg",
+            alt: "Computing 3rd year Second Honors",
+            caption: "3rd year · Second Honors",
+          },
+          {
+            src: "/events/ganting-pagal/comp-4th-first-honors.jpg",
+            alt: "Computing 4th year First Honors",
+            caption: "4th year · First Honors",
+          },
+          {
+            src: "/events/ganting-pagal/comp-4th-second-honors.jpg",
+            alt: "Computing 4th year Second Honors",
+            caption: "4th year · Second Honors",
+          },
+        ],
+      },
+    ],
+    hashtags: HASHTAGS,
+  },
+
+  {
     slug: "plugged-into-progress-look-back",
     tag: "A look back",
     title: "Plugged Into Progress: Term 1 Executive Assembly",
@@ -310,7 +421,6 @@ export const events: EventPost[] = [
       "Relive the highlights of the Term 1 Executive Assembly last October 29, 2026, as College and SHS RSOs and AcSOs came together to strengthen organizational leadership, build meaningful connections, and embrace greater accountability.",
       "The journey continues. Stay plugged into purpose!",
     ],
-    videoSrc: "/events/plugged-into-progress/plugged-into-progress.mp4",
     video: "https://www.facebook.com/share/r/1E6bjXCCps/",
     hashtags: HASHTAGS,
   },
