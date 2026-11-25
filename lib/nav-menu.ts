@@ -76,6 +76,7 @@ export const navSections = order
   .filter((s): s is Section => Boolean(s));
 
 export const extraNavLinks = [
+  { label: "Research", href: "/research" },
   { label: "Alumni", href: "/alumni" },
   { label: "News", href: "/news" },
 ];
