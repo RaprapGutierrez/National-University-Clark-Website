@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import AcademicsBanner from "@/components/AcademicsBanner";
 import EmptyState from "@/components/EmptyState";
+import EventCard from "@/components/events/EventCard";
 import FacebookFeed from "@/components/news/FacebookFeed";
-import NewsCard from "@/components/news/NewsCard";
 import Reveal from "@/components/Reveal";
 import SectionTitle from "@/components/SectionTitle";
 import { FACEBOOK_PAGE_URL, news } from "@/lib/news";
@@ -10,7 +10,7 @@ import { FACEBOOK_PAGE_URL, news } from "@/lib/news";
 export const metadata: Metadata = {
   title: "News | NU Clark",
   description:
-    "The latest news and announcements from National University Clark, from our Facebook page.",
+    "The latest news and announcements from National University Clark: global rankings, awards, international partnerships, and campus events.",
 };
 
 const crumbs = [{ label: "Home", href: "/" }, { label: "News" }];
@@ -38,7 +38,7 @@ export default function NewsPage() {
                 text="The latest from around the NU Clark campus."
               />
               <Reveal>
-                <NewsCard post={featured} featured />
+                <EventCard event={featured} featured />
               </Reveal>
             </div>
           </section>
@@ -49,12 +49,12 @@ export default function NewsPage() {
             <SectionTitle
               kicker="More stories"
               title="Recent news"
-              text="Announcements, achievements, and updates."
+              text="Rankings, awards, partnerships, and campus events."
             />
-            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="space-y-6">
               {rest.map((post, i) => (
-                <Reveal key={post.slug} delay={(i % 3) * 80} className="h-full">
-                  <NewsCard post={post} />
+                <Reveal key={post.slug} delay={(i % 3) * 60}>
+                  <EventCard event={post} />
                 </Reveal>
               ))}
             </div>
