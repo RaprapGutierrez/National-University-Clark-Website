@@ -6,11 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { usePathname } from "next/navigation";
 import { APPLY_URL } from "@/lib/site";
-import {
-  columnsBySlug,
-  extraNavLinks,
-  navSections,
-} from "@/lib/nav-menu";
+import { columnsBySlug, extraNavLinks, navSections } from "@/lib/nav-menu";
 
 const menu = navSections;
 const extraLinks = extraNavLinks;
@@ -106,6 +102,7 @@ function CloseIcon() {
   );
 }
 
+// The new NU CLARK logo (shield plus "NU CLARK"), saved as /public/nu-clark-logo.png
 function BrandMark({
   onClick,
   compact = false,
@@ -117,36 +114,16 @@ function BrandMark({
     <Link
       href="/"
       onClick={onClick}
-      className="flex min-w-0 shrink items-center gap-2 text-navy sm:gap-2.5"
+      className="flex min-w-0 shrink items-center text-navy"
     >
       <Image
-        src="/nu-logo.png"
-        alt="National University logo"
-        width={38}
-        height={46}
+        src="/nu-clark-logo.png"
+        alt="NU Clark"
+        width={1122}
+        height={260}
         priority
-        className={compact ? "h-9 w-auto" : "h-10 w-auto sm:h-[46px]"}
+        className={compact ? "h-8 w-auto" : "h-9 w-auto sm:h-11"}
       />
-      <span
-        className={`font-extrabold uppercase leading-[1.05] tracking-tight ${
-          compact ? "text-[12px]" : "text-[13px] sm:text-[17px]"
-        }`}
-      >
-        National
-        <br />
-        University
-      </span>
-      <span
-        className={`rounded-full bg-gold ${compact ? "h-8 w-0.5" : "h-9 w-0.5 sm:h-11"}`}
-        aria-hidden="true"
-      />
-      <span
-        className={`font-extrabold uppercase leading-none tracking-wide text-royal ${
-          compact ? "text-lg" : "text-xl sm:text-2xl"
-        }`}
-      >
-        CLARK
-      </span>
     </Link>
   );
 }
@@ -520,9 +497,7 @@ export default function Navbar({
                                   href={it.href}
                                   onClick={closeMenu}
                                   aria-current={
-                                    it.href === currentPath
-                                      ? "page"
-                                      : undefined
+                                    it.href === currentPath ? "page" : undefined
                                   }
                                   className="block rounded-md py-2 text-[15px] text-slate transition-colors active:bg-mist aria-[current=page]:font-bold aria-[current=page]:text-navy"
                                 >

@@ -23,34 +23,60 @@ export const alumniInfo = {
   ],
 };
 
+/**
+ * One alumnus or alumna. The fields come from the "Alumni Database" form.
+ *
+ * Only the fields below are shown on the website. NEVER copy these form answers into this file,
+ * because this file is part of the public website code:
+ *   address, email address, contact number, date of birth, nationality,
+ *   civil status, sex, and the reason for a career break.
+ * Only add people who agreed to be shown on the website.
+ */
 export type Alumnus = {
   /** Unique, lowercase, no spaces. Example: "juan-dela-cruz" */
   slug: string;
+  /** Form: Full name */
   name: string;
-  /** Program slug from lib/programs.ts. Example: "bs-information-technology" */
+  /** Form: Program. Use the program slug from lib/programs.ts. Example: "bs-information-technology" */
   program: string;
-  /** Graduation year. Example: "2025" */
+  /** Form: Year graduated. Example: "2025" */
   batch?: string;
-  /** Current role and workplace. Example: "Software Engineer at Company" */
-  headline?: string;
-  /** One or two sentences about them */
+  /** Form: Post-Graduation Status. Example: "Employed", "Pursuing further studies" */
+  status?: string;
+  /** Form: Current job classification */
+  jobClassification?: string;
+  /** Form: Name of company, organization or institution */
+  company?: string;
+  /** Form: Company location. Example: "Angeles City, Pampanga" */
+  companyLocation?: string;
+  /** Form: Further studies. Example: "Master of Science in Computer Science, University name, 2027" */
+  furtherStudies?: string;
+  /** Form: Professional development. Exams or certifications. Example: ["Civil Engineer Licensure Exam"] */
+  licensure?: string[];
+  /** Optional: one or two sentences about them */
   story?: string;
-  /** Photo saved in /public/alumni/. Example: "/alumni/juan-dela-cruz.jpg" */
+  /** Optional: photo saved in /public/alumni/. Example: "/alumni/juan-dela-cruz.jpg" */
   photo?: string;
-  /** Full LinkedIn profile address */
+  /** Form: LinkedIn (optional). Full profile address */
   linkedin?: string;
+  /** Form: Facebook. Only add it if they agreed to show it */
+  facebook?: string;
+  /** Form: Instagram (optional). Only add it if they agreed to show it */
+  instagram?: string;
 };
 
-// Add alumni here. Only add people who agreed to be shown on the website.
+// Add alumni here.
 //
 // {
 //   slug: "juan-dela-cruz",
 //   name: "Juan Dela Cruz",
 //   program: "bs-information-technology",
 //   batch: "2025",
-//   headline: "Software Engineer at Company",
-//   story: "Short story here.",
-//   photo: "/alumni/juan-dela-cruz.jpg",
+//   status: "Employed",
+//   jobClassification: "Software Developer",
+//   company: "Company name",
+//   companyLocation: "Angeles City, Pampanga",
+//   licensure: ["Name of exam or certification"],
 //   linkedin: "https://www.linkedin.com/in/...",
 // },
 export const alumni: Alumnus[] = [];

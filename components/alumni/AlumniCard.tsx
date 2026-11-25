@@ -10,6 +10,14 @@ export default function AlumniCard({ person }: { person: Alumnus }) {
     .join("")
     .toUpperCase();
 
+  const meta = [person.batch ? `Batch ${person.batch}` : null, person.status]
+    .filter(Boolean)
+    .join(" · ");
+  const workplace = [person.company, person.companyLocation]
+    .filter(Boolean)
+    .join(" · ");
+  const hasSocial = person.facebook || person.instagram;
+
   return (
     <article
       id={person.slug}
@@ -35,34 +43,88 @@ export default function AlumniCard({ person }: { person: Alumnus }) {
           </span>
         )}
         <div className="min-w-0">
-          <h4 className="break-words font-extrabold text-navy">{person.name}</h4>
-          {person.batch && (
+          <h4 className="break-words font-extrabold text-navy">
+            {person.name}
+          </h4>
+          {meta && (
             <p className="text-xs font-bold uppercase tracking-wider text-royal">
-              Batch {person.batch}
+              {meta}
             </p>
           )}
         </div>
       </div>
 
-      {person.headline && (
-        <p className="mt-4 text-sm font-semibold text-navy">{person.headline}</p>
-      )}
-      {person.story && (
-        <p className="mt-2 text-sm text-slate">{person.story}</p>
+      {(person.jobClassification || workplace) && (
+        <div className="mt-4">
+          {person.jobClassification && (
+            <p className="text-sm font-semibold text-navy">
+              {person.jobClassification}
+            </p>
+          )}
+          {workplace && <p className="text-sm text-slate">{workplace}</p>}
+        </div>
       )}
 
-      {person.linkedin && (
-        <div className="mt-auto pt-4">
-          <a
-            href={person.linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={`${person.name} on LinkedIn (opens in a new tab)`}
-            className="inline-flex items-center gap-2 rounded-full bg-navy px-4 py-2 text-sm font-bold leading-none text-white transition hover:bg-royal"
-          >
-            LinkedIn
-            <span aria-hidden="true">→</span>
-          </a>
+      {person.furtherStudies && (
+        <p className="mt-3 text-sm text-slate">
+          <span className="font-semibold text-navy">Further studies: </span>
+          {person.furtherStudies}
+        </p>
+      )}
+
+      {person.licensure && person.licensure.length > 0 && (
+        <ul className="mt-3 flex flex-wrap gap-2">
+          {person.licensure.map((l) => (
+            <li
+              key={l}
+              className="rounded-full bg-gold/20 px-3 py-1 text-xs font-semibold text-navy"
+            >
+              {l}
+            </li>
+          ))}
+        </ul>
+      )}
+
+      {person.story && (
+        <p className="mt-3 text-sm text-slate">{person.story}</p>
+      )}
+
+      {(person.linkedin || hasSocial) && (
+        <div className="mt-auto flex flex-wrap items-center gap-x-4 gap-y-2 pt-4">
+          {person.linkedin && (
+            <a
+              href={person.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`${person.name} on LinkedIn (opens in a new tab)`}
+              className="inline-flex items-center gap-2 rounded-full bg-navy px-4 py-2 text-sm font-bold leading-none text-white transition hover:bg-royal"
+            >
+              LinkedIn
+              <span aria-hidden="true">→</span>
+            </a>
+          )}
+          {person.facebook && (
+            <a
+              href={person.facebook}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`${person.name} on Facebook (opens in a new tab)`}
+              className="text-sm font-bold text-royal underline-offset-4 hover:underline"
+            >
+              Facebook
+            </a>
+          )}
+          {person.instagram && (
+            <a
+              href={person.instagram}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`${person.name} on Instagram (opens in a new tab)`}
+              className="text-sm font-bold text-royal underline-offset-4 hover:underline"
+            >
+              Instagram
+            </a>
+          )}
         </div>
       )}
     </article>
