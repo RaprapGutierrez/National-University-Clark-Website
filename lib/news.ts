@@ -1,3 +1,4 @@
+import { album as makeAlbum } from "@/lib/album";
 import type { EventPost } from "@/lib/events";
 
 // Content for the News page.
@@ -11,34 +12,10 @@ export const FACEBOOK_PAGE_URL = "";
 /** A news story has the same fields as an event (see lib/events.ts). */
 export type NewsPost = EventPost;
 
-/**
- * Builds the picture list for a story.
- * Save the pictures in /public/news/<folder>/ and name them
- * <folder>-01.jpg, <folder>-02.jpg, <folder>-03.jpg ... up to the count.
- * Picture 1 is the main picture; the rest go in the photo gallery.
- */
-function album(folder: string, count: number, alt: string) {
-  const files = Array.from({ length: count }, (_, i) => {
-    const n = String(i + 1).padStart(2, "0");
-    return `/news/${folder}/${folder}-${n}.jpg`;
-  });
-  return {
-    images: [{ src: files[0], alt }],
-    gallery:
-      count > 1
-        ? [
-            {
-              title: "More photos",
-              items: files.slice(1).map((src, i) => ({
-                src,
-                alt: `${alt} (photo ${i + 2})`,
-                caption: `Photo ${i + 2} of ${count}`,
-              })),
-            },
-          ]
-        : undefined,
-  };
-}
+// Pictures for a story: save them in /public/news/<folder>/ and name them
+// <folder>-01.jpg, <folder>-02.jpg ... (see lib/album.ts)
+const album = (folder: string, count: number, alt: string) =>
+  makeAlbum("news", folder, count, alt);
 
 // Add stories here, newest first. The first one is shown large.
 // Add `date: "November 20, 2026"` to a story to show its date.

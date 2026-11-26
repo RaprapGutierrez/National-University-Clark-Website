@@ -2,11 +2,13 @@ import Image from "next/image";
 import type { Researcher } from "@/lib/research";
 
 export default function ResearcherCard({ person }: { person: Researcher }) {
+  // Skip titles like "Dr." or "Engr." so the initials use the first and last name
   const initials = person.name
+    .replace(/,.*$/, "")
     .split(" ")
     .filter(Boolean)
-    .slice(0, 2)
     .map((w) => w[0])
+    .filter((c, i, all) => i === 0 || i === all.length - 1)
     .join("")
     .toUpperCase();
 
@@ -35,9 +37,14 @@ export default function ResearcherCard({ person }: { person: Researcher }) {
           </span>
         )}
         <div className="min-w-0">
-          <h4 className="break-words font-extrabold text-navy">{person.name}</h4>
+          <h4 className="break-words font-extrabold text-navy">
+            {person.name}
+          </h4>
           {person.title && (
             <p className="text-sm font-semibold text-royal">{person.title}</p>
+          )}
+          {person.department && (
+            <p className="text-xs text-slate">{person.department}</p>
           )}
         </div>
       </div>

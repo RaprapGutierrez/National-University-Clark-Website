@@ -345,16 +345,27 @@ export default function Navbar({
               );
             })}
 
-            {extraLinks.map((l) => (
-              <li key={l.href}>
-                <Link
-                  href={l.href}
-                  className="rounded-lg px-2 py-2 font-medium text-navy hover:text-royal"
-                >
-                  {l.label}
-                </Link>
-              </li>
-            ))}
+            {extraLinks.map((l) => {
+              const isCurrent =
+                currentPath === l.href || currentPath?.startsWith(`${l.href}/`);
+              return (
+                <li key={l.href}>
+                  <Link
+                    href={l.href}
+                    aria-current={
+                      currentPath === l.href
+                        ? "page"
+                        : isCurrent
+                          ? "location"
+                          : undefined
+                    }
+                    className={`flex items-center gap-1.5 rounded-lg px-2 py-2 text-navy transition-colors duration-150 hover:text-royal ${isCurrent ? "bg-mist font-bold underline decoration-gold decoration-2 underline-offset-[7px]" : "font-medium"}`}
+                  >
+                    {l.label}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
 
           <a
@@ -432,6 +443,9 @@ export default function Navbar({
                         <Link
                           href={l.href}
                           onClick={closeMenu}
+                          aria-current={
+                            currentPath === l.href ? "page" : undefined
+                          }
                           className="block py-4 pr-1 text-[1.05rem] font-semibold text-navy transition-colors active:bg-mist"
                         >
                           {l.label}
