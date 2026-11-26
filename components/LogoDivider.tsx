@@ -13,13 +13,23 @@ export default function LogoDivider() {
   return (
     <div className="flex items-center gap-6 py-4" role="separator">
       <Lines />
-      <Image
-        src="/logo.webp"
-        alt="National University"
-        width={200}
-        height={60}
-        className="h-12 w-auto sm:h-14"
-      />
+      <div className="flex items-center gap-2.5 text-navy" aria-hidden="true">
+        <Image
+          src="/nu-logo.png"
+          alt=""
+          width={38}
+          height={46}
+          className="h-12 w-auto sm:h-14"
+        />
+        <span className="text-[15px] font-extrabold uppercase leading-[1.05] tracking-tight sm:text-[17px]">
+          National
+          <br />
+          University
+        </span>
+        <span className="text-2xl font-extrabold uppercase leading-none tracking-wide text-royal sm:text-3xl">
+          CLARK
+        </span>
+      </div>
       <Lines />
     </div>
   );

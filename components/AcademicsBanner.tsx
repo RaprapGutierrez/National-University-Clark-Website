@@ -9,6 +9,7 @@ export default function AcademicsBanner({
   label,
   crumbs,
   decor = true,
+  showRule = true,
 }: {
   title: string;
   subtitle?: string;
@@ -16,6 +17,8 @@ export default function AcademicsBanner({
   crumbs?: Crumb[];
   /** Extra decorations like the home page hero. Pass decor={false} to turn them off. */
   decor?: boolean;
+  /** Short gold underline under the title. Default true. */
+  showRule?: boolean;
 }) {
   const long = title.length > 28;
 
@@ -94,9 +97,15 @@ export default function AcademicsBanner({
               >
                 {title}
               </h1>
-              <div className="mt-3 h-1 w-16 rounded-full bg-gold sm:mt-5 sm:h-1.5 sm:w-24" />
+              {showRule ? (
+                <div className="mt-3 h-1 w-16 rounded-full bg-gold sm:mt-5 sm:h-1.5 sm:w-24" />
+              ) : null}
               {subtitle && (
-                <p className="mt-3 max-w-xl text-sm font-medium text-white/90 sm:mt-5 sm:text-lg">
+                <p
+                  className={`max-w-xl text-sm font-medium text-white/90 sm:text-lg ${
+                    showRule ? "mt-3 sm:mt-5" : "mt-3 sm:mt-4"
+                  }`}
+                >
                   {subtitle}
                 </p>
               )}

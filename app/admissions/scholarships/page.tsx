@@ -1,12 +1,10 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import AdmissionsCta from "@/components/admissions/AdmissionsCta";
 import AdmissionsShell from "@/components/admissions/AdmissionsShell";
 import CheckIcon from "@/components/CheckIcon";
 import ProtectedPic from "@/components/ProtectedPic";
 import Reveal from "@/components/Reveal";
 import SectionTitle from "@/components/SectionTitle";
-import { PanelShapes } from "@/components/Shapes";
 import { APPLY_URL, SCHOLARSHIPS_URL, otherDiscounts } from "@/lib/admissions";
 import {
   ADMISSIONS_EMAIL,
@@ -80,7 +78,6 @@ export default function ScholarshipsPage() {
       notice={SCHOLARSHIP_NOTICE || undefined}
     >
       <div className="mx-auto max-w-6xl space-y-16 px-4 py-10 sm:px-5 sm:py-14">
-        {/* Jump links */}
         <nav
           aria-label="On this page"
           className="flex flex-wrap gap-2 border-b border-line pb-5"
@@ -89,16 +86,15 @@ export default function ScholarshipsPage() {
             <a
               key={l.href}
               href={l.href}
-              className="rounded-full bg-white px-4 py-2 text-sm font-bold text-navy ring-1 ring-line transition hover:ring-gold"
+              className="rounded-full bg-white px-4 py-2 text-sm font-bold text-navy ring-1 ring-line transition hover:ring-royal/40"
             >
               {l.label}
             </a>
           ))}
         </nav>
 
-        {/* Intro */}
         <Reveal>
-          <section className="grid items-stretch gap-6 overflow-hidden rounded-[1.75rem] border border-line bg-white shadow-[0_24px_60px_-36px_rgba(31,47,122,0.4)] lg:grid-cols-[1.15fr_0.85fr]">
+          <section className="grid items-stretch gap-6 overflow-hidden rounded-[1.75rem] border border-line bg-white lg:grid-cols-[1.15fr_0.85fr]">
             <div className="flex flex-col justify-center p-6 sm:p-8 lg:p-10">
               <p className="text-sm font-bold uppercase tracking-[0.2em] text-royal">
                 A.Y. 2026–2027
@@ -106,10 +102,6 @@ export default function ScholarshipsPage() {
               <h2 className="mt-2 text-3xl font-extrabold leading-tight text-navy sm:text-4xl">
                 {intro.title}
               </h2>
-              <div className="mt-3 flex items-center gap-2">
-                <span className="h-1.5 w-16 rounded-full bg-gold" />
-                <span className="h-1.5 w-3 rounded-full bg-gold/50" />
-              </div>
               <p className="mt-4 text-lg font-bold text-royal">{intro.lead}</p>
               <div className="mt-3 space-y-3 text-base leading-relaxed text-slate">
                 {intro.body.map((p) => (
@@ -145,9 +137,9 @@ export default function ScholarshipsPage() {
           </section>
         </Reveal>
 
-        {/* Programs */}
         <section id="programs" className="scroll-mt-28">
           <SectionTitle
+            showAccent={false}
             kicker="Programs"
             title="Scholarship tracks"
             text="Compare eligibility and benefits. Slots are limited each cycle."
@@ -157,10 +149,10 @@ export default function ScholarshipsPage() {
               const accent = programAccent[p.label] ?? programAccent.NSP;
               return (
                 <Reveal key={p.name} delay={(i % 2) * 90}>
-                  <article className="flex h-full flex-col overflow-hidden rounded-[1.5rem] border-2 border-gold bg-navy text-white shadow-lg">
+                  <article className="flex h-full flex-col overflow-hidden rounded-[1.5rem] border border-line bg-navy text-white">
                     <div className={`h-1.5 w-full ${accent.bar}`} />
                     <div className="grid flex-1 gap-0 sm:grid-cols-[minmax(0,11rem)_minmax(0,1fr)]">
-                      <div className="border-b border-gold/30 p-4 sm:border-b-0 sm:border-r sm:border-gold/30">
+                      <div className="border-b border-white/15 p-4 sm:border-b-0 sm:border-r sm:border-white/15">
                         <ProtectedPic {...p.image} sizes="180px" />
                       </div>
                       <div className="flex flex-1 flex-col p-5">
@@ -169,13 +161,15 @@ export default function ScholarshipsPage() {
                         >
                           {p.label}
                         </span>
-                        <h3 className={`mt-2 text-xl font-extrabold ${accent.label}`}>
+                        <h3
+                          className={`mt-2 text-xl font-extrabold ${accent.label}`}
+                        >
                           {p.name}
                         </h3>
                         <p className="mt-3 text-base leading-relaxed text-white">
                           {p.eligibility}
                         </p>
-                        <p className="mt-4 text-xs font-bold uppercase tracking-[0.16em] text-gold">
+                        <p className="mt-4 text-xs font-bold uppercase tracking-[0.16em] text-white/70">
                           Benefits
                         </p>
                         <ul className="mt-2 flex flex-wrap gap-2">
@@ -200,9 +194,9 @@ export default function ScholarshipsPage() {
           </div>
         </section>
 
-        {/* How to apply */}
         <section id="how-to-apply" className="scroll-mt-28">
           <SectionTitle
+            showAccent={false}
             kicker="Process"
             title="How to apply for a scholarship"
             text="Two steps when the call is open — submit online, then watch your email."
@@ -212,10 +206,10 @@ export default function ScholarshipsPage() {
             {applySteps.map((s, i) => (
               <li
                 key={s.title}
-                className="relative rounded-[1.25rem] border border-line bg-white p-6 shadow-[0_14px_40px_-28px_rgba(31,47,122,0.45)]"
+                className="relative rounded-[1.25rem] border border-line bg-white p-6"
               >
                 <div className="flex items-start gap-4">
-                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-navy text-lg font-extrabold text-gold">
+                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-navy text-lg font-extrabold text-white">
                     {i + 1}
                   </span>
                   <div>
@@ -253,7 +247,7 @@ export default function ScholarshipsPage() {
                   >
                     <span
                       aria-hidden
-                      className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-navy text-sm font-extrabold text-gold"
+                      className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-navy text-sm font-extrabold text-white"
                     >
                       {i + 1}
                     </span>
@@ -263,7 +257,7 @@ export default function ScholarshipsPage() {
                   </li>
                 ))}
               </ol>
-              <p className="mt-4 rounded-xl border border-dashed border-gold/70 bg-gold/10 p-4 text-base leading-relaxed text-navy">
+              <p className="mt-4 rounded-xl border border-line bg-mist px-4 py-3.5 text-base leading-relaxed text-navy">
                 {documentsNote}
               </p>
             </div>
@@ -279,7 +273,7 @@ export default function ScholarshipsPage() {
                     className="rounded-xl border border-line bg-mist/40 p-4"
                   >
                     <p className="flex items-center gap-2 text-base font-extrabold text-navy">
-                      <span className="flex h-7 w-7 items-center justify-center rounded-full bg-gold text-sm text-navy">
+                      <span className="flex h-7 w-7 items-center justify-center rounded-full bg-navy text-sm text-white">
                         {i + 1}
                       </span>
                       {r.title}
@@ -293,7 +287,7 @@ export default function ScholarshipsPage() {
             </div>
           </div>
 
-          <details className="group mt-5 rounded-[1.25rem] border border-line bg-white open:shadow-md">
+          <details className="group mt-5 rounded-[1.25rem] border border-line bg-white open:shadow-sm">
             <summary className="cursor-pointer list-none px-6 py-5 text-base font-extrabold text-navy marker:content-none [&::-webkit-details-marker]:hidden">
               <span className="flex items-center justify-between gap-3">
                 Other information & important notes
@@ -307,20 +301,20 @@ export default function ScholarshipsPage() {
                 {otherInfo.map((o) => (
                   <li key={o} className="flex gap-3">
                     <span
-                      className="mt-2 h-2 w-2 shrink-0 rounded-full bg-gold"
+                      className="mt-2 h-2 w-2 shrink-0 rounded-full bg-royal"
                       aria-hidden
                     />
                     {o}
                   </li>
                 ))}
               </ul>
-              <p className="mt-4 rounded-xl bg-navy px-4 py-3.5 text-base font-bold leading-relaxed text-gold">
+              <p className="mt-4 rounded-xl bg-navy px-4 py-3.5 text-base font-bold leading-relaxed text-white">
                 Important: {importantNote}
               </p>
             </div>
           </details>
 
-          <details className="group mt-3 rounded-[1.25rem] border border-line bg-white open:shadow-md">
+          <details className="group mt-3 rounded-[1.25rem] border border-line bg-white open:shadow-sm">
             <summary className="cursor-pointer list-none px-6 py-5 font-extrabold text-navy marker:content-none [&::-webkit-details-marker]:hidden">
               <span className="flex items-center justify-between gap-3">
                 Reference posters
@@ -343,19 +337,25 @@ export default function ScholarshipsPage() {
           </details>
         </section>
 
-        {/* UAEB */}
         <section
           id="uaeb"
-          className="relative isolate scroll-mt-28 rounded-[1.75rem] border-2 border-gold bg-navy p-6 text-white sm:p-8 lg:p-10"
+          className="relative isolate scroll-mt-28 overflow-hidden rounded-[1.75rem] bg-navy p-6 text-white sm:p-8 lg:p-10"
         >
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-0 -z-10 overflow-hidden rounded-[1.6rem]"
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 400 300"
+            preserveAspectRatio="xMaxYMin slice"
+            className="pointer-events-none absolute right-0 top-0 -z-10 h-full w-1/2 select-none opacity-35"
           >
-            <PanelShapes />
-          </div>
+            <polygon
+              points="400,0 240,0 400,180"
+              className="fill-royal"
+              fillOpacity="0.7"
+            />
+          </svg>
           <div className="relative z-10">
             <SectionTitle
+              showAccent={false}
               light
               kicker="SDAO announcement"
               title={uaeb.title}
@@ -368,7 +368,7 @@ export default function ScholarshipsPage() {
             </div>
 
             <div className="mt-8 grid gap-5 xl:grid-cols-2">
-              <div className="rounded-2xl border border-gold/50 bg-black/20 p-5 sm:p-6">
+              <div className="rounded-2xl border border-white/15 bg-black/20 p-5 sm:p-6">
                 <h3 className="text-xl font-extrabold text-gold">Eligibility</h3>
                 <ul className="mt-4 space-y-4 text-base leading-relaxed text-white">
                   {uaeb.eligibility.map((e) => (
@@ -379,7 +379,7 @@ export default function ScholarshipsPage() {
                   ))}
                 </ul>
               </div>
-              <div className="rounded-2xl border border-gold/50 bg-black/20 p-5 sm:p-6">
+              <div className="rounded-2xl border border-white/15 bg-black/20 p-5 sm:p-6">
                 <h3 className="text-xl font-extrabold text-gold">
                   Requirements
                 </h3>
@@ -394,21 +394,21 @@ export default function ScholarshipsPage() {
               </div>
             </div>
 
-            <div className="mt-5 rounded-2xl border border-gold/50 bg-black/20 p-5 sm:p-6">
+            <div className="mt-5 rounded-2xl border border-white/15 bg-black/20 p-5 sm:p-6">
               <h3 className="text-xl font-extrabold text-gold">
                 Recommendation letter
               </h3>
               <p className="mt-3 text-base leading-relaxed text-white">
                 {uaeb.letter.text}
               </p>
-              <p className="mt-4 text-base font-bold text-gold">
+              <p className="mt-4 text-base font-bold text-white/80">
                 Include in the letter:
               </p>
               <ul className="mt-3 grid gap-3 sm:grid-cols-2">
                 {uaeb.letter.include.map((l) => (
                   <li
                     key={l}
-                    className="rounded-xl bg-navy/60 px-4 py-3 text-base leading-snug text-white ring-1 ring-gold/40"
+                    className="rounded-xl bg-navy/60 px-4 py-3 text-base leading-snug text-white ring-1 ring-white/20"
                   >
                     {l}
                   </li>
@@ -416,13 +416,13 @@ export default function ScholarshipsPage() {
               </ul>
             </div>
 
-            <details className="group mt-6 rounded-2xl border border-gold/50 bg-black/20 open:pb-5">
-              <summary className="cursor-pointer list-none px-5 py-4 text-base font-bold text-gold marker:content-none [&::-webkit-details-marker]:hidden">
+            <details className="group mt-6 rounded-2xl border border-white/15 bg-black/20 open:pb-5">
+              <summary className="cursor-pointer list-none px-5 py-4 text-base font-bold text-white marker:content-none [&::-webkit-details-marker]:hidden">
                 <span className="flex items-center justify-between gap-3">
                   View UAEB posters
                   <span
                     aria-hidden
-                    className="grid h-8 w-8 place-items-center rounded-full bg-gold text-lg text-navy transition group-open:rotate-45"
+                    className="grid h-8 w-8 place-items-center rounded-full bg-white/15 text-lg text-white transition group-open:rotate-45"
                   >
                     +
                   </span>
@@ -448,9 +448,9 @@ export default function ScholarshipsPage() {
           </div>
         </section>
 
-        {/* Other discounts */}
         <section id="discounts" className="scroll-mt-28">
           <SectionTitle
+            showAccent={false}
             kicker="More aid"
             title="Other discounts"
             text="Tap a discount to see who qualifies and what documents to submit."
@@ -462,57 +462,14 @@ export default function ScholarshipsPage() {
                 href={`${SCHOLARSHIPS_URL}/${d.id}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center justify-between gap-3 rounded-2xl border border-line bg-white px-5 py-4 text-base font-bold leading-snug text-navy shadow-sm transition hover:-translate-y-0.5 hover:border-gold hover:shadow-md"
+                className="group flex items-center justify-between gap-3 rounded-2xl border border-line bg-white px-5 py-4 text-base font-bold leading-snug text-navy transition hover:-translate-y-0.5 hover:border-royal/40 hover:shadow-sm"
               >
-                <span className="border-l-4 border-gold pl-3">{d.name}</span>
+                <span className="border-l-4 border-navy pl-3">{d.name}</span>
                 <span className="text-royal transition group-hover:translate-x-0.5">
                   →
                 </span>
               </a>
             ))}
-          </div>
-        </section>
-
-        {/* Contact */}
-        <section className="flex flex-col gap-5 rounded-[1.5rem] border border-line bg-white p-6 sm:flex-row sm:items-end sm:justify-between sm:p-8">
-          <div>
-            <h2 className="text-xl font-extrabold text-navy">
-              Scholarship questions?
-            </h2>
-            <p className="mt-2 text-slate">
-              Email{" "}
-              <a
-                className="font-bold text-royal underline"
-                href={`mailto:${ADMISSIONS_EMAIL}`}
-              >
-                {ADMISSIONS_EMAIL}
-              </a>{" "}
-              or call {ADMISSIONS_PHONE}.
-            </p>
-            <Link
-              href="/admissions/requirements"
-              className="mt-3 inline-flex text-sm font-bold text-royal underline-offset-4 hover:underline"
-            >
-              Also preparing admission documents? →
-            </Link>
-          </div>
-          <div className="flex flex-wrap gap-3">
-            <a
-              href={APPLY_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-full bg-gold px-6 py-3 font-bold text-navy transition hover:-translate-y-0.5"
-            >
-              Apply now →
-            </a>
-            <a
-              href={SCHOLARSHIPS_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-full bg-navy px-6 py-3 font-bold text-white transition hover:bg-royal"
-            >
-              All on nu.edu.ph →
-            </a>
           </div>
         </section>
       </div>
@@ -521,7 +478,7 @@ export default function ScholarshipsPage() {
         <AdmissionsCta
           kicker="Enroll at NU Clark"
           title="Start your application anytime"
-          text="Scholarship cycles open on announced dates. You can still apply for admission and prepare for the next call."
+          text={`Scholarship cycles open on announced dates. Questions? Email ${ADMISSIONS_EMAIL} or call ${ADMISSIONS_PHONE}.`}
         />
       </div>
     </AdmissionsShell>

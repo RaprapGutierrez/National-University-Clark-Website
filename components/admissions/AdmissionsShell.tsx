@@ -26,20 +26,21 @@ export default function AdmissionsShell({
         subtitle={subtitle}
         label="Admissions"
         crumbs={crumbs}
+        showRule={false}
       />
 
       <div className="border-b border-line bg-white">
         <AdmissionsTabs active={active} />
         {notice ? (
-          <div className="border-t border-gold/30 bg-navy">
-            <p className="mx-auto max-w-6xl px-4 py-3.5 text-base font-bold leading-relaxed text-gold sm:px-5">
+          <div className="border-t border-line bg-mist">
+            <p className="mx-auto max-w-6xl px-4 py-3 text-sm font-semibold leading-relaxed text-navy sm:px-5 sm:text-base">
               {notice}
             </p>
           </div>
         ) : null}
       </div>
 
-      <main className="pb-20 pt-2">{children}</main>
+      <main className="pb-16 pt-0 sm:pb-20">{children}</main>
     </>
   );
 }

@@ -1,12 +1,10 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import AdmissionsCta from "@/components/admissions/AdmissionsCta";
 import AdmissionsShell from "@/components/admissions/AdmissionsShell";
 import RequirementsPanel from "@/components/admissions/RequirementsPanel";
 import Reveal from "@/components/Reveal";
 import SectionTitle from "@/components/SectionTitle";
 import {
-  APPLY_URL,
   ENROLLMENT_NOTE,
   requirementGroups,
   requirementTips,
@@ -36,6 +34,7 @@ export default function RequirementsPage() {
       <div className="mx-auto max-w-6xl space-y-12 px-4 py-10 sm:px-5 sm:py-14">
         <section>
           <SectionTitle
+            showAccent={false}
             kicker="What to prepare"
             title="Documents by applicant type"
             text="Switch between Senior High, freshman, transferee, and second-degree to see your list."
@@ -47,11 +46,15 @@ export default function RequirementsPage() {
         </section>
 
         <section>
-          <SectionTitle kicker="Before you go" title="Quick tips" />
+          <SectionTitle
+            showAccent={false}
+            kicker="Before you go"
+            title="Quick tips"
+          />
           <div className="grid gap-4 sm:grid-cols-3">
             {requirementTips.map((tip, i) => (
               <Reveal key={tip.title} delay={i * 70}>
-                <article className="h-full border-l-4 border-gold bg-white px-5 py-5 shadow-[0_14px_36px_-28px_rgba(31,47,122,0.5)]">
+                <article className="h-full border-l-4 border-navy bg-white px-5 py-5 ring-1 ring-line">
                   <p className="text-xs font-bold uppercase tracking-[0.16em] text-royal">
                     Tip {i + 1}
                   </p>
@@ -64,39 +67,6 @@ export default function RequirementsPage() {
                 </article>
               </Reveal>
             ))}
-          </div>
-        </section>
-
-        <section className="flex flex-col gap-5 rounded-[1.5rem] border border-line bg-white p-6 sm:flex-row sm:items-center sm:justify-between sm:p-7">
-          <div>
-            <h2 className="text-xl font-extrabold text-navy">
-              Checklist ready?
-            </h2>
-            <p className="mt-1 max-w-md text-sm text-slate">
-              Start your application, or review the six enrollment steps first.
-            </p>
-          </div>
-          <div className="flex flex-wrap gap-3">
-            <a
-              href={APPLY_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-full bg-gold px-6 py-3 font-bold text-navy transition hover:-translate-y-0.5"
-            >
-              Apply now →
-            </a>
-            <Link
-              href="/admissions/apply-now"
-              className="rounded-full bg-navy px-6 py-3 font-bold text-white transition hover:bg-royal"
-            >
-              How to apply →
-            </Link>
-            <Link
-              href="/admissions/scholarships"
-              className="rounded-full px-6 py-3 font-bold text-royal underline-offset-4 hover:underline"
-            >
-              Scholarships
-            </Link>
           </div>
         </section>
       </div>

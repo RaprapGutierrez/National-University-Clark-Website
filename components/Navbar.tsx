@@ -106,45 +106,28 @@ function CloseIcon() {
   );
 }
 
-function BrandMark({
-  onClick,
-  compact = false,
-}: {
-  onClick?: () => void;
-  compact?: boolean;
-}) {
+function BrandMark({ onClick }: { onClick?: () => void }) {
   return (
     <Link
       href="/"
       onClick={onClick}
       className="flex min-w-0 shrink items-center gap-2 text-navy sm:gap-2.5"
+      aria-label="National University Clark home"
     >
       <Image
         src="/nu-logo.png"
-        alt="National University logo"
+        alt=""
         width={38}
         height={46}
         priority
-        className={compact ? "h-9 w-auto" : "h-10 w-auto sm:h-[46px]"}
+        className="h-10 w-auto sm:h-[46px]"
       />
-      <span
-        className={`font-extrabold uppercase leading-[1.05] tracking-tight ${
-          compact ? "text-[12px]" : "text-[13px] sm:text-[17px]"
-        }`}
-      >
+      <span className="text-[13px] font-extrabold uppercase leading-[1.05] tracking-tight sm:text-[17px]">
         National
         <br />
         University
       </span>
-      <span
-        className={`rounded-full bg-gold ${compact ? "h-8 w-0.5" : "h-9 w-0.5 sm:h-11"}`}
-        aria-hidden="true"
-      />
-      <span
-        className={`font-extrabold uppercase leading-none tracking-wide text-royal ${
-          compact ? "text-lg" : "text-xl sm:text-2xl"
-        }`}
-      >
+      <span className="text-xl font-extrabold uppercase leading-none tracking-wide text-royal sm:text-2xl">
         CLARK
       </span>
     </Link>

@@ -14,9 +14,8 @@ export default function RequirementsPanel({
   const current = groups[active];
 
   return (
-    <div className="overflow-hidden rounded-[1.75rem] border border-line bg-white shadow-[0_24px_60px_-36px_rgba(31,47,122,0.45)]">
+    <div className="overflow-hidden rounded-[1.75rem] border border-line bg-white">
       <div className="grid lg:grid-cols-[minmax(0,15.5rem)_minmax(0,1fr)]">
-        {/* Type picker */}
         <div
           role="tablist"
           aria-label="Applicant type"
@@ -52,7 +51,6 @@ export default function RequirementsPanel({
           })}
         </div>
 
-        {/* Checklist */}
         <div
           id={`${baseId}-panel-${active}`}
           role="tabpanel"
@@ -85,7 +83,7 @@ export default function RequirementsPanel({
               >
                 <span
                   aria-hidden
-                  className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-navy text-sm font-extrabold text-gold"
+                  className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-navy text-sm font-extrabold text-white"
                 >
                   {i + 1}
                 </span>
@@ -97,7 +95,7 @@ export default function RequirementsPanel({
           </ol>
 
           <p className="mt-5 flex gap-2 text-base leading-relaxed text-slate">
-            <CheckIcon className="mt-1 shrink-0 text-gold" />
+            <CheckIcon className="mt-1 shrink-0 text-royal" />
             <span>
               After you apply, Admissions will email the exact list for your
               case — use this checklist to get ahead.
