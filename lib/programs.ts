@@ -1,5 +1,15 @@
 export type ProgramOutcome = string | { label: string; text: string };
 
+// Extra sections shown on a program page (used by Senior High School)
+export type ExtraSection = {
+  title: string;
+  label?: string; // short name for the "On this page" menu (defaults to title)
+  kicker?: string; // small text above the title
+  paragraphs?: string[];
+  items?: string[];
+  groups?: { label: string; items: string[] }[];
+};
+
 export type Program = {
   slug: string;
   title: string;
@@ -15,6 +25,8 @@ export type Program = {
   accreditation: string[];
   // When true, the about paragraphs render as separate blocks under mission and vision
   aboutAfterMission?: boolean;
+  // Strengths, related degrees, why study, etc. (Senior High School)
+  extraSections?: ExtraSection[];
 };
 
 // Fills in placeholders so every program page works right away.
@@ -59,17 +71,342 @@ const ACCOUNTING_OBJECTIVES = [
 // Key = school slug from lib/site.ts
 export const programsBySchool: Record<string, Program[]> = {
   "senior-high-school": [
-    program("abm", "ABM", {
-      text: "Accountancy, Business, and Management",
+    program("abm", "ABM / BUEN", {
+      text: "Accountancy, Business and Management · Business and Entrepreneurship Cluster",
       image: "/program-abm.png",
+      about: [
+        "The Accountancy, Business and Management Strand and Business and Entrepreneurship Cluster provide students with foundational and advanced concepts in business operations, entrepreneurship, marketing, finance, and strategic planning. Through project-based activities, experiential learning, and real-world applications, students learn how to start, manage, and scale business ventures.",
+        "By mastering essential concepts in entrepreneurship, marketing, finance, business operations, and strategic planning, students graduate with the knowledge and mindset needed to lead organizations, launch start-ups, and excel in diverse business careers. This cluster equips them to become purpose-driven entrepreneurs, influential business leaders, and valuable contributors to economic growth.",
+      ],
+      objectives: [],
+      outcomes: [],
+      accreditation: [],
+      extraSections: [
+        {
+          title: "Academic track and career pathway",
+          label: "Track and pathway",
+          kicker: "Academic track",
+          items: [
+            "Track: Academic",
+            "Cluster: BUEN (Business and Entrepreneurship)",
+            "Career pathway: Management and Accountancy",
+          ],
+        },
+        {
+          title: "Strand and cluster objectives",
+          label: "Objectives",
+          kicker: "What we aim for",
+          paragraphs: ["The ABM/BUEN learner is expected to develop:"],
+          items: [
+            "Strong foundational business skills",
+            "Critical thinking and problem-solving abilities",
+            "Effective communication and interpersonal skills",
+            "Technological proficiency",
+            "A focus on personal and professional development, including work ethic, adaptability, entrepreneurial thinking, and ethical awareness",
+          ],
+        },
+        {
+          title: "21st Century Skills (7Cs)",
+          label: "21st Century Skills",
+          kicker: "Learner profile",
+          paragraphs: [
+            "In preparation for tertiary education, work, and life-long learning, the learner develops:",
+          ],
+          items: [
+            "Critical thinking and doing",
+            "Creativity",
+            "Communication",
+            "Collaboration",
+            "Computing / ICT literacy",
+            "Cross-cultural understanding",
+            "Career and learning self-reliance",
+          ],
+        },
+        {
+          title: "Industry standards for ABM/BUEN",
+          label: "Industry standards",
+          kicker: "Standards",
+          items: [
+            "Business Acumen: ABM/BUEN graduates need a solid understanding of core business functions like finance, marketing, operations, and management to contribute effectively. Develop analytical and problem-solving skills: critical thinking, data analysis, and creative solutions.",
+            "Data-Driven Decisions: Proficiency in data analysis, critical thinking, and problem-solving is crucial for informed decision-making and developing solutions.",
+            "Communication and Collaboration: Mastery of communication (written and verbal) and teamwork skills is essential for collaboration and building professional networks.",
+            "Professionalism and Digital Fluency: A strong work ethic, adaptability, and digital fluency (software proficiency and digital marketing knowledge) are vital for success in the modern business world.",
+          ],
+        },
+        {
+          title: "Key strengths at NU Clark",
+          label: "Key strengths",
+          kicker: "Why NU Clark",
+          paragraphs: [
+            "The Accountancy, Business and Management Strand and Business and Entrepreneurship Cluster equip students with strong foundations and advanced skills in business operations, entrepreneurship, marketing, finance, and strategic planning. Through project-based learning and real-world applications, learners gain the confidence to start, manage, and scale their own business ventures.",
+            "What sets NU Clark apart is its commitment to authentic, world-class exposure. Students engage in student-run enterprises, leadership-driven student organizations, and immersive activities that take them from the institutional stage to local, regional, national, international, and even global platforms, including participation in World University Rankings initiatives. These experiences empower learners to earn income, build their own ventures, and apply their Grade 11–12 learning to create real business impact.",
+            "At NU Clark, students don’t just study business, they live it. They lead it. They grow it.",
+          ],
+        },
+        {
+          title: "Related degree programs",
+          label: "Related degrees",
+          kicker: "After Senior High School",
+          groups: [
+            {
+              label: "Finance and Economics-Related Degrees",
+              items: [
+                "BS in Financial Management",
+                "BS in Banking and Finance",
+                "BS in Economics",
+                "BS in Applied Economics",
+              ],
+            },
+            {
+              label: "Core Business Degrees",
+              items: [
+                "BS in Business Administration",
+                "BS in Entrepreneurship",
+                "BS in Management",
+                "BS in Accountancy",
+                "BS in Accounting Information System",
+                "BS in Management Accounting",
+              ],
+            },
+            {
+              label: "Technology, Innovation and Business Integration Degrees",
+              items: [
+                "BS in Business Analytics",
+                "BS in Information Systems (Business Track)",
+                "BS in E-Commerce / Digital Business",
+                "BS in Innovation and Start-Up Management",
+              ],
+            },
+            {
+              label: "Hospitality, Tourism, and Service Business Degrees",
+              items: [
+                "BS in Hospitality Management",
+                "BS in Tourism Management",
+                "BS in Hotel and Restaurant Management",
+              ],
+            },
+            {
+              label: "Allied Business Programs",
+              items: [
+                "BS in Real Estate Management",
+                "BS in Industrial Engineering with Business Track",
+                "BS in Agribusiness Management",
+                "Bachelor of Public Administration (for students interested in organizational and policy management)",
+              ],
+            },
+          ],
+        },
+        {
+          title: "Why study this program at NU Clark?",
+          label: "Why NU Clark",
+          kicker: "Your next step",
+          paragraphs: [
+            "Studying in the Accountancy, Business and Management Strand and Business and Entrepreneurship Cluster at NU Clark means stepping into a world where business education is hands-on, future-focused, and globally competitive. The program builds strong foundations in entrepreneurship, marketing, finance, business operations, and strategic planning, empowering students with the knowledge and mindset needed to lead organizations, launch start-ups, and excel in any business career.",
+            "What makes NU Clark truly stand out is its commitment to real-world, world-class exposure. Students are immersed in student-run enterprises, leadership-driven organizations, and experiential projects that bring classroom learning to life. From institutional events to local, regional, national, and international competitions, up to global platforms such as World University Rankings initiatives, learners gain unmatched opportunities to apply their skills and shine on a bigger stage. At NU Clark, students don’t just learn business. And as you take your first step toward becoming an entrepreneur, leader, and innovator, remember this: NU Clark is the right institution for you because we don’t just prepare you for the future—we empower you to create it. At NU Clark, your ideas matter, your growth is our mission, and your success is just the beginning.",
+            "Choose NU Clark. Aim for your success. Build more dreams. Mold your future.",
+          ],
+        },
+      ],
     }),
+
     program("stem", "STEM", {
       text: "Science, Technology, Engineering, and Mathematics",
       image: "/program-stem.png",
+      about: [
+        "The Science, Technology, Engineering, and Mathematics Cluster (STEM) is designed to bridge the gap between theoretical concepts taught and learned in the classroom and their application in real-life contexts. At the heart of the NU Clark STEM experience is a curriculum designed in the “Education that Works” philosophy. Students are given the opportunities to dive deep into core disciplines, from mathematics and physics to specialized tracks in engineering, technology, and allied health, supported by world-class laboratories and facilities.",
+        "In the program, formulas are not just taught; students are challenged to apply them to real-world problems, fostering a mindset of critical and creative thinking. Beyond our classroom, our students are exposed to a community of thinkers and modern innovators. Whether you’re aspiring to be an architect, a medical practitioner, or an engineer, the STEM cluster provides the analytical and technical foundation as well as the ethical framework needed to excel. At NU Clark, we aren’t just preparing you for university; we are empowering you to build the future.",
+      ],
+      objectives: [],
+      outcomes: [],
+      accreditation: [],
+      extraSections: [
+        {
+          title: "Academic track and career pathways",
+          label: "Track and pathways",
+          kicker: "Academic track",
+          items: [
+            "Track: Academic",
+            "Cluster: STEM",
+            "Career pathways: Engineering and Architecture · Computing Technologies · Sciences and Allied Health",
+          ],
+        },
+        {
+          title: "Key strengths at NU Clark",
+          label: "Key strengths",
+          kicker: "Why NU Clark",
+          paragraphs: [
+            "NU Clark is at the center of the Clark Tech Hub, accessible to industry partners and hands-on projects. STEM students benefit from direct pathways to internships, from the university environment to unique access to industry-aligned work immersion and career pathways through an expansive and trusted partner network. The program is further supported and strengthened by world-class laboratories equipped with simulation software and high-tech tools, where students sharpen their analytical and ethical skills needed to excel. Furthermore, NU Clark utilizes a modern tri-semester calendar system that fast-tracks progress without compromising academic aspects. Overall, the university helps the students to build their future careers in an environment where education truly works.",
+          ],
+        },
+        {
+          title: "Related degree programs",
+          label: "Related degrees",
+          kicker: "After Senior High School",
+          groups: [
+            {
+              label: "Engineering and Technology-Related Degrees",
+              items: [
+                "BS in Civil Engineering",
+                "BS in Mechanical Engineering",
+                "BS in Electrical Engineering",
+                "BS in Chemical Engineering",
+                "BS in Computer Engineering",
+                "BS in Electronics Engineering",
+                "BS in Industrial Engineering",
+              ],
+            },
+            {
+              label: "Computing and Information Technology Degrees",
+              items: [
+                "BS in Computer Science",
+                "BS in Information Technology",
+                "BS in Information Systems",
+                "BS in Data Science",
+                "BS in Cybersecurity",
+                "BS in Entertainment and Multimedia Computing",
+              ],
+            },
+            {
+              label: "Health and Allied Medical Sciences Degrees",
+              items: [
+                "BS in Nursing",
+                "BS in Medical Technology / Medical Laboratory Science",
+                "BS in Pharmacy",
+                "BS in Physical Therapy",
+                "BS in Occupational Therapy",
+                "BS in Radiologic Technology",
+                "BS in Nutrition and Dietetics",
+              ],
+            },
+            {
+              label: "Natural and Physical Sciences Degrees",
+              items: [
+                "BS in Biology",
+                "BS in Chemistry",
+                "BS in Physics",
+                "BS in Applied Physics",
+                "BS in Geology",
+                "BS in Environmental Science",
+                "BS in Marine Biology",
+              ],
+            },
+            {
+              label: "Mathematics and Architecture Degrees",
+              items: [
+                "BS in Mathematics",
+                "BS in Applied Mathematics",
+                "BS in Statistics",
+                "BS in Architecture",
+                "BS in Landscape Architecture",
+                "BS in Interior Design (Technical Track)",
+              ],
+            },
+            {
+              label: "Agriculture and Fisheries Degrees",
+              items: [
+                "BS in Agriculture",
+                "BS in Agricultural and Biosystems Engineering",
+                "BS in Fisheries",
+                "BS in Forestry",
+                "BS in Food Technology",
+              ],
+            },
+          ],
+        },
+        {
+          title: "Why study this program at NU Clark?",
+          label: "Why NU Clark",
+          kicker: "Your next step",
+          paragraphs: [
+            "Why choose STEM at NU Clark? Studying at NU Clark provides students with a top-tier STEM education in the heart of the next economic powerhouse, which offers direct exposure to thriving industries. The program provides a solid foundation in mathematics and specialized sciences, equipping students with the analytical and technical skills necessary in the field of engineering, technology, and allied health. Here at NU Clark, our students don’t just focus on the theories learned inside the classroom; they are exposed to world-class laboratories, facilities, and industry-led projects that prepare them to be future-ready with the “Education that Works”.",
+          ],
+        },
+      ],
     }),
-    program("humss", "HUMSS", {
-      text: "Humanities and Social Sciences",
+
+    program("humss", "HUMSS / ASSH", {
+      text: "Arts, Social Sciences and Humanities Cluster",
       image: "/program-humss.png",
+      about: [
+        "The Arts, Social Sciences and Humanities Cluster is an interdisciplinary academic hub committed to its strategic focus on academic excellence, cultural vitality, social engagement, and internationalization, positioning itself as a forward-thinking center of scholarly and community impact. For Grade 11 and 12 students seeking a path that combines intellectual challenge, creative exploration, and meaningful social impact, the EASS Career under the ASSH Cluster offers more than college preparation. It provides preparation for careers in teaching, psychology, communication, public service, creative industries, law, governance, social development, and related fields.",
+        "Students are equipped with the intellectual depth and cultural awareness necessary to thrive in an increasingly interconnected world. More than an academic track, this cluster is anchored in a strengthened curriculum that engages learning directly with real-world challenges, develops leadership, advocacy, and problem-solving skills, and generates measurable social impact, while integrating digital tools and contemporary issues into everyday classroom experiences.",
+      ],
+      objectives: [],
+      outcomes: [],
+      accreditation: [],
+      extraSections: [
+        {
+          title: "Academic track and career pathway",
+          label: "Track and pathway",
+          kicker: "Academic track",
+          items: [
+            "Track: Academic",
+            "Cluster: ASSH (Arts, Social Sciences and Humanities)",
+            "Career pathway: Education, Arts and Social Sciences (EASS)",
+          ],
+        },
+        {
+          title: "Key strengths at NU Clark",
+          label: "Key strengths",
+          kicker: "Why NU Clark",
+          paragraphs: [
+            "The integration of Sustainable Development Goals (SDGs) into classroom discussions and academic engagement further expands their global consciousness. As a result, graduates of the EASS Strand are not only grounded in cultural identity but also prepared to engage responsibly and confidently with the international community.",
+            "Students are exposed to programs like NUC-X (eXchange, eXpose, and eXcel), which capture the journey of a student whose academic path transcends traditional learning. What sets NUC-X apart from traditional opportunities is its three-tier global competency model:",
+          ],
+          items: [
+            "eXchange: cultivating immersive international experiences in Taiwan, Indonesia, Japan, Malaysia, and other partner schools.",
+            "eXpose: broadening students’ perspectives through intercultural engagement and community impact of outreach programs.",
+            "eXcel: empowering them to apply newfound global insights to real-world challenges as young leaders and academic delegates.",
+          ],
+        },
+        {
+          title: "Related degree programs",
+          label: "Related degrees",
+          kicker: "After Senior High School",
+          groups: [
+            {
+              label: "Education",
+              items: [
+                "Bachelor of Elementary Education",
+                "Bachelor of Secondary Education",
+                "Bachelor of Early Childhood Education",
+                "Bachelor of Special Needs Education",
+              ],
+            },
+            {
+              label: "Arts and Humanities",
+              items: [
+                "Bachelor of Arts in Communication",
+                "Bachelor of Arts in Creative Writing",
+                "Bachelor of Fine Arts",
+                "Bachelor of Arts in Cultural Studies",
+              ],
+            },
+            {
+              label: "Social Sciences",
+              items: [
+                "Bachelor of Arts in Psychology",
+                "Bachelor of Arts in Sociology",
+                "Bachelor of Arts in Political Science",
+                "Bachelor of Arts in Anthropology",
+                "Bachelor of Arts in Development Studies",
+                "Bachelor of Arts in Social Work",
+                "Bachelor of Arts in Global Studies",
+                "Bachelor of Arts in Public Administration",
+                "Bachelor of Arts in Human Rights and Peace Studies",
+              ],
+            },
+          ],
+        },
+        {
+          title: "Why study this program at NU Clark?",
+          label: "Why NU Clark",
+          kicker: "Your next step",
+          paragraphs: [
+            "What truly distinguishes the NU Clark EASS Career Pathway is its strong global orientation and commitment to developing senior high school graduates who are internationally competent. Through the integration of the Sustainable Development Goals (SDGs) and the innovative NUC-X (eXchange, eXpose, and eXcel) program, students gain immersive international experiences, engage in intercultural outreach initiatives, and apply global insights to real-world issues. At NU Clark, learners are not only prepared for college. They are empowered to become culturally grounded, socially responsible, and globally competitive leaders.",
+          ],
+        },
+      ],
     }),
   ],
 

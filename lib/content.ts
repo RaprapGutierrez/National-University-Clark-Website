@@ -65,7 +65,25 @@ function school(slug: string): Block[] {
 
 export const pageContent: Record<string, Block[]> = {
   // ---------- ACADEMICS ----------
-  "academics/senior-high-school": school("senior-high-school"),
+  "academics/senior-high-school": [
+    {
+      type: "text",
+      heading: "Academic Track",
+      body: [
+        "NU Clark Senior High School offers the Academic Track, with three clusters. Choose the cluster that fits the career you want.",
+      ],
+    },
+    {
+      type: "list",
+      heading: "Clusters and career pathways",
+      items: [
+        "STEM (Science, Technology, Engineering and Mathematics): Engineering and Architecture · Computing Technologies · Sciences and Allied Health",
+        "BUEN (Business and Entrepreneurship): Management and Accountancy",
+        "ASSH (Arts, Social Sciences and Humanities): Education, Arts and Social Sciences (EASS)",
+      ],
+    },
+    ...school("senior-high-school"),
+  ],
   "academics/sabm": school("sabm"),
   "academics/seas": school("seas"),
   "academics/satc": school("satc"),
