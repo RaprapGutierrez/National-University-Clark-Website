@@ -1,8 +1,9 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import EventCard from "@/components/events/EventCard";
+import StoryTeaser from "@/components/news/StoryTeaser";
 import Reveal from "@/components/Reveal";
+import { toTeaser } from "@/lib/story";
 import type { NewsPost } from "@/lib/news";
 
 export default function NewsGrid({ posts }: { posts: NewsPost[] }) {
@@ -35,7 +36,7 @@ export default function NewsGrid({ posts }: { posts: NewsPost[] }) {
               className={`shrink-0 rounded-full px-4 py-2 text-sm font-bold transition ${
                 selected
                   ? "bg-navy text-white"
-                  : "bg-white text-navy ring-1 ring-line hover:ring-royal"
+                  : "bg-mist text-navy ring-1 ring-line hover:ring-royal"
               }`}
             >
               {tag}
@@ -47,10 +48,10 @@ export default function NewsGrid({ posts }: { posts: NewsPost[] }) {
       {filtered.length === 0 ? (
         <p className="mt-8 text-slate">No stories in this topic yet.</p>
       ) : (
-        <div className="mt-6 grid gap-4 sm:grid-cols-2 sm:gap-5">
+        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {filtered.map((post, i) => (
-            <Reveal key={post.slug} delay={(i % 2) * 60} className="h-full">
-              <EventCard event={post} compact />
+            <Reveal key={post.slug} delay={(i % 3) * 50} className="h-full">
+              <StoryTeaser story={toTeaser(post)} />
             </Reveal>
           ))}
         </div>
