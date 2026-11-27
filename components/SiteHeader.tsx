@@ -9,7 +9,7 @@ const utilityLinks = [
   { label: "Quality Management", href: qualityManagement },
   {
     label: "Linkages",
-    href: "https://www.nu.edu.ph/institutional-linkages",
+    href: "/linkages",
   },
   {
     label: "Community Development",

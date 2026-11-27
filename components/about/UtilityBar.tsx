@@ -8,8 +8,8 @@ import { qualityManagement } from "@/lib/about";
 const utilityLinks = [
   { label: "Quality Management", href: qualityManagement },
   {
-    label:"Linkages",
-    href:"https://www.nu.edu.ph/institutional-linkages",
+    label: "Linkages",
+    href: "/linkages",
   },
   {
     label:"Community Development",
