@@ -76,7 +76,7 @@ function ActionButton({ action }: { action: PortalAction }) {
 
 export default function AdmissionsPortalCards() {
   return (
-    <div className="relative z-10 -mt-14 grid gap-4 sm:-mt-16 sm:grid-cols-2 lg:grid-cols-3 lg:gap-5">
+    <div className="relative z-10 mt-0 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-5">
       {cards.map((card, i) => (
         <Reveal key={card.title} delay={i * 100} className="h-full">
           <article className="flex h-full flex-col rounded-2xl border border-line bg-white p-5 shadow-sm sm:p-6">

@@ -12,15 +12,15 @@ import {
 } from "@/lib/services";
 
 export const metadata: Metadata = {
-  title: "Services | NU Clark Student Life",
+  title:"Services | NU Clark Student Life",
   description:
-    "Guidance, admissions, registrar, treasury, clinic, ITSO, SDAO, and other student support offices at NU Clark.",
+"Guidance, admissions, registrar, treasury, clinic, ITSO, SDAO, and other student support offices at NU Clark.",
 };
 
 const crumbs = [
-  { label: "Home", href: "/" },
-  { label: "Student Life", href: "/student-life" },
-  { label: "Services" },
+  { label:"Home", href:"/" },
+  { label:"Student Life", href:"/student-life" },
+  { label:"Services" },
 ];
 
 export default function ServicesPage() {
@@ -41,7 +41,7 @@ export default function ServicesPage() {
               <p className="text-sm font-bold uppercase tracking-[0.2em] text-gold">
                 Office hours
               </p>
-              <h2 className="mt-2 text-2xl font-extrabold sm:text-3xl">
+              <h2 className="mt-2 text-2xl font-extrabold">
                 {servicesIntro.title}
               </h2>
               <p className="mt-3 text-white/85">{OFFICE_HOURS}</p>
@@ -79,7 +79,7 @@ export default function ServicesPage() {
                         {office.short}
                       </span>
                       <div className="min-w-0 flex-1">
-                        <h3 className="text-lg font-extrabold text-navy sm:text-xl">
+                        <h3 className="text-lg font-extrabold text-navy">
                           {office.title}
                         </h3>
                         <p className="mt-2 text-sm leading-relaxed text-slate">
@@ -109,7 +109,7 @@ export default function ServicesPage() {
                             rel="noopener noreferrer"
                             className="mt-4 inline-flex rounded-full bg-navy px-4 py-2 text-sm font-bold text-white transition group-hover:bg-royal"
                           >
-                            {office.hrefLabel ?? "Learn more"} →
+                            {office.hrefLabel ??"Learn more"} →
                           </a>
                         )}
                       </div>

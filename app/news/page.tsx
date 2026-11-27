@@ -8,12 +8,12 @@ import SectionTitle from "@/components/SectionTitle";
 import { FACEBOOK_PAGE_URL, news } from "@/lib/news";
 
 export const metadata: Metadata = {
-  title: "News | NU Clark",
+  title:"News | NU Clark",
   description:
-    "The latest news and announcements from National University Clark: global rankings, awards, international partnerships, and campus events.",
+"The latest news and announcements from National University Clark: global rankings, awards, international partnerships, and campus events.",
 };
 
-const crumbs = [{ label: "Home", href: "/" }, { label: "News" }];
+const crumbs = [{ label:"Home", href:"/" }, { label:"News" }];
 
 export default function NewsPage() {
   const [featured, ...rest] = news;
@@ -69,7 +69,7 @@ export default function NewsPage() {
                   <p className="text-sm font-bold uppercase tracking-[0.2em] text-royal">
                     Facebook
                   </p>
-                  <h2 className="mt-1 text-3xl font-extrabold text-navy sm:text-4xl">
+                  <h2 className="mt-1 text-3xl font-extrabold text-navy">
                     Follow NU Clark on Facebook
                   </h2>
                   <div className="mt-3 h-1.5 w-16 rounded-full bg-gold" />

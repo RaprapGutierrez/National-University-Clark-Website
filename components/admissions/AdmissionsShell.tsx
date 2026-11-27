@@ -12,7 +12,7 @@ export default function AdmissionsShell({
   notice,
   children,
 }: {
-  active: "apply-now" | "requirements" | "scholarships";
+  active:"apply-now" |"requirements" |"scholarships";
   title: string;
   subtitle: string;
   crumbs: Crumb[];
@@ -33,7 +33,7 @@ export default function AdmissionsShell({
         <AdmissionsTabs active={active} />
         {notice ? (
           <div className="border-t border-line bg-mist">
-            <p className="mx-auto max-w-6xl px-4 py-3 text-sm font-semibold leading-relaxed text-navy sm:px-5 sm:text-base">
+            <p className="mx-auto max-w-6xl px-4 py-3 text-sm font-semibold leading-relaxed text-navy sm:px-5">
               {notice}
             </p>
           </div>

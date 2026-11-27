@@ -9,7 +9,7 @@ import Reveal from "@/components/Reveal";
 import { sections, APPLY_URL } from "@/lib/site";
 import { pageContent } from "@/lib/content";
 
-const CONTACT_URL = "/about"; // change to your contact page
+const CONTACT_URL ="/about"; // change to your contact page
 
 type InnerPageProps = { params: Promise<{ section: string; slug: string }> };
 
@@ -29,7 +29,7 @@ export async function generateMetadata({
     .find((entry) => entry.slug === section)
     ?.pages.find((entry) => entry.slug === slug);
   return page
-    ? { title: `${aboutPageTitle(page)} | NU Clark`, description: page.summary }
+    ? { title:`${aboutPageTitle(page)} | NU Clark`, description: page.summary }
     : {};
 }
 
@@ -42,14 +42,14 @@ export default async function InnerPage({ params }: InnerPageProps) {
 
   const blocks = pageContent[`${section}/${slug}`];
   const crumbs = [
-    { label: "Home", href: "/" },
-    { label: sec.title, href: `/${sec.slug}` },
+    { label:"Home", href:"/" },
+    { label: sec.title, href:`/${sec.slug}` },
     { label: page.title },
   ];
 
   const isAcademics = section === "academics";
   const showApply = section !== "student-life";
-  const backLabel = isAcademics ? "← All schools" : `← All ${sec.title}`;
+  const backLabel = isAcademics ?"← All schools" :`← All ${sec.title}`;
 
   return (
     <>
@@ -124,11 +124,11 @@ export default async function InnerPage({ params }: InnerPageProps) {
                   <Link
                     key={p.slug}
                     href={`/${sec.slug}/${p.slug}`}
-                    aria-current={active ? "page" : undefined}
+                    aria-current={active ?"page" : undefined}
                     className={`rounded-xl border-l-4 px-3 py-2 text-sm transition ${
                       active
-                        ? "border-gold bg-navy font-bold text-white"
-                        : "border-transparent text-slate hover:border-royal hover:bg-royal/5"
+                        ?"border-gold bg-navy font-bold text-white"
+                        :"border-transparent text-slate hover:border-royal hover:bg-royal/5"
                     }`}
                   >
                     {p.title}
@@ -145,7 +145,7 @@ export default async function InnerPage({ params }: InnerPageProps) {
         <Reveal>
           <section className="grid items-center gap-8 rounded-3xl bg-navy p-6 text-white sm:p-10 md:grid-cols-[1fr_auto]">
             <div className="text-center md:text-left">
-              <h2 className="text-2xl font-extrabold sm:text-3xl">
+              <h2 className="text-2xl font-extrabold">
                 Ready to become a Nationalian?
               </h2>
               <p className="mx-auto mt-2 max-w-xl text-white/80 md:mx-0">

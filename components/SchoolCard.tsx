@@ -18,7 +18,7 @@ export default function SchoolCard({
       className="group mx-auto flex h-full w-full max-w-sm flex-col transition-transform duration-300 ease-out hover:-translate-y-2 hover:scale-[1.03] active:scale-[0.99] motion-reduce:transform-none"
     >
       {image && (
-        <div className="relative z-10 mx-auto -mb-12 aspect-[4/3] w-4/5 transition-transform duration-300 ease-out group-hover:-translate-y-3 group-hover:rotate-1 motion-reduce:transform-none">
+        <div className="relative z-10 mx-auto -mb-10 aspect-[5/4] w-[72%] transition-transform duration-300 ease-out group-hover:-translate-y-3 group-hover:rotate-1 motion-reduce:transform-none sm:-mb-12 sm:aspect-[4/3] sm:w-4/5">
           <div className="absolute inset-x-[8%] bottom-0 top-[18%] rounded-[28%] bg-gold/90 blur-[1px]" aria-hidden="true" />
           <div className="relative h-full w-full drop-shadow-[0_10px_14px_rgba(0,0,0,0.25)]">
             <Image
@@ -34,7 +34,7 @@ export default function SchoolCard({
 
       <div
         className={`flex flex-1 flex-col items-center rounded-3xl border-2 border-gold bg-navy px-6 pb-6 text-center text-white shadow-lg transition-shadow duration-300 group-hover:shadow-2xl group-hover:shadow-navy/40 ${
-          image ? "pt-16" : "pt-6"
+          image ? "pt-14 sm:pt-16" : "pt-6"
         }`}
       >
         <h3 className="text-xl font-extrabold text-gold">{title}</h3>

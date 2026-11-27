@@ -15,12 +15,12 @@ import {
 } from "@/components/Shapes";
 import { sections, APPLY_URL } from "@/lib/site";
 
-const CONTACT_URL = "/about"; // change to your contact page
+const CONTACT_URL ="/about"; // change to your contact page
 
 // Heading text for the intro card of the non-Academics sections
 const introCopy: Record<string, { kicker: string; heading: string }> = {
-  admissions: { kicker: "Admissions", heading: "Start your journey" },
-  "student-life": { kicker: "Campus life", heading: "More than the classroom" },
+  admissions: { kicker:"Admissions", heading:"Start your journey" },
+"student-life": { kicker:"Campus life", heading:"More than the classroom" },
 };
 
 // Text for each Admissions section (key = page slug in lib/site.ts)
@@ -28,20 +28,20 @@ const admissionsCopy: Record<
   string,
   { kicker: string; text: string; button: string; highlights?: string[] }
 > = {
-  "apply-now": {
-    kicker: "Apply online",
-    text: "Start your online application today. You can also scan the QR code at the bottom of this page with your phone.",
-    button: "Start applying",
+"apply-now": {
+    kicker:"Apply online",
+    text:"Start your online application today. You can also scan the QR code at the bottom of this page with your phone.",
+    button:"Start applying",
   },
   requirements: {
-    kicker: "Be prepared",
-    text: "See what to prepare before you enroll, so everything is ready when you apply.",
-    button: "View requirements",
+    kicker:"Be prepared",
+    text:"See what to prepare before you enroll, so everything is ready when you apply.",
+    button:"View requirements",
   },
   scholarships: {
-    kicker: "Financial support",
-    text: "Find financial support options for Nationalians and see how to apply.",
-    button: "Explore scholarships",
+    kicker:"Financial support",
+    text:"Find financial support options for Nationalians and see how to apply.",
+    button:"Explore scholarships",
   },
 };
 
@@ -51,24 +51,24 @@ const studentLifeCopy: Record<
   { kicker: string; text: string; button: string }
 > = {
   organizations: {
-    kicker: "Clubs and groups",
-    text: "Find a club that matches your interests, meet new people, and build leadership skills outside the classroom.",
-    button: "Explore organizations",
+    kicker:"Clubs and groups",
+    text:"Find a club that matches your interests, meet new people, and build leadership skills outside the classroom.",
+    button:"Explore organizations",
   },
   sports: {
-    kicker: "Teams and athletics",
-    text: "Represent the campus, stay active, and cheer on your fellow Nationalians at athletic events.",
-    button: "See sports",
+    kicker:"Teams and athletics",
+    text:"Represent the campus, stay active, and cheer on your fellow Nationalians at athletic events.",
+    button:"See sports",
   },
   events: {
-    kicker: "On campus",
-    text: "Keep up with what's happening, from school programs to activities that bring students together.",
-    button: "See events",
+    kicker:"On campus",
+    text:"Keep up with what's happening, from school programs to activities that bring students together.",
+    button:"See events",
   },
   services: {
-    kicker: "Student support",
-    text: "Find the offices and services that support you while you study at NU Clark.",
-    button: "View services",
+    kicker:"Student support",
+    text:"Find the offices and services that support you while you study at NU Clark.",
+    button:"View services",
   },
 };
 
@@ -85,7 +85,7 @@ export async function generateMetadata({
   const about = sections.find((entry) => entry.slug === "about");
   return section === "about"
     ? {
-        title: "About NU Clark | National University",
+        title:"About NU Clark | National University",
         description: about?.intro,
       }
     : {};
@@ -105,7 +105,7 @@ function GroupHeading({
       <p className="text-sm font-bold uppercase tracking-[0.2em] text-royal">
         {kicker}
       </p>
-      <h2 className="mt-1 text-2xl font-extrabold text-navy sm:text-3xl">
+      <h2 className="mt-1 text-2xl font-extrabold text-navy">
         {title}
       </h2>
       <div className="mt-3 h-1.5 w-16 rounded-full bg-gold" />
@@ -121,9 +121,9 @@ export default async function SectionPage({ params }: SectionProps) {
   if (section === "about") return <AboutOverview section={data} />;
 
   const isAcademics = data.slug === "academics";
-  const crumbs = [{ label: "Home", href: "/" }, { label: data.title }];
+  const crumbs = [{ label:"Home", href:"/" }, { label: data.title }];
   const copy = introCopy[data.slug] ?? {
-    kicker: "National University Clark",
+    kicker:"National University Clark",
     heading: data.title,
   };
 
@@ -143,7 +143,7 @@ export default async function SectionPage({ params }: SectionProps) {
         title={data.title}
         subtitle={
           isAcademics
-            ? "Choose a school to see the programs it offers."
+            ?"Choose a school to see the programs it offers."
             : data.intro
         }
         label="National University Clark"
@@ -156,7 +156,7 @@ export default async function SectionPage({ params }: SectionProps) {
               <CardDecor />
               <div className="relative flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
                 <div className="border-l-4 border-gold pl-4">
-                  <h2 className="text-2xl font-extrabold text-navy sm:text-3xl">
+                  <h2 className="text-2xl font-extrabold text-navy">
                     Find where you belong
                   </h2>
                   <p className="mt-2 max-w-xl text-lg text-slate">
@@ -168,9 +168,9 @@ export default async function SectionPage({ params }: SectionProps) {
                   className="flex flex-wrap gap-2"
                 >
                   {[
-                    ["#senior-high", "Senior High"],
-                    ["#colleges", "Colleges"],
-                    ["#office", "Academic Office"],
+                    ["#senior-high","Senior High"],
+                    ["#colleges","Colleges"],
+                    ["#office","Academic Office"],
                   ].map(([href, label]) => (
                     <a
                       key={href}
@@ -192,7 +192,7 @@ export default async function SectionPage({ params }: SectionProps) {
                 <p className="text-sm font-bold uppercase tracking-[0.2em] text-royal">
                   {copy.kicker}
                 </p>
-                <h2 className="mt-1 text-2xl font-extrabold text-navy sm:text-3xl">
+                <h2 className="mt-1 text-2xl font-extrabold text-navy">
                   {copy.heading}
                 </h2>
                 <p className="mt-2 max-w-xl text-lg text-slate">{data.intro}</p>
@@ -226,7 +226,7 @@ export default async function SectionPage({ params }: SectionProps) {
                       <span className="inline-block rounded-full bg-gold/20 px-3 py-1 text-xs font-bold uppercase tracking-wider text-gold">
                         Start here
                       </span>
-                      <h3 className="mt-3 text-2xl font-extrabold text-gold sm:text-3xl">
+                      <h3 className="mt-3 text-2xl font-extrabold text-gold">
                         {shs.title}
                       </h3>
                       <p className="mt-2 max-w-xl text-white/85">
@@ -316,7 +316,7 @@ export default async function SectionPage({ params }: SectionProps) {
                     >
                       {/* Half-width card, so the small corner (not the wide shapes) */}
                       <CardCorner tone="gold" />
-                      <h3 className="pr-8 text-xl font-extrabold sm:text-2xl">
+                      <h3 className="pr-8 text-xl font-extrabold">
                         {office.title}
                       </h3>
                       <p className="mt-2 text-sm font-medium text-navy/85">
@@ -338,7 +338,7 @@ export default async function SectionPage({ params }: SectionProps) {
                       className="group relative isolate flex h-full flex-col overflow-hidden rounded-3xl border-2 border-gold bg-navy p-6 text-white shadow-lg transition duration-300 ease-out hover:-translate-y-2 hover:shadow-2xl hover:shadow-navy/40 motion-reduce:transform-none"
                     >
                       <CardCorner />
-                      <h3 className="pr-8 text-xl font-extrabold text-gold sm:text-2xl">
+                      <h3 className="pr-8 text-xl font-extrabold text-gold">
                         Language Center
                       </h3>
                       <p className="mt-2 text-sm text-white/85">
@@ -370,12 +370,12 @@ export default async function SectionPage({ params }: SectionProps) {
                   className="scroll-mt-[var(--site-header-offset)]"
                 >
                   <div className="grid items-center gap-8 md:grid-cols-2 md:gap-12">
-                    <Reveal className={flip ? "md:order-2" : ""}>
+                    <Reveal className={flip ?"md:order-2" :""}>
                       <div className="border-l-4 border-gold pl-5">
                         <p className="text-sm font-bold uppercase tracking-[0.2em] text-royal">
-                          {c?.kicker ?? "Student life"}
+                          {c?.kicker ??"Student life"}
                         </p>
-                        <h2 className="mt-1 text-3xl font-extrabold text-navy sm:text-4xl">
+                        <h2 className="mt-1 text-3xl font-extrabold text-navy">
                           {p.title}
                         </h2>
                         <div className="mt-3 h-1.5 w-16 rounded-full bg-gold" />
@@ -386,7 +386,7 @@ export default async function SectionPage({ params }: SectionProps) {
                           href={`/${data.slug}/${p.slug}`}
                           className="mt-6 inline-flex items-center gap-2 rounded-full bg-navy px-6 py-3 font-bold leading-none text-white transition hover:-translate-y-0.5 hover:bg-royal"
                         >
-                          {c?.button ?? "Learn more"}
+                          {c?.button ??"Learn more"}
                           <span aria-hidden="true" className="translate-y-px">
                             →
                           </span>
@@ -394,7 +394,7 @@ export default async function SectionPage({ params }: SectionProps) {
                       </div>
                     </Reveal>
 
-                    <Reveal delay={100} className={flip ? "md:order-1" : ""}>
+                    <Reveal delay={100} className={flip ?"md:order-1" :""}>
                       <div className="relative isolate flex min-h-[220px] items-center justify-center overflow-hidden rounded-3xl border-2 border-gold bg-navy p-8 shadow-lg">
                         <svg
                           aria-hidden="true"
@@ -421,8 +421,8 @@ export default async function SectionPage({ params }: SectionProps) {
                             className="fill-gold"
                           />
                         </svg>
-                        <span className="text-8xl font-extrabold text-white/90 sm:text-9xl">
-                          {String(i + 1).padStart(2, "0")}
+                        <span className="text-8xl font-extrabold text-white/90">
+                          {String(i + 1).padStart(2,"0")}
                         </span>
                       </div>
                     </Reveal>
@@ -446,7 +446,7 @@ export default async function SectionPage({ params }: SectionProps) {
                       className="group flex h-full items-center gap-4 rounded-2xl border border-line bg-white p-4 shadow-sm transition hover:-translate-y-0.5 hover:border-royal"
                     >
                       <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-gold text-sm font-extrabold text-navy shadow-md transition-transform duration-300 group-hover:scale-110">
-                        {String(i + 1).padStart(2, "0")}
+                        {String(i + 1).padStart(2,"0")}
                       </span>
                       <span className="min-w-0">
                         <b className="block text-navy">{p.title}</b>
@@ -470,12 +470,12 @@ export default async function SectionPage({ params }: SectionProps) {
                   className="scroll-mt-[var(--site-header-offset)]"
                 >
                   <div className="grid items-center gap-8 md:grid-cols-2 md:gap-12">
-                    <Reveal className={flip ? "md:order-2" : ""}>
+                    <Reveal className={flip ?"md:order-2" :""}>
                       <div className="border-l-4 border-gold pl-5">
                         <p className="text-sm font-bold uppercase tracking-[0.2em] text-royal">
-                          {c?.kicker ?? "Admissions"}
+                          {c?.kicker ??"Admissions"}
                         </p>
-                        <h2 className="mt-1 text-3xl font-extrabold text-navy sm:text-4xl">
+                        <h2 className="mt-1 text-3xl font-extrabold text-navy">
                           {p.title}
                         </h2>
                         <div className="mt-3 h-1.5 w-16 rounded-full bg-gold" />
@@ -499,7 +499,7 @@ export default async function SectionPage({ params }: SectionProps) {
                           href={`/${data.slug}/${p.slug}`}
                           className="mt-6 inline-flex items-center gap-2 rounded-full bg-navy px-6 py-3 font-bold leading-none text-white transition hover:-translate-y-0.5 hover:bg-royal"
                         >
-                          {c?.button ?? "Learn more"}
+                          {c?.button ??"Learn more"}
                           <span aria-hidden="true" className="translate-y-px">
                             →
                           </span>
@@ -507,7 +507,7 @@ export default async function SectionPage({ params }: SectionProps) {
                       </div>
                     </Reveal>
 
-                    <Reveal delay={100} className={flip ? "md:order-1" : ""}>
+                    <Reveal delay={100} className={flip ?"md:order-1" :""}>
                       <JourneyPanel slug={p.slug} index={i} />
                     </Reveal>
                   </div>
@@ -525,7 +525,7 @@ export default async function SectionPage({ params }: SectionProps) {
                 >
                   <CardCorner />
                   <span className="flex h-10 w-10 items-center justify-center rounded-full bg-gold text-sm font-extrabold text-navy">
-                    {String(i + 1).padStart(2, "0")}
+                    {String(i + 1).padStart(2,"0")}
                   </span>
                   <h3 className="mt-4 text-xl font-extrabold text-gold">
                     {p.title}
@@ -550,7 +550,7 @@ export default async function SectionPage({ params }: SectionProps) {
           <section className="relative isolate grid items-center gap-8 overflow-hidden rounded-3xl bg-navy p-6 text-white sm:p-10 md:grid-cols-[1fr_auto]">
             <PanelShapes />
             <div className="text-center md:text-left">
-              <h2 className="text-2xl font-extrabold sm:text-3xl">
+              <h2 className="text-2xl font-extrabold">
                 Ready to become a Nationalian?
               </h2>
               <p className="mx-auto mt-2 max-w-xl text-white/80 md:mx-0">

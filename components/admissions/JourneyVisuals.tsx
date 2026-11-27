@@ -5,13 +5,13 @@ import { PanelShapes } from "@/components/Shapes";
 // when the real content changes. Keys are the page slugs from lib/site.ts.
 
 const sheet =
-  "relative w-full max-w-[17rem] -rotate-2 rounded-2xl bg-white p-5 shadow-xl ring-1 ring-black/5 transition-transform duration-300 group-hover:rotate-0 motion-reduce:transform-none";
+"relative w-full max-w-[17rem] -rotate-2 rounded-2xl bg-white p-5 shadow-xl ring-1 ring-black/5 transition-transform duration-300 group-hover:rotate-0 motion-reduce:transform-none";
 
 function Check({ filled }: { filled: boolean }) {
   return (
     <span
       className={`grid h-6 w-6 shrink-0 place-items-center rounded-full ${
-        filled ? "bg-gold text-navy" : "border-2 border-navy/20 text-transparent"
+        filled ?"bg-gold text-navy" :"border-2 border-navy/20 text-transparent"
       }`}
     >
       <svg
@@ -57,10 +57,10 @@ function ApplyVisual() {
 // A checklist: what to prepare
 function RequirementsVisual() {
   const rows = [
-    { done: true, w: "w-3/4" },
-    { done: true, w: "w-2/3" },
-    { done: true, w: "w-4/5" },
-    { done: false, w: "w-1/2" },
+    { done: true, w:"w-3/4" },
+    { done: true, w:"w-2/3" },
+    { done: true, w:"w-4/5" },
+    { done: false, w:"w-1/2" },
   ];
   return (
     <div className={sheet}>
@@ -85,12 +85,12 @@ function ScholarshipVisual() {
         <span
           aria-hidden="true"
           className="absolute bottom-0 left-1 h-9 w-5 -rotate-12 bg-royal"
-          style={{ clipPath: "polygon(0 0, 100% 0, 100% 100%, 50% 75%, 0 100%)" }}
+          style={{ clipPath:"polygon(0 0, 100% 0, 100% 100%, 50% 75%, 0 100%)" }}
         />
         <span
           aria-hidden="true"
           className="absolute bottom-0 right-1 h-9 w-5 rotate-12 bg-navy"
-          style={{ clipPath: "polygon(0 0, 100% 0, 100% 100%, 50% 75%, 0 100%)" }}
+          style={{ clipPath:"polygon(0 0, 100% 0, 100% 100%, 50% 75%, 0 100%)" }}
         />
         <span className="absolute left-0 top-0 grid h-16 w-16 place-items-center rounded-full bg-gold ring-4 ring-gold/30">
           <svg
@@ -115,7 +115,7 @@ function ScholarshipVisual() {
 }
 
 const visuals: Record<string, () => React.JSX.Element> = {
-  "apply-now": ApplyVisual,
+"apply-now": ApplyVisual,
   requirements: RequirementsVisual,
   scholarships: ScholarshipVisual,
 };
@@ -123,7 +123,7 @@ const visuals: Record<string, () => React.JSX.Element> = {
 // The navy panel on the side of each admissions section
 export function JourneyPanel({ slug, index }: { slug: string; index: number }) {
   const Visual = visuals[slug];
-  const num = String(index + 1).padStart(2, "0");
+  const num = String(index + 1).padStart(2,"0");
   return (
     <div className="group relative isolate flex min-h-[280px] items-center justify-center overflow-hidden rounded-3xl border-2 border-gold bg-navy p-8 shadow-lg">
       <PanelShapes />
@@ -138,7 +138,7 @@ export function JourneyPanel({ slug, index }: { slug: string; index: number }) {
           <Visual />
         </div>
       ) : (
-        <span className="text-8xl font-extrabold text-white/90 sm:text-9xl">
+        <span className="text-8xl font-extrabold text-white/90">
           {num}
         </span>
       )}

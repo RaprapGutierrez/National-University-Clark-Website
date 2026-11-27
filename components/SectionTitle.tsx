@@ -17,14 +17,14 @@ export default function SectionTitle({
     <div className="mb-8">
       <p
         className={`text-sm font-bold uppercase tracking-[0.2em] ${
-          light ? "text-gold" : "text-royal"
+          light ?"text-gold" :"text-royal"
         }`}
       >
         {kicker}
       </p>
       <h2
-        className={`mt-1 text-2xl font-extrabold sm:text-4xl ${
-          light ? "text-white" : "text-navy"
+        className={`mt-1 text-2xl font-extrabold ${
+          light ?"text-white" :"text-navy"
         }`}
       >
         {title}
@@ -39,7 +39,7 @@ export default function SectionTitle({
       {text && (
         <p
           className={`mt-3 max-w-2xl text-base leading-relaxed ${
-            light ? "text-white" : "text-slate"
+            light ?"text-white" :"text-slate"
           }`}
         >
           {text}

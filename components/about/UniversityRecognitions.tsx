@@ -3,24 +3,24 @@ import { universityOverview } from "@/lib/about";
 import { AboutIcon } from "./AboutIcon";
 
 const organizations = {
-  qs: "QS Stars",
-  tuv: "TÜV Rheinland",
-  microsoft: "Microsoft",
-  ched: "CHED",
-  faap: "FAAP",
+  qs:"QS Stars",
+  tuv:"TÜV Rheinland",
+  microsoft:"Microsoft",
+  ched:"CHED",
+  faap:"FAAP",
 } as const;
 
 const recognitions = [
-  { organization: "qs", title: "Three-star rating" },
-  { organization: "tuv", title: "ISO 9001:2015 Certificate" },
-  { organization: "microsoft", title: "Showcase School 2025–2026" },
-  { organization: "ched", title: "Autonomous Award" },
-  { organization: "ched", title: "Center of Excellence in IT Education" },
-  { organization: "faap", title: "Candidate Status, MS Sanitary Engineering" },
-  { organization: "faap", title: "Level 3, AB English" },
-  { organization: "faap", title: "Level 3, Computer Engineering" },
-  { organization: "faap", title: "Level 3, Bachelor of Secondary Education" },
-  { organization: "faap", title: "Level 3, Business Administration" },
+  { organization:"qs", title:"Three-star rating" },
+  { organization:"tuv", title:"ISO 9001:2015 Certificate" },
+  { organization:"microsoft", title:"Showcase School 2025–2026" },
+  { organization:"ched", title:"Autonomous Award" },
+  { organization:"ched", title:"Center of Excellence in IT Education" },
+  { organization:"faap", title:"Candidate Status, MS Sanitary Engineering" },
+  { organization:"faap", title:"Level 3, AB English" },
+  { organization:"faap", title:"Level 3, Computer Engineering" },
+  { organization:"faap", title:"Level 3, Bachelor of Secondary Education" },
+  { organization:"faap", title:"Level 3, Business Administration" },
 ] as const;
 
 export function UniversityRecognitions() {
@@ -28,7 +28,7 @@ export function UniversityRecognitions() {
     <section aria-labelledby="university-recognitions">
       <h2
         id="university-recognitions"
-        className="border-b-2 border-gold pb-3 font-serif text-[1.85rem] leading-tight tracking-tight text-navy sm:text-[2.15rem]"
+        className="border-b-2 border-gold pb-3 font-serif text-[1.85rem] leading-tight tracking-tight text-navy"
       >
         Accreditation, recognitions, and certifications
       </h2>

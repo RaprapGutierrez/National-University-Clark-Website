@@ -2,9 +2,9 @@ import Link from "next/link";
 import { APPLY_URL, CONTACT_URL } from "@/lib/admissions";
 
 export default function AdmissionsCta({
-  kicker = "Ready when you are",
-  title = "Start your NU Clark application",
-  text = "Open NU Quest to begin. Looking for aid? Check scholarships before you enroll.",
+  kicker ="Ready when you are",
+  title ="Start your NU Clark application",
+  text ="Open NU Quest to begin. Looking for aid? Check scholarships before you enroll.",
 }: {
   kicker?: string;
   title?: string;
@@ -34,7 +34,7 @@ export default function AdmissionsCta({
         <p className="text-sm font-bold uppercase tracking-[0.2em] text-white/70">
           {kicker}
         </p>
-        <h2 className="mt-2 text-3xl font-extrabold text-white sm:text-4xl">
+        <h2 className="mt-2 text-3xl font-extrabold text-white">
           {title}
         </h2>
         <p className="mt-3 text-white/85">{text}</p>

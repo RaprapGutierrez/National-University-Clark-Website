@@ -6,9 +6,9 @@ import { AboutIcon } from "@/components/about/AboutIcon";
 import { campusPhotos } from "@/lib/about";
 
 const mediaHeading =
-  "font-serif text-[1.85rem] leading-tight font-normal tracking-tight text-[#101f55] sm:text-[2.25rem]";
+"font-serif text-[1.85rem] leading-tight font-normal tracking-tight text-[#101f55]";
 const galleryButton =
-  "inline-grid size-11 shrink-0 place-items-center border border-[#d8d7cf] text-[#101f55] transition-colors hover:border-[#101f55] hover:bg-[#101f55] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#101f55]";
+"inline-grid size-11 shrink-0 place-items-center border border-[#d8d7cf] text-[#101f55] transition-colors hover:border-[#101f55] hover:bg-[#101f55] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#101f55]";
 
 export function TourVideo() {
   return (
@@ -53,7 +53,7 @@ function AboutVideo({
 }) {
   const [playing, setPlaying] = useState(false);
   const player = useRef<HTMLDivElement>(null);
-  const videoUrl = `https://www.youtube.com/watch?v=${videoId}`;
+  const videoUrl =`https://www.youtube.com/watch?v=${videoId}`;
 
   // Go back to the poster when the page is left or hidden, so the video
   // never starts by itself when you come back
@@ -148,7 +148,7 @@ export function CampusGallery() {
       </h2>
       <ul className="grid grid-cols-2 gap-x-3 gap-y-5 sm:gap-x-4 lg:grid-cols-4">
         {campusPhotos.map(({ src, caption }, index) => (
-          <li key={src} className={index < 2 ? "lg:col-span-2" : undefined}>
+          <li key={src} className={index < 2 ?"lg:col-span-2" : undefined}>
             <figure>
               <a
                 href={src}
@@ -168,7 +168,7 @@ export function CampusGallery() {
                   setSelected(index);
                   modal.showModal();
                 }}
-                className={`group relative block aspect-[4/3] overflow-hidden bg-[#e6e2d7] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#101f55] ${index < 2 ? "lg:aspect-video" : ""}`}
+                className={`group relative block aspect-[4/3] overflow-hidden bg-[#e6e2d7] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#101f55] ${index < 2 ?"lg:aspect-video" :""}`}
               >
                 <Image
                   src={src}
@@ -176,8 +176,8 @@ export function CampusGallery() {
                   fill
                   sizes={
                     index < 2
-                      ? "(min-width: 1024px) 460px, 50vw"
-                      : "(min-width: 1024px) 230px, 50vw"
+                      ?"(min-width: 1024px) 460px, 50vw"
+                      :"(min-width: 1024px) 230px, 50vw"
                   }
                   className="object-cover transition-transform duration-300 group-hover:scale-[1.035] motion-reduce:transform-none"
                 />
@@ -185,7 +185,7 @@ export function CampusGallery() {
                   <AboutIcon name="expand" className="size-4" />
                 </span>
               </a>
-              <figcaption className="mt-2 text-xs leading-snug text-[#494e5b] sm:text-sm">
+              <figcaption className="mt-2 text-xs leading-snug text-[#494e5b]">
                 {caption}
               </figcaption>
             </figure>

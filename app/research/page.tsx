@@ -15,12 +15,12 @@ import {
 import { sections } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Research | NU Clark",
+  title:"Research | NU Clark",
   description:
-    "Meet the researchers of National University Clark and follow the latest research news and updates from the NU Clark Research Office.",
+"Meet the researchers of National University Clark and follow the latest research news and updates from the NU Clark Research Office.",
 };
 
-const crumbs = [{ label: "Home", href: "/" }, { label: "Research" }];
+const crumbs = [{ label:"Home", href:"/" }, { label:"Research" }];
 
 export default function ResearchPage() {
   const academics = sections.find((s) => s.slug === "academics");
@@ -28,7 +28,7 @@ export default function ResearchPage() {
     (p) => p.slug !== "office-of-the-academic-director",
   );
 
-  // Researchers grouped by school. Anyone without a known school goes under "Other faculty".
+  // Researchers grouped by school. Anyone without a known school goes under"Other faculty".
   const known = new Set(schools.map((s) => s.slug));
   const groups = [
     ...schools.map((school) => ({
@@ -37,8 +37,8 @@ export default function ResearchPage() {
       people: researchers.filter((r) => r.school === school.slug),
     })),
     {
-      key: "other",
-      title: "Other faculty",
+      key:"other",
+      title:"Other faculty",
       people: researchers.filter((r) => !r.school || !known.has(r.school)),
     },
   ].filter((g) => g.people.length > 0);
@@ -58,8 +58,8 @@ export default function ResearchPage() {
         <div className="mx-auto max-w-6xl px-4 pt-8 sm:px-5">
           <nav aria-label="Jump to a section" className="flex flex-wrap gap-2">
             {[
-              ["#researchers", "Researchers"],
-              ["#updates", "News and updates"],
+              ["#researchers","Researchers"],
+              ["#updates","News and updates"],
             ].map(([href, label]) => (
               <a
                 key={href}
@@ -155,7 +155,7 @@ export default function ResearchPage() {
               <section className="relative isolate grid items-center gap-6 overflow-hidden rounded-3xl bg-navy p-6 text-white sm:p-10 md:grid-cols-[1fr_auto]">
                 <PanelShapes />
                 <div>
-                  <h2 className="text-2xl font-extrabold sm:text-3xl">
+                  <h2 className="text-2xl font-extrabold">
                     Reach out and collaborate with the NU Clark Research Office
                   </h2>
                   <p className="mt-2 max-w-xl text-white/80">

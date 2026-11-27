@@ -7,13 +7,13 @@ import Reveal from "@/components/Reveal";
 import { sections, APPLY_URL } from "@/lib/site";
 import { programsBySchool } from "@/lib/programs";
 
-const CONTACT_URL = "/about"; // change to your contact page
+const CONTACT_URL ="/about"; // change to your contact page
 
 // Accreditation name (starts with) -> logo in /public
 const ACCREDITATION_LOGOS: Record<string, string> = {
-  PACUCOA: "/pacucoa.png",
-  CHED: "/ched.png",
-  FAAP: "/faap.png",
+  PACUCOA:"/pacucoa.png",
+  CHED:"/ched.png",
+  FAAP:"/faap.png",
 };
 
 function logoFor(label: string) {
@@ -35,16 +35,16 @@ function SectionTitle({
   return (
     <div className="mb-4 sm:mb-6">
       {kicker && (
-        <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-royal sm:text-sm sm:tracking-[0.2em]">
+        <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-royal">
           {kicker}
         </p>
       )}
-      <h2 className="mt-1 text-xl font-extrabold text-navy sm:text-3xl">
+      <h2 className="mt-1 text-xl font-extrabold text-navy">
         {title}
       </h2>
       <div className="mt-2 h-1 w-12 rounded-full bg-gold sm:mt-3 sm:h-1.5 sm:w-16" />
       {text && (
-        <p className="mt-2 max-w-2xl text-sm text-slate sm:mt-3 sm:text-base">
+        <p className="mt-2 max-w-2xl text-sm text-slate sm:mt-3">
           {text}
         </p>
       )}
@@ -77,17 +77,17 @@ export default async function ProgramPage({
   if (section !== "academics" || !sec || !school || !data) notFound();
 
   const crumbs = [
-    { label: "Home", href: "/" },
-    { label: sec.title, href: `/${sec.slug}` },
-    { label: school.title, href: `/${sec.slug}/${school.slug}` },
+    { label:"Home", href:"/" },
+    { label: sec.title, href:`/${sec.slug}` },
+    { label: school.title, href:`/${sec.slug}/${school.slug}` },
     { label: data.title },
   ];
 
   // Skip the placeholder text from lib/programs.ts
   const accreditations = data.accreditation.filter(
-    (a) => !a.startsWith("Add "),
+    (a) => !a.startsWith("Add"),
   );
-  const about = data.about.filter((p) => !p.startsWith("Add "));
+  const about = data.about.filter((p) => !p.startsWith("Add"));
   const careers = data.careers ?? [];
 
   // Extra sections (Senior High School: track, strengths, related degrees, why study)
@@ -99,49 +99,49 @@ export default async function ProgramPage({
   // Sections that exist for this program (used by the sidebar jump links)
   const aboutAfterMission = Boolean(data.aboutAfterMission);
   const aboutHeadings = aboutAfterMission
-    ? ["About BS Computer Science", "Specialization in Artificial Intelligence"]
+    ? ["About BS Computer Science","Specialization in Artificial Intelligence"]
     : [];
 
   const toc = [
     {
-      id: "about",
-      label: "About the program",
+      id:"about",
+      label:"About the program",
       show: about.length > 0 && !aboutAfterMission,
     },
-    { id: "careers", label: "Career opportunities", show: careers.length > 0 },
+    { id:"careers", label:"Career opportunities", show: careers.length > 0 },
     {
-      id: "mission-vision",
-      label: "Mission and vision",
+      id:"mission-vision",
+      label:"Mission and vision",
       show: hasMissionVision,
     },
     {
-      id: "about",
-      label: "About the program",
+      id:"about",
+      label:"About the program",
       show: about.length > 0 && aboutAfterMission,
     },
     {
-      id: "specialization",
-      label: "Specialization",
+      id:"specialization",
+      label:"Specialization",
       show: aboutAfterMission && about.length > 1,
     },
     ...extras.map((s, i) => ({
-      id: `extra-${i}`,
+      id:`extra-${i}`,
       label: s.label ?? s.title,
       show: true,
     })),
     {
-      id: "objectives",
-      label: "Educational objectives",
+      id:"objectives",
+      label:"Educational objectives",
       show: data.objectives.length > 0,
     },
     {
-      id: "outcomes",
-      label: "Program outcomes",
+      id:"outcomes",
+      label:"Program outcomes",
       show: data.outcomes.length > 0,
     },
     {
-      id: "accreditation",
-      label: "Accreditation",
+      id:"accreditation",
+      label:"Accreditation",
       show: accreditations.length > 0,
     },
   ].filter((t) => t.show);
@@ -186,7 +186,7 @@ export default async function ProgramPage({
                   title={`About the ${data.title}`}
                 />
                 <div className="rounded-2xl border border-line bg-white p-4 shadow-sm sm:rounded-3xl sm:p-8">
-                  <div className="space-y-3 border-l-[3px] border-gold pl-3 text-[15px] leading-relaxed text-slate sm:space-y-4 sm:border-l-4 sm:pl-4 sm:text-lg">
+                  <div className="space-y-3 border-l-[3px] border-gold pl-3 text-[15px] leading-relaxed text-slate sm:space-y-4 sm:border-l-4 sm:pl-4">
                     {about.map((para, i) => (
                       <p key={i}>{para}</p>
                     ))}
@@ -210,7 +210,7 @@ export default async function ProgramPage({
                   {careers.map((c) => (
                     <span
                       key={c}
-                      className="rounded-full border border-gold bg-navy px-3 py-1.5 text-xs font-bold text-white sm:border-2 sm:px-4 sm:py-2 sm:text-sm"
+                      className="rounded-full border border-gold bg-navy px-3 py-1.5 text-xs font-bold text-white sm:border-2 sm:px-4 sm:py-2"
                     >
                       {c}
                     </span>
@@ -234,20 +234,20 @@ export default async function ProgramPage({
               <div className="grid gap-3 sm:gap-4 md:grid-cols-2">
                 <Reveal className="h-full">
                   <div className="h-full rounded-2xl border-2 border-gold bg-navy p-4 text-white shadow-md sm:rounded-3xl sm:p-8 sm:shadow-lg">
-                    <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-gold sm:text-sm sm:tracking-[0.2em]">
+                    <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-gold">
                       Our Mission
                     </p>
-                    <p className="mt-2 text-sm leading-relaxed text-white/90 sm:mt-3 sm:text-base">
+                    <p className="mt-2 text-sm leading-relaxed text-white/90 sm:mt-3">
                       {data.mission}
                     </p>
                   </div>
                 </Reveal>
                 <Reveal delay={100} className="h-full">
                   <div className="h-full rounded-2xl border-2 border-navy bg-gold p-4 text-navy shadow-md sm:rounded-3xl sm:p-8 sm:shadow-lg">
-                    <p className="text-[11px] font-bold uppercase tracking-[0.18em] sm:text-sm sm:tracking-[0.2em]">
+                    <p className="text-[11px] font-bold uppercase tracking-[0.18em]">
                       Our Vision
                     </p>
-                    <p className="mt-2 text-sm font-medium leading-relaxed text-navy/90 sm:mt-3 sm:text-base">
+                    <p className="mt-2 text-sm font-medium leading-relaxed text-navy/90 sm:mt-3">
                       {data.vision}
                     </p>
                   </div>
@@ -260,16 +260,16 @@ export default async function ProgramPage({
             about.map((para, i) => (
               <section
                 key={i}
-                id={i === 0 ? "about" : "specialization"}
+                id={i === 0 ?"about" :"specialization"}
                 className="scroll-mt-[var(--site-header-offset)]"
               >
                 <Reveal>
                   <SectionTitle
-                    kicker={i === 0 ? "Overview" : "Focus"}
-                    title={aboutHeadings[i] ?? `About the ${data.title}`}
+                    kicker={i === 0 ?"Overview" :"Focus"}
+                    title={aboutHeadings[i] ??`About the ${data.title}`}
                   />
                   <div className="rounded-2xl border border-line bg-white p-4 shadow-sm sm:rounded-3xl sm:p-8">
-                    <p className="border-l-[3px] border-gold pl-3 text-[15px] leading-relaxed text-slate sm:border-l-4 sm:pl-4 sm:text-lg">
+                    <p className="border-l-[3px] border-gold pl-3 text-[15px] leading-relaxed text-slate sm:border-l-4 sm:pl-4">
                       {para}
                     </p>
                   </div>
@@ -290,7 +290,7 @@ export default async function ProgramPage({
                 {(s.paragraphs || s.items) && (
                   <div className="rounded-2xl border border-line bg-white p-4 shadow-sm sm:rounded-3xl sm:p-8">
                     {s.paragraphs && (
-                      <div className="space-y-3 border-l-[3px] border-gold pl-3 text-[15px] leading-relaxed text-slate sm:space-y-4 sm:border-l-4 sm:pl-4 sm:text-lg">
+                      <div className="space-y-3 border-l-[3px] border-gold pl-3 text-[15px] leading-relaxed text-slate sm:space-y-4 sm:border-l-4 sm:pl-4">
                         {s.paragraphs.map((para, k) => (
                           <p key={k}>{para}</p>
                         ))}
@@ -298,8 +298,8 @@ export default async function ProgramPage({
                     )}
                     {s.items && (
                       <ul
-                        className={`space-y-2 text-[15px] text-slate sm:text-base ${
-                          s.paragraphs ? "mt-4 sm:mt-5" : ""
+                        className={`space-y-2 text-[15px] text-slate ${
+                          s.paragraphs ?"mt-4 sm:mt-5" :""
                         }`}
                       >
                         {s.items.map((item) => (
@@ -323,7 +323,7 @@ export default async function ProgramPage({
                         key={g.label}
                         className="rounded-2xl border border-line bg-white p-4 shadow-sm sm:rounded-3xl sm:p-5"
                       >
-                        <h3 className="text-base font-extrabold text-navy sm:text-lg">
+                        <h3 className="text-base font-extrabold text-navy">
                           {g.label}
                         </h3>
                         <ul className="mt-3 space-y-1.5 text-sm text-slate">
@@ -361,10 +361,10 @@ export default async function ProgramPage({
                 {data.objectives.map((o, i) => (
                   <Reveal key={i} delay={(i % 2) * 100} className="h-full">
                     <div className="flex h-full gap-3 rounded-2xl border border-line bg-white p-3.5 shadow-sm transition duration-300 hover:-translate-y-1 hover:border-royal hover:shadow-md motion-reduce:transform-none sm:gap-4 sm:rounded-3xl sm:p-5">
-                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-navy text-xs font-extrabold text-gold sm:h-11 sm:w-11 sm:text-sm">
-                        {String(i + 1).padStart(2, "0")}
+                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-navy text-xs font-extrabold text-gold sm:h-11 sm:w-11">
+                        {String(i + 1).padStart(2,"0")}
                       </span>
-                      <p className="text-sm leading-snug text-slate sm:text-base sm:leading-relaxed">
+                      <p className="text-sm leading-snug text-slate">
                         {o}
                       </p>
                     </div>
@@ -391,7 +391,7 @@ export default async function ProgramPage({
                 />
                 <div className="grid gap-3 sm:grid-cols-2 sm:gap-4">
                   {accreditations.map((entry) => {
-                    const [label, ...details] = entry.split(" · ");
+                    const [label, ...details] = entry.split(" ·");
                     const logo = logoFor(label);
                     return (
                       <div
@@ -408,15 +408,15 @@ export default async function ProgramPage({
                           />
                         )}
                         <div className="border-l-[3px] border-gold pl-3 sm:border-l-4 sm:pl-4">
-                          <p className="text-[10px] font-bold uppercase tracking-wider text-royal sm:text-xs">
+                          <p className="text-[10px] font-bold uppercase tracking-wider text-royal">
                             Accredited by
                           </p>
-                          <b className="mt-0.5 block text-base text-navy sm:mt-1 sm:text-lg">
+                          <b className="mt-0.5 block text-base text-navy sm:mt-1">
                             {label}
                           </b>
                           {details.length > 0 && (
-                            <span className="mt-1 block text-xs text-slate sm:text-sm">
-                              {details.join(" · ")}
+                            <span className="mt-1 block text-xs text-slate">
+                              {details.join(" ·")}
                             </span>
                           )}
                         </div>
@@ -469,7 +469,7 @@ export default async function ProgramPage({
           </nav>
 
           <div className="rounded-2xl border border-line bg-white p-3 shadow-sm sm:rounded-3xl sm:p-4">
-            <h2 className="mb-2 px-2 pt-1 text-[11px] font-extrabold uppercase tracking-[0.14em] text-navy sm:mb-3 sm:px-3 sm:text-sm sm:tracking-[0.15em]">
+            <h2 className="mb-2 px-2 pt-1 text-[11px] font-extrabold uppercase tracking-[0.14em] text-navy sm:mb-3 sm:px-3">
               More in {school.title}
             </h2>
             <div className="flex flex-col gap-0.5">
@@ -479,11 +479,11 @@ export default async function ProgramPage({
                   <Link
                     key={p.slug}
                     href={`/${sec.slug}/${school.slug}/${p.slug}`}
-                    aria-current={active ? "page" : undefined}
+                    aria-current={active ?"page" : undefined}
                     className={`rounded-xl border-l-4 px-3 py-2 text-sm transition ${
                       active
-                        ? "border-gold bg-navy font-bold text-white"
-                        : "border-transparent text-slate hover:border-royal hover:bg-royal/5"
+                        ?"border-gold bg-navy font-bold text-white"
+                        :"border-transparent text-slate hover:border-royal hover:bg-royal/5"
                     }`}
                   >
                     {p.title}
@@ -505,10 +505,10 @@ export default async function ProgramPage({
         <Reveal>
           <section className="grid items-center gap-5 rounded-2xl bg-navy p-5 text-white sm:gap-8 sm:rounded-3xl sm:p-10 md:grid-cols-[1fr_auto]">
             <div className="text-center md:text-left">
-              <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-gold sm:text-sm sm:tracking-[0.2em]">
+              <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-gold">
                 Enrollment
               </p>
-              <h2 className="mt-1.5 text-xl font-extrabold sm:mt-2 sm:text-4xl">
+              <h2 className="mt-1.5 text-xl font-extrabold sm:mt-2">
                 Ready to Apply in {data.title}?
               </h2>
               <div className="mt-4 flex flex-col gap-2.5 sm:mt-6 sm:flex-row sm:justify-center md:justify-start">

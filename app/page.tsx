@@ -53,7 +53,7 @@ function SectionTitle({
       <p className="text-sm font-bold uppercase tracking-[0.2em] text-royal">
         {kicker}
       </p>
-      <h2 className="mt-1 text-2xl font-extrabold text-navy sm:text-4xl">
+      <h2 className="mt-1 text-2xl font-extrabold text-navy">
         {title}
       </h2>
       <div className="mt-3 flex items-center gap-2">
@@ -98,13 +98,13 @@ export default function Home() {
     <>
       {/* Hero: gold band shows under the slanted navy edge */}
       <div
-        className="relative bg-gold"
+        className="relative -mb-6 bg-gold sm:-mb-8"
         style={{
           clipPath: "polygon(0 0, 100% 0, 100% calc(100% - 40px), 0 100%)",
         }}
       >
         <header
-          className="relative isolate overflow-hidden bg-navy pb-28 text-white sm:pb-32"
+          className="relative isolate overflow-hidden bg-navy pb-14 text-white sm:pb-24 lg:pb-32"
           style={{
             clipPath:
               "polygon(0 0, 100% 0, 100% calc(100% - 52px), 0 calc(100% - 12px))",
@@ -164,10 +164,10 @@ export default function Home() {
           <div className="mx-auto max-w-6xl px-4 sm:px-5">
             <div className="grid items-center gap-8 pt-8 sm:pt-12 lg:grid-cols-2 lg:gap-10 lg:pt-14">
               <Reveal>
-                <p className="inline-block rounded-full bg-gold/15 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-gold sm:text-sm">
+                <p className="inline-block rounded-full bg-gold/15 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-gold">
                   National University Clark
                 </p>
-                <h1 className="mt-4 text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
+                <h1 className="mt-4 text-4xl font-extrabold leading-tight tracking-tight">
                   Education that works in the heart of{" "}
                   <span className="relative inline-block text-gold">
                     Central Luzon.
@@ -177,7 +177,7 @@ export default function Home() {
                     />
                   </span>
                 </h1>
-                <p className="mt-4 max-w-xl text-base text-white/90 sm:mt-5 sm:text-lg">
+                <p className="mt-4 max-w-xl text-base text-white/90 sm:mt-5">
                   Study at NU Clark inside the Clark Freeport Zone. Explore our
                   programs, apply online, and see life on campus.
                 </p>
@@ -205,14 +205,14 @@ export default function Home() {
         </header>
       </div>
 
-      <main className="mx-auto max-w-6xl px-4 sm:px-5">
+      <main className="relative mx-auto max-w-6xl overflow-x-clip px-4 sm:px-5">
         <AdmissionsPortalCards />
 
         {/* Find your school */}
-        <section className="relative pt-16 sm:pt-24">
+        <section className="relative pt-12 sm:pt-20">
           <span
             aria-hidden="true"
-            className="pointer-events-none absolute -right-10 top-10 h-44 w-44 rounded-full bg-gold/20"
+            className="pointer-events-none absolute -right-6 top-10 h-36 w-36 rounded-full bg-gold/20 sm:-right-10 sm:h-44 sm:w-44"
           />
           <Dots className="absolute right-4 top-24 hidden text-royal/20 md:block" />
 
@@ -225,7 +225,7 @@ export default function Home() {
               />
             </Reveal>
 
-            <div className="grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-x-6 gap-y-6 sm:grid-cols-2 sm:gap-y-10 lg:grid-cols-3">
               {schools.map((p, i) => (
                 <Reveal key={p.slug} delay={(i % 3) * 100} className="h-full">
                   <SchoolCard
@@ -241,14 +241,14 @@ export default function Home() {
         </section>
 
         {/* How to apply */}
-        <section className="relative mt-16 overflow-hidden rounded-3xl border border-line bg-white p-6 shadow-sm sm:mt-24 sm:p-10">
+        <section className="relative mt-12 overflow-hidden rounded-3xl border border-line bg-white p-6 shadow-sm sm:mt-20 sm:p-10">
           <span
             aria-hidden="true"
-            className="pointer-events-none absolute -left-10 -top-10 h-32 w-32 rounded-full bg-gold/20"
+            className="pointer-events-none absolute -left-8 -top-8 h-28 w-28 rounded-full bg-gold/20 sm:-left-10 sm:-top-10 sm:h-32 sm:w-32"
           />
           <span
             aria-hidden="true"
-            className="pointer-events-none absolute -bottom-12 -right-12 h-40 w-40 rotate-45 bg-royal/10"
+            className="pointer-events-none absolute -bottom-8 -right-8 h-32 w-32 rotate-45 bg-royal/10 sm:-bottom-12 sm:-right-12 sm:h-40 sm:w-40"
           />
           <div className="relative">
             <Reveal>
@@ -272,7 +272,7 @@ export default function Home() {
                   </>
                 );
                 const cls =
-                  "group block h-full rounded-2xl border-l-4 border-gold bg-surface-soft p-6 ring-1 ring-line transition hover:-translate-y-1 hover:shadow-md";
+                  "group block h-full rounded-2xl border-l-4 border-gold bg-mist p-6 ring-1 ring-line transition hover:-translate-y-1 hover:shadow-md";
                 return (
                   <Reveal key={s.n} delay={i * 100} className="h-full">
                     {s.external ? (
@@ -327,7 +327,7 @@ export default function Home() {
             </svg>
 
             <div className="text-center md:text-left">
-              <h2 className="text-2xl font-extrabold sm:text-3xl">
+              <h2 className="text-2xl font-extrabold">
                 Ready to become a Nationalian?
               </h2>
               <p className="mx-auto mt-2 max-w-xl text-white/80 md:mx-0">

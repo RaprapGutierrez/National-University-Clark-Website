@@ -24,47 +24,47 @@ import {
 } from "@/lib/scholarships";
 
 export const metadata: Metadata = {
-  title: "Scholarships | NU Clark Admissions",
+  title:"Scholarships | NU Clark Admissions",
   description:
-    "Gold, Blue, White, and Nationalian scholarships, the UAEB scholarship, and how to apply at NU Clark.",
+"Gold, Blue, White, and Nationalian scholarships, the UAEB scholarship, and how to apply at NU Clark.",
 };
 
 const crumbs = [
-  { label: "Home", href: "/" },
-  { label: "Admissions", href: "/admissions" },
-  { label: "Scholarships" },
+  { label:"Home", href:"/" },
+  { label:"Admissions", href:"/admissions" },
+  { label:"Scholarships" },
 ];
 
 const jumpLinks = [
-  { href: "#programs", label: "Programs" },
-  { href: "#how-to-apply", label: "How to apply" },
-  { href: "#uaeb", label: "UAEB" },
-  { href: "#discounts", label: "Other discounts" },
+  { href:"#programs", label:"Programs" },
+  { href:"#how-to-apply", label:"How to apply" },
+  { href:"#uaeb", label:"UAEB" },
+  { href:"#discounts", label:"Other discounts" },
 ];
 
 const programAccent: Record<
   string,
   { bar: string; chip: string; label: string }
 > = {
-  "Gold Scholar": {
-    bar: "bg-gold",
-    chip: "bg-gold text-navy",
-    label: "text-gold",
+"Gold Scholar": {
+    bar:"bg-gold",
+    chip:"bg-gold text-navy",
+    label:"text-gold",
   },
-  "Blue Scholar": {
-    bar: "bg-sky",
-    chip: "bg-sky text-navy",
-    label: "text-sky",
+"Blue Scholar": {
+    bar:"bg-sky",
+    chip:"bg-sky text-navy",
+    label:"text-sky",
   },
-  "White Scholar": {
-    bar: "bg-white",
-    chip: "bg-white text-navy",
-    label: "text-white",
+"White Scholar": {
+    bar:"bg-white",
+    chip:"bg-white text-navy",
+    label:"text-white",
   },
   NSP: {
-    bar: "bg-royal",
-    chip: "bg-royal text-white",
-    label: "text-gold",
+    bar:"bg-royal",
+    chip:"bg-royal text-white",
+    label:"text-gold",
   },
 };
 
@@ -99,7 +99,7 @@ export default function ScholarshipsPage() {
               <p className="text-sm font-bold uppercase tracking-[0.2em] text-royal">
                 A.Y. 2026–2027
               </p>
-              <h2 className="mt-2 text-3xl font-extrabold leading-tight text-navy sm:text-4xl">
+              <h2 className="mt-2 text-3xl font-extrabold leading-tight text-navy">
                 {intro.title}
               </h2>
               <p className="mt-4 text-lg font-bold text-royal">{intro.lead}</p>
@@ -361,7 +361,7 @@ export default function ScholarshipsPage() {
               title={uaeb.title}
               text={uaeb.dates}
             />
-            <div className="max-w-3xl space-y-4 text-base leading-relaxed text-white sm:text-lg">
+            <div className="max-w-3xl space-y-4 text-base leading-relaxed text-white">
               {uaeb.intro.map((p) => (
                 <p key={p}>{p}</p>
               ))}

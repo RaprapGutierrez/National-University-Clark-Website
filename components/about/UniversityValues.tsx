@@ -2,47 +2,47 @@ import Image from "next/image";
 
 const values = [
   {
-    name: "Integrity",
-    image: "integrity",
-    description: "We act honestly, treat people fairly, and do what is right in our dealings with others. Our choices reflect who we are.",
+    name:"Integrity",
+    image:"integrity",
+    description:"We act honestly, treat people fairly, and do what is right in our dealings with others. Our choices reflect who we are.",
   },
   {
-    name: "Compassion",
-    image: "compassion",
-    description: "We value people, pay attention to what they are going through, and respond with care and understanding in every situation.",
+    name:"Compassion",
+    image:"compassion",
+    description:"We value people, pay attention to what they are going through, and respond with care and understanding in every situation.",
   },
   {
-    name: "Innovation",
-    image: "innovation",
-    description: "We improve established ways of working through creative changes that address a real need and help us respond as circumstances evolve.",
+    name:"Innovation",
+    image:"innovation",
+    description:"We improve established ways of working through creative changes that address a real need and help us respond as circumstances evolve.",
   },
   {
-    name: "Resilience",
-    image: "resilience",
-    description: "We draw on our strength of character to meet difficulties, adapt to setbacks, and recover so we can keep going.",
+    name:"Resilience",
+    image:"resilience",
+    description:"We draw on our strength of character to meet difficulties, adapt to setbacks, and recover so we can keep going.",
   },
   {
-    name: "Patriotism",
-    image: "patriotism",
-    description: "Love of country is central to our university community. We show that commitment through service to the Philippines and respect for what it stands for.",
+    name:"Patriotism",
+    image:"patriotism",
+    description:"Love of country is central to our university community. We show that commitment through service to the Philippines and respect for what it stands for.",
   },
 ];
 
 const attributes = [
-  { name: "Leadership and Teamwork", icon: "leadership" },
-  { name: "Responsible Citizenship", icon: "citizenship" },
-  { name: "Innovative, Creative, and Critical Thinking", icon: "thinking" },
-  { name: "Academic and Professional Competence", icon: "competence" },
-  { name: "Effective Communication", icon: "communication" },
-  { name: "Whole-person Character", icon: "character" },
-  { name: "Life and Career Skills Orientation", icon: "life-career" },
-  { name: "Technological Literacy", icon: "technology" },
+  { name:"Leadership and Teamwork", icon:"leadership" },
+  { name:"Responsible Citizenship", icon:"citizenship" },
+  { name:"Innovative, Creative, and Critical Thinking", icon:"thinking" },
+  { name:"Academic and Professional Competence", icon:"competence" },
+  { name:"Effective Communication", icon:"communication" },
+  { name:"Whole-person Character", icon:"character" },
+  { name:"Life and Career Skills Orientation", icon:"life-career" },
+  { name:"Technological Literacy", icon:"technology" },
 ];
 
 export function UniversityValues() {
   return (
     <section aria-labelledby="core-values">
-      <h2 id="core-values" className="mb-5 border-b-2 border-gold pb-3 text-2xl font-extrabold text-navy sm:text-3xl">
+      <h2 id="core-values" className="mb-5 border-b-2 border-gold pb-3 text-2xl font-extrabold text-navy">
         Core Values
       </h2>
       <div className="overflow-hidden rounded-xl bg-navy">
@@ -54,7 +54,7 @@ export function UniversityValues() {
         </div>
         <dl className="grid gap-px bg-white/25 sm:grid-cols-2 xl:grid-cols-6">
           {values.map(({ name, image, description }, index) => (
-            <div key={name} className={`bg-[#fffdf8] p-5 text-navy sm:px-6 sm:last:col-span-2 xl:last:col-span-3 ${index > 2 ? "xl:col-span-3" : "xl:col-span-2"}`}>
+            <div key={name} className={`bg-[#fffdf8] p-5 text-navy sm:px-6 sm:last:col-span-2 xl:last:col-span-3 ${index > 2 ?"xl:col-span-3" :"xl:col-span-2"}`}>
               <dt className="flex items-center gap-3 text-lg font-extrabold">
                 <span className="grid size-11 shrink-0 place-items-center rounded-md bg-[#f5edda]">
                   <Image src={`/about/value-${image}.png`} alt="" width={28} height={28} className="size-7 object-contain" />
@@ -73,7 +73,7 @@ export function UniversityValues() {
 export function GraduateAttributes() {
   return (
     <section aria-labelledby="graduate-attributes">
-      <h2 id="graduate-attributes" className="mb-5 text-2xl font-extrabold text-navy sm:text-3xl">
+      <h2 id="graduate-attributes" className="mb-5 text-2xl font-extrabold text-navy">
         Graduate Attributes Intended for Nationalians
       </h2>
       <ul className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">

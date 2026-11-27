@@ -21,12 +21,12 @@ export default function LogoDivider() {
           height={46}
           className="h-12 w-auto sm:h-14"
         />
-        <span className="text-[15px] font-extrabold uppercase leading-[1.05] tracking-tight sm:text-[17px]">
+        <span className="text-[15px] font-extrabold uppercase leading-[1.05] tracking-tight">
           National
           <br />
           University
         </span>
-        <span className="text-2xl font-extrabold uppercase leading-none tracking-wide text-royal sm:text-3xl">
+        <span className="text-2xl font-extrabold uppercase leading-none tracking-wide text-royal">
           CLARK
         </span>
       </div>

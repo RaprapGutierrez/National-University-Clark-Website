@@ -5,15 +5,15 @@ import ApplySteps from "@/components/admissions/ApplySteps";
 import { APPLY_URL, ENROLLMENT_NOTE } from "@/lib/admissions";
 
 export const metadata: Metadata = {
-  title: "Apply Now | NU Clark Admissions",
+  title:"Apply Now | NU Clark Admissions",
   description:
-    "Follow these six steps to apply and enroll at National University Clark.",
+"Follow these six steps to apply and enroll at National University Clark.",
 };
 
 const crumbs = [
-  { label: "Home", href: "/" },
-  { label: "Admissions", href: "/admissions" },
-  { label: "Apply Now" },
+  { label:"Home", href:"/" },
+  { label:"Admissions", href:"/admissions" },
+  { label:"Apply Now" },
 ];
 
 export default function ApplyNowPage() {
@@ -31,7 +31,7 @@ export default function ApplyNowPage() {
             <p className="text-sm font-bold uppercase tracking-[0.2em] text-royal">
               Your path
             </p>
-            <h2 className="mt-1 text-2xl font-extrabold text-navy sm:text-4xl">
+            <h2 className="mt-1 text-2xl font-extrabold text-navy">
               How enrollment works
             </h2>
             <p className="mt-3 text-base leading-relaxed text-slate">

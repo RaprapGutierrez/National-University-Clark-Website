@@ -23,8 +23,8 @@ export default function RequirementsPanel({
         >
           {groups.map((g, i) => {
             const on = i === active;
-            const tabId = `${baseId}-tab-${i}`;
-            const panelId = `${baseId}-panel-${i}`;
+            const tabId =`${baseId}-tab-${i}`;
+            const panelId =`${baseId}-panel-${i}`;
             return (
               <button
                 key={`${g.level}-${g.title}`}
@@ -36,14 +36,14 @@ export default function RequirementsPanel({
                 onClick={() => setActive(i)}
                 className={`shrink-0 rounded-2xl px-4 py-3 text-left transition lg:w-full ${
                   on
-                    ? "bg-gold text-navy shadow-sm"
-                    : "bg-white/10 text-white hover:bg-white/18"
+                    ?"bg-gold text-navy shadow-sm"
+                    :"bg-white/10 text-white hover:bg-white/18"
                 }`}
               >
                 <span className="block text-[10px] font-bold uppercase tracking-[0.14em] opacity-80">
                   {g.level}
                 </span>
-                <span className="mt-0.5 block text-sm font-extrabold sm:text-base">
+                <span className="mt-0.5 block text-sm font-extrabold">
                   {g.title}
                 </span>
               </button>
@@ -62,7 +62,7 @@ export default function RequirementsPanel({
               <p className="text-sm font-bold uppercase tracking-[0.16em] text-royal">
                 {current.level}
               </p>
-              <h3 className="mt-1 text-2xl font-extrabold text-navy sm:text-3xl">
+              <h3 className="mt-1 text-2xl font-extrabold text-navy">
                 {current.title}
               </h3>
               <p className="mt-2 max-w-xl text-base leading-relaxed text-slate">
@@ -79,7 +79,7 @@ export default function RequirementsPanel({
               <li
                 key={`${current.title}-${item}`}
                 className="fade-rise flex gap-3 rounded-2xl border border-line bg-mist/60 px-4 py-4"
-                style={{ animationDelay: `${i * 35}ms` }}
+                style={{ animationDelay:`${i * 35}ms` }}
               >
                 <span
                   aria-hidden

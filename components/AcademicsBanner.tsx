@@ -20,8 +20,6 @@ export default function AcademicsBanner({
   /** Short gold underline under the title. Default true. */
   showRule?: boolean;
 }) {
-  const long = title.length > 28;
-
   return (
     <>
       <div className="relative">
@@ -86,15 +84,11 @@ export default function AcademicsBanner({
           <div className="mx-auto max-w-6xl px-4 pb-8 pt-7 sm:px-5 sm:pb-12 sm:pt-10 lg:pb-14 lg:pt-14">
             <div className="lg:max-w-[55%] xl:max-w-3xl">
               {label && (
-                <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-gold sm:text-sm sm:tracking-[0.2em]">
+                <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-gold">
                   {label}
                 </p>
               )}
-              <h1
-                className={`mt-2 text-[1.85rem] font-extrabold leading-[1.12] tracking-tight sm:mt-3 sm:text-5xl ${
-                  long ? "lg:text-5xl" : "lg:text-6xl"
-                }`}
-              >
+              <h1 className="mt-2 text-[1.85rem] font-extrabold leading-[1.12] tracking-tight sm:mt-3">
                 {title}
               </h1>
               {showRule ? (
@@ -102,8 +96,8 @@ export default function AcademicsBanner({
               ) : null}
               {subtitle && (
                 <p
-                  className={`max-w-xl text-sm font-medium text-white/90 sm:text-lg ${
-                    showRule ? "mt-3 sm:mt-5" : "mt-3 sm:mt-4"
+                  className={`max-w-xl text-sm font-medium text-white/90 ${
+                    showRule ?"mt-3 sm:mt-5" :"mt-3 sm:mt-4"
                   }`}
                 >
                   {subtitle}
@@ -119,7 +113,7 @@ export default function AcademicsBanner({
           aria-label="Breadcrumb"
           className="border-b border-line bg-white/80"
         >
-          <ol className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-1.5 gap-y-1 px-4 py-3 text-[13px] text-slate sm:px-5 sm:py-3.5 sm:text-sm">
+          <ol className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-1.5 gap-y-1 px-4 py-3 text-[13px] text-slate sm:px-5 sm:py-3.5">
             {crumbs.map((c, i) => {
               const last = i === crumbs.length - 1;
               return (

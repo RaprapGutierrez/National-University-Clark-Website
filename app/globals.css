@@ -44,10 +44,14 @@ html[data-mobile-menu-open="true"] [data-site-header] {
   z-index: 60;
 }
 
+html,
+body {
+  overflow-x: clip;
+}
+
 body {
   background: var(--color-mist);
   color: var(--color-navy);
-  overflow-x: clip;
 }
 
 @keyframes slideIn {

@@ -18,11 +18,11 @@ import { GraduateAttributes, UniversityValues } from "./UniversityValues";
 import { UniversityBoard } from "./UniversityBoard";
 import { UniversityRecognitions } from "./UniversityRecognitions";
 
-const heading = "mb-5 font-serif text-[1.85rem] leading-tight tracking-tight text-[#101f55] sm:text-[2.15rem]";
-const copy = "leading-relaxed text-[#475264]";
-const rule = "border-[#d8d4c7]";
-const ruledList = "divide-y divide-[#d8d4c7] border-y border-[#d8d4c7]";
-const sourceLink = "inline-flex items-center gap-1.5 text-sm font-semibold text-[#24477b] underline decoration-[#24477b]/35 underline-offset-4 hover:decoration-current";
+const heading ="mb-5 font-serif text-[1.85rem] leading-tight tracking-tight text-[#101f55]";
+const copy ="leading-relaxed text-[#475264]";
+const rule ="border-[#d8d4c7]";
+const ruledList ="divide-y divide-[#d8d4c7] border-y border-[#d8d4c7]";
+const sourceLink ="inline-flex items-center gap-1.5 text-sm font-semibold text-[#24477b] underline decoration-[#24477b]/35 underline-offset-4 hover:decoration-current";
 
 function SourceLink({ href, children }: { href: string; children: ReactNode }) {
   return (
@@ -133,10 +133,10 @@ export function Leadership() {
         <h2 id="campus-offices" className={heading}>Campus offices</h2>
         <dl className={ruledList}>
           {[
-            { name: "Admissions", description: "Applications, enrollment, and visits." },
-            { name: "Registrar", description: "Student records and academic documents." },
-            { name: "Accounting", description: "Tuition payments and student accounts." },
-            { name: "Guidance Services", description: "Counseling and student well-being." },
+            { name:"Admissions", description:"Applications, enrollment, and visits." },
+            { name:"Registrar", description:"Student records and academic documents." },
+            { name:"Accounting", description:"Tuition payments and student accounts." },
+            { name:"Guidance Services", description:"Counseling and student well-being." },
           ].map(({ name, description }) => (
             <div key={name} className="grid gap-1 py-3.5 sm:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] sm:gap-5">
               <dt className="font-semibold text-[#101f55]">{name}</dt>
@@ -203,25 +203,25 @@ export function Vmgo() {
 
 const publicRecords = [
   {
-    category: "CHED Region III",
-    title: "Regional program registry",
-    description: "Look up National University Clark, Incorporated under Pampanga to see its listed programs.",
-    href: "https://region3.ched.gov.ph/resources/program-registry",
-    link: "Open the CHED program registry",
+    category:"CHED Region III",
+    title:"Regional program registry",
+    description:"Look up National University Clark, Incorporated under Pampanga to see its listed programs.",
+    href:"https://region3.ched.gov.ph/resources/program-registry",
+    link:"Open the CHED program registry",
   },
   {
-    category: "Government recognition",
-    title: "AB Political Science",
-    description: "NU Clark’s program page lists CHED Government Recognition for AB Political Science.",
-    href: "https://www.nu.edu.ph/nu-clark/programs/ab-political-science",
-    link: "See the published program record",
+    category:"Government recognition",
+    title:"AB Political Science",
+    description:"NU Clark’s program page lists CHED Government Recognition for AB Political Science.",
+    href:"https://www.nu.edu.ph/nu-clark/programs/ab-political-science",
+    link:"See the published program record",
   },
   {
-    category: "PACUCOA orientation visit",
-    title: "Senior High School",
-    description: "National University reported a PACUCOA orientation visit for NU Clark’s Senior High School programs.",
-    href: "https://www.linkedin.com/posts/nationaluph_%F0%9D%90%8D%F0%9D%90%94-%F0%9D%90%82%F0%9D%90%A5%F0%9D%90%9A%F0%9D%90%AB%F0%9D%90%A4-%F0%9D%90%96%F0%9D%90%9E%F0%9D%90%A5%F0%9D%90%9C%F0%9D%90%A8%F0%9D%90%A6%F0%9D%90%9E%F0%9D%90%AC-%F0%9D%90%8F%F0%9D%90%80%F0%9D%90%82%F0%9D%90%94-activity-7455139026103296000-UErS",
-    link: "Read NU’s announcement",
+    category:"PACUCOA orientation visit",
+    title:"Senior High School",
+    description:"National University reported a PACUCOA orientation visit for NU Clark’s Senior High School programs.",
+    href:"https://www.linkedin.com/posts/nationaluph_%F0%9D%90%8D%F0%9D%90%94-%F0%9D%90%82%F0%9D%90%A5%F0%9D%90%9A%F0%9D%90%AB%F0%9D%90%A4-%F0%9D%90%96%F0%9D%90%9E%F0%9D%90%A5%F0%9D%90%9C%F0%9D%90%A8%F0%9D%90%A6%F0%9D%90%9E%F0%9D%90%AC-%F0%9D%90%8F%F0%9D%90%80%F0%9D%90%82%F0%9D%90%94-activity-7455139026103296000-UErS",
+    link:"Read NU’s announcement",
   },
 ];
 

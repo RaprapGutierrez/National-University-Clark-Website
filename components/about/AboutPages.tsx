@@ -8,21 +8,21 @@ import { Accreditation, CampusTour, Leadership, OurStory, Vmgo } from "./AboutSe
 import { CampusHighlights } from "./CampusHighlights";
 import { UniversityHymn } from "./CampusMedia";
 
-const frame = "mx-auto w-full max-w-[77rem] px-5 sm:px-8";
-const heroFrame = "mx-auto max-w-6xl px-4 sm:px-5";
-const focus = "focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-royal";
-const surface = "bg-[#faf9f5] text-[#101f55] [&+footer]:mt-0";
+const frame ="mx-auto w-full max-w-[77rem] px-5 sm:px-8";
+const heroFrame ="mx-auto max-w-6xl px-4 sm:px-5";
+const focus ="focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-royal";
+const surface ="bg-[#faf9f5] text-[#101f55] [&+footer]:mt-0";
 
 const details = {
-  "our-story": { View: OurStory, icon: "book" },
-  leadership: { View: Leadership, icon: "users" },
-  vmgo: { View: Vmgo, icon: "target" },
-  accreditation: { View: Accreditation, icon: "file" },
-  "campus-tour": { View: CampusTour, icon: "building" },
+"our-story": { View: OurStory, icon:"book" },
+  leadership: { View: Leadership, icon:"users" },
+  vmgo: { View: Vmgo, icon:"target" },
+  accreditation: { View: Accreditation, icon:"file" },
+"campus-tour": { View: CampusTour, icon:"building" },
 } as const;
 
 export function aboutPageTitle(page: PageItem) {
-  return page.slug === "vmgo" ? "Vision, Mission, Goals & Objectives" : page.title;
+  return page.slug === "vmgo" ?"Vision, Mission, Goals & Objectives" : page.title;
 }
 
 function AboutHeader({ page, children }: { page?: PageItem; children?: ReactNode }) {
@@ -62,10 +62,10 @@ export function AboutOverview({ section }: { section: Section }) {
       <AboutHeader>
         <div className="grid items-center gap-8 pt-8 sm:pt-12 lg:grid-cols-2 lg:gap-10 lg:pt-14">
           <div>
-            <h1 className="text-4xl leading-tight font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
+            <h1 className="text-4xl leading-tight font-extrabold tracking-tight">
               About <span className="whitespace-nowrap">NU Clark</span>
             </h1>
-            <p className="mt-4 max-w-xl text-base text-white/90 sm:mt-5 sm:text-lg">
+            <p className="mt-4 max-w-xl text-base text-white/90 sm:mt-5">
               {section.intro}
             </p>
             <div className="mt-6 flex flex-wrap items-center gap-3 sm:mt-8">
@@ -82,12 +82,12 @@ export function AboutOverview({ section }: { section: Section }) {
       </AboutHeader>
       <main className={`${frame} space-y-12 pt-9 pb-14 sm:space-y-16 sm:pt-12 sm:pb-20`}>
         <section aria-labelledby="about-contents">
-          <h2 id="about-contents" className="mb-5 scroll-mt-6 font-serif text-3xl leading-tight tracking-tight sm:mb-7 sm:text-4xl" tabIndex={-1}>
+          <h2 id="about-contents" className="mb-5 scroll-mt-6 font-serif text-3xl leading-tight tracking-tight sm:mb-7" tabIndex={-1}>
             Explore About NU Clark
           </h2>
           <ul className="grid md:grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)] md:gap-x-8 lg:gap-x-12">
             {section.pages.map((page) => (
-              <li key={page.slug} className={page.slug === "our-story" ? "mb-5 md:row-span-4 md:mb-0" : "border-b border-[#d8d4c7] [&:nth-child(2)]:border-t"}>
+              <li key={page.slug} className={page.slug === "our-story" ?"mb-5 md:row-span-4 md:mb-0" :"border-b border-[#d8d4c7] [&:nth-child(2)]:border-t"}>
                 {page.slug === "our-story" ? (
                   <Link href="/about/our-story" className={`group flex h-full flex-col border border-[#d8d4c7] bg-[#f1ede2] transition-colors hover:border-[#97751a] hover:bg-[#ece5d5] ${focus}`}>
                     <div className="relative aspect-[2/1] overflow-hidden bg-[#ded7c7] md:min-h-37 md:flex-1">
@@ -136,17 +136,17 @@ export function AboutOverview({ section }: { section: Section }) {
 
 const resources = [
   {
-    title: "Brochure",
-    description: "Get an overview of National University’s programs and campus life.",
-    href: "https://drive.google.com/file/d/1t8Bn-_q9IBj8_IWvFtZhJgNT5rtAMiz9/view",
-    action: "Open brochure",
+    title:"Brochure",
+    description:"Get an overview of National University’s programs and campus life.",
+    href:"https://drive.google.com/file/d/1t8Bn-_q9IBj8_IWvFtZhJgNT5rtAMiz9/view",
+    action:"Open brochure",
     download: false,
   },
   {
-    title: "Student Handbook",
-    description: "Read National University’s student policies and guidelines for academic year 2023–2024.",
-    href: "/about/NU-Student-Handbook-2023-2024.pdf",
-    action: "Download handbook",
+    title:"Student Handbook",
+    description:"Read National University’s student policies and guidelines for academic year 2023–2024.",
+    href:"/about/NU-Student-Handbook-2023-2024.pdf",
+    action:"Download handbook",
     download: true,
   },
 ];
@@ -154,7 +154,7 @@ const resources = [
 function AboutResources() {
   return (
     <section aria-labelledby="about-resources">
-      <h2 id="about-resources" className="mb-5 border-b-2 border-gold pb-3 font-serif text-3xl tracking-tight sm:text-4xl">
+      <h2 id="about-resources" className="mb-5 border-b-2 border-gold pb-3 font-serif text-3xl tracking-tight">
         Resources
       </h2>
       <ul className="grid gap-4 sm:grid-cols-2">
@@ -165,7 +165,7 @@ function AboutResources() {
             <a href={href} download={download || undefined} className={`mt-auto inline-flex min-h-11 items-center gap-2.5 rounded-md border border-line px-3 py-2 text-sm font-semibold hover:border-royal hover:bg-mist ${focus}`}>
               <AboutIcon name="file" className="size-5 shrink-0 text-[#a62c2c]" />
               {action}
-              <AboutIcon name={download ? "download" : "external"} className="size-4 shrink-0 text-royal" />
+              <AboutIcon name={download ?"download" :"external"} className="size-4 shrink-0 text-royal" />
             </a>
           </li>
         ))}
@@ -193,8 +193,8 @@ export function AboutDetail({ page, section }: { page: PageItem; section: Sectio
                 <li key={entry.slug}>
                   <Link
                     href={`/about/${entry.slug}`}
-                    aria-current={current ? "page" : undefined}
-                    className={`group -mb-px flex min-h-10 items-center justify-between border-b-2 py-2 text-sm whitespace-nowrap lg:mb-0 lg:border-b-0 lg:border-l-2 lg:pl-3 ${focus} ${current ? "border-gold font-bold text-[#101f55]" : "border-transparent font-medium text-[#535a70] hover:text-[#101f55] hover:underline"}`}
+                    aria-current={current ?"page" : undefined}
+                    className={`group -mb-px flex min-h-10 items-center justify-between border-b-2 py-2 text-sm whitespace-nowrap lg:mb-0 lg:border-b-0 lg:border-l-2 lg:pl-3 ${focus} ${current ?"border-gold font-bold text-[#101f55]" :"border-transparent font-medium text-[#535a70] hover:text-[#101f55] hover:underline"}`}
                   >
                     {entry.title}
                     {current && <AboutIcon name="chevron-right" className="hidden size-3.5 lg:block" />}

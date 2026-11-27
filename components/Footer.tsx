@@ -5,53 +5,53 @@ import FooterCookieSettings from "./FooterCookieSettings";
 
 const footerLinks = [
   {
-    title: "University",
+    title:"University",
     links: [
-      { label: "About NU", href: "/about" },
-      { label: "Athletics", href: "https://www.nu.edu.ph/athletics" },
+      { label:"About NU", href:"/about" },
+      { label:"Athletics", href:"https://www.nu.edu.ph/athletics" },
     ],
   },
   {
-    title: "Admissions",
+    title:"Admissions",
     links: [
-      { label: "Programs Offered", href: "https://www.nu.edu.ph/nu-clark/admissions/programs" },
-      { label: "Colleges & Departments", href: "/academics" },
-      { label: "Apply Now", href: "/admissions/apply-now" },
-      { label: "Scholarships", href: "/admissions/scholarships" },
-      { label: "For International Students", href: "https://www.nu.edu.ph/nu-clark/campus-life/international-students-support" },
-      { label: "Admission Requirements", href: "/admissions/requirements" },
+      { label:"Programs Offered", href:"https://www.nu.edu.ph/nu-clark/admissions/programs" },
+      { label:"Colleges & Departments", href:"/academics" },
+      { label:"Apply Now", href:"/admissions/apply-now" },
+      { label:"Scholarships", href:"/admissions/scholarships" },
+      { label:"For International Students", href:"https://www.nu.edu.ph/nu-clark/campus-life/international-students-support" },
+      { label:"Admission Requirements", href:"/admissions/requirements" },
     ],
   },
   {
-    title: "Connect",
+    title:"Connect",
     links: [
-      { label: "Contact Us", href: campusContact },
-      { label: "Careers", href: "https://www.nu.edu.ph/nu-clark/talent-hub" },
+      { label:"Contact Us", href: campusContact },
+      { label:"Careers", href:"https://www.nu.edu.ph/nu-clark/talent-hub" },
     ],
   },
 ];
 
 const badges = [
-  { file: "the", alt: "Times Higher Education Sustainability Impact Ratings 2026", width: 172, height: 45 },
-  { file: "greatplacetowork", alt: "Great Place to Work Certified", width: 85, height: 146 },
-  { file: "microsoft", alt: "Microsoft Elevate Showcase School", width: 320, height: 320 },
-  { file: "qs", alt: "QS World University Rankings Asia", width: 78, height: 103 },
-  { file: "ched", alt: "Commission on Higher Education", width: 64, height: 64 },
+  { file:"the", alt:"Times Higher Education Sustainability Impact Ratings 2026", width: 172, height: 45 },
+  { file:"greatplacetowork", alt:"Great Place to Work Certified", width: 85, height: 146 },
+  { file:"microsoft", alt:"Microsoft Elevate Showcase School", width: 320, height: 320 },
+  { file:"qs", alt:"QS World University Rankings Asia", width: 78, height: 103 },
+  { file:"ched", alt:"Commission on Higher Education", width: 64, height: 64 },
 ];
 
 const socials = [
-  { name: "Facebook", href: "https://www.facebook.com/NationalUniversityClark" },
-  { name: "Instagram", href: "https://instagram.com/NationalUPH" },
-  { name: "X", href: "https://x.com/NationalUPhil" },
-  { name: "YouTube", href: "https://www.youtube.com/@NationalUniversityPhilippines" },
-  { name: "TikTok", href: "https://www.tiktok.com/@nationaluph" },
-  { name: "LinkedIn", href: "https://www.linkedin.com/company/nationaluph" },
-  { name: "Spotify", href: "https://open.spotify.com/artist/3HyEPPZbwqtVqdamGSMZ3x" },
+  { name:"Facebook", href:"https://www.facebook.com/NationalUniversityClark" },
+  { name:"Instagram", href:"https://instagram.com/NationalUPH" },
+  { name:"X", href:"https://x.com/NationalUPhil" },
+  { name:"YouTube", href:"https://www.youtube.com/@NationalUniversityPhilippines" },
+  { name:"TikTok", href:"https://www.tiktok.com/@nationaluph" },
+  { name:"LinkedIn", href:"https://www.linkedin.com/company/nationaluph" },
+  { name:"Spotify", href:"https://open.spotify.com/artist/3HyEPPZbwqtVqdamGSMZ3x" },
 ];
 
-const privacyUrl = "https://www.nu.edu.ph/privacy-policy";
-const frame = "mx-auto w-full max-w-[90rem] px-5 sm:px-9";
-const linkStyle = "underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold";
+const privacyUrl ="https://www.nu.edu.ph/privacy-policy";
+const frame ="mx-auto w-full max-w-[90rem] px-5 sm:px-9";
+const linkStyle ="underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold";
 
 export default function Footer() {
   return (
@@ -80,9 +80,9 @@ export default function Footer() {
           </div>
           <nav aria-label="Footer" className="grid grid-cols-2 gap-x-5 gap-y-7 sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_minmax(0,.58fr)] sm:gap-x-8">
             {footerLinks.map(({ title, links }) => (
-              <section key={title} className={title === "Connect" ? "col-span-2 sm:col-span-1" : undefined}>
-                <h2 className="mb-4 text-xl font-bold sm:mb-6 sm:text-2xl">{title}</h2>
-                <ul className="space-y-2.5 text-sm font-semibold sm:text-base">
+              <section key={title} className={title === "Connect" ?"col-span-2 sm:col-span-1" : undefined}>
+                <h2 className="mb-4 text-xl font-bold sm:mb-6">{title}</h2>
+                <ul className="space-y-2.5 text-sm font-semibold">
                   {links.map(({ label, href }) => (
                     <li key={label}><Link className={linkStyle} href={href}>{label}</Link></li>
                   ))}
@@ -111,13 +111,13 @@ export default function Footer() {
           <h2 id="footer-accreditations" className="font-bold">Accreditations</h2>
           <ul aria-label="Institutional badges published by National University" className="flex flex-wrap items-center gap-3">
             {badges.map(({ file, alt, width, height }) => (
-              <li key={file} className={file === "the" ? "grid h-14 place-items-center rounded-lg bg-white px-3 sm:h-16" : undefined}>
+              <li key={file} className={file === "the" ?"grid h-14 place-items-center rounded-lg bg-white px-3 sm:h-16" : undefined}>
                 <Image
                   src={`/about/footer-${file}.webp`}
                   alt={alt}
                   width={width}
                   height={height}
-                  className={file === "the" ? "h-auto w-42" : "h-12 w-auto object-contain sm:h-16"}
+                  className={file === "the" ?"h-auto w-42" :"h-12 w-auto object-contain sm:h-16"}
                 />
               </li>
             ))}
@@ -126,7 +126,7 @@ export default function Footer() {
       </div>
 
       <div className="bg-[#252d60]">
-        <div className={`${frame} flex flex-wrap items-center justify-between gap-x-6 gap-y-3 py-5 text-sm font-semibold sm:py-7 sm:text-base`}>
+        <div className={`${frame} flex flex-wrap items-center justify-between gap-x-6 gap-y-3 py-5 text-sm font-semibold sm:py-7`}>
           <p>Copyright © 2026 National University. All Rights Reserved.</p>
           <nav aria-label="Policies">
             <ul className="flex flex-wrap items-center gap-x-4 gap-y-2">

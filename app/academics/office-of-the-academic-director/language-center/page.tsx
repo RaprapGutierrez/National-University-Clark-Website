@@ -5,20 +5,20 @@ import Reveal from "@/components/Reveal";
 import { LANGUAGE_CENTER_URL } from "@/lib/nav-menu";
 
 export const metadata: Metadata = {
-  title: "Language Center | NU Clark",
+  title:"Language Center | NU Clark",
   description:
-    "NU Clark Language Center — programs and support for language learning.",
+"NU Clark Language Center — programs and support for language learning.",
 };
 
 export default function LanguageCenterPage() {
   const crumbs = [
-    { label: "Home", href: "/" },
-    { label: "Academics", href: "/academics" },
+    { label:"Home", href:"/" },
+    { label:"Academics", href:"/academics" },
     {
-      label: "Office of the Academic Director",
-      href: "/academics/office-of-the-academic-director",
+      label:"Office of the Academic Director",
+      href:"/academics/office-of-the-academic-director",
     },
-    { label: "Language Center" },
+    { label:"Language Center" },
   ];
 
   return (
@@ -37,7 +37,7 @@ export default function LanguageCenterPage() {
               <span className="inline-block rounded-full bg-royal/10 px-3 py-1 text-xs font-bold uppercase tracking-wider text-royal">
                 Office of the Academic Director
               </span>
-              <h2 className="mt-3 text-2xl font-extrabold text-navy sm:text-3xl">
+              <h2 className="mt-3 text-2xl font-extrabold text-navy">
                 NU Clark Language Center
               </h2>
               <p className="mt-3 max-w-2xl text-lg text-slate">

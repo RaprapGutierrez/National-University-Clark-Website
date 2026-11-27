@@ -9,23 +9,23 @@ import { programsBySchool } from "@/lib/programs";
 import { sections } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Alumni | NU Clark",
+  title:"Alumni | NU Clark",
   description:
-    "Meet NU Clark graduates and see where an NU Clark education can lead.",
+"Meet NU Clark graduates and see where an NU Clark education can lead.",
 };
 
-const crumbs = [{ label: "Home", href: "/" }, { label: "Alumni" }];
+const crumbs = [{ label:"Home", href:"/" }, { label:"Alumni" }];
 
-const CONTACT_URL = "/about"; // change to your contact page
+const CONTACT_URL ="/about"; // change to your contact page
 
 // Short names for the jump buttons
 const shortName: Record<string, string> = {
-  "senior-high-school": "Senior High",
-  sabm: "SABM",
-  seas: "SEAS",
-  satc: "SATC",
-  engineering: "Engineering",
-  hospitality: "Dentistry and Allied Health",
+"senior-high-school":"Senior High",
+  sabm:"SABM",
+  seas:"SEAS",
+  satc:"SATC",
+  engineering:"Engineering",
+  hospitality:"Dentistry and Allied Health",
 };
 
 export default function AlumniPage() {
@@ -61,7 +61,7 @@ export default function AlumniPage() {
                 <p className="text-sm font-bold uppercase tracking-[0.2em] text-royal">
                   {alumniInfo.kicker}
                 </p>
-                <h2 className="mt-1 text-3xl font-extrabold text-navy sm:text-4xl">
+                <h2 className="mt-1 text-3xl font-extrabold text-navy">
                   {alumniInfo.heading}
                 </h2>
                 <div className="mt-3 h-1.5 w-16 rounded-full bg-gold" />
@@ -85,7 +85,7 @@ export default function AlumniPage() {
                 <Reveal key={p.title} delay={i * 80}>
                   <li className="flex gap-4 rounded-2xl border border-line bg-white p-5 shadow-sm">
                     <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-gold text-sm font-extrabold text-navy shadow-md">
-                      {String(i + 1).padStart(2, "0")}
+                      {String(i + 1).padStart(2,"0")}
                     </span>
                     <div>
                       <b className="block text-navy">{p.title}</b>
@@ -133,11 +133,11 @@ export default function AlumniPage() {
                       className="scroll-mt-[var(--site-header-offset)] rounded-3xl border border-line bg-white p-6 shadow-sm sm:p-8"
                     >
                       <div className="flex flex-wrap items-end justify-between gap-3 border-l-4 border-gold pl-4">
-                        <h3 className="text-xl font-extrabold text-navy sm:text-2xl">
+                        <h3 className="text-xl font-extrabold text-navy">
                           {school.title}
                         </h3>
                         <p className="text-sm font-bold text-royal">
-                          {total} {total === 1 ? "profile" : "profiles"}
+                          {total} {total === 1 ?"profile" :"profiles"}
                         </p>
                       </div>
 
@@ -163,8 +163,8 @@ export default function AlumniPage() {
                         <div className="mt-6">
                           <p className="text-sm text-slate">
                             {withPeople.length === 0
-                              ? "Alumni profiles for these programs will be added soon."
-                              : "More programs, profiles coming soon."}
+                              ?"Alumni profiles for these programs will be added soon."
+                              :"More programs, profiles coming soon."}
                           </p>
                           <ul className="mt-3 flex flex-wrap gap-2">
                             {without.map(({ program }) => (
