@@ -4,6 +4,7 @@ import Link from "next/link";
 import AcademicsBanner from "@/components/AcademicsBanner";
 import AdmissionsPortalCards from "@/components/AdmissionsPortalCards";
 import { Icon } from "@/components/Icon";
+import { JourneyPanel } from "@/components/admissions/JourneyVisuals";
 import Reveal from "@/components/Reveal";
 import SectionTitle from "@/components/SectionTitle";
 import { admissionsEmail } from "@/lib/about";
@@ -18,27 +19,25 @@ export const metadata: Metadata = {
 
 const crumbs = [{ label: "Home", href: "/" }, { label: "Admissions" }];
 
+// slug picks the illustration in JourneyVisual
 const destinations = [
   {
+    slug: "apply-now",
     href: "/admissions/apply-now",
     title: "Apply now",
     text: "Six steps from the online form to your Certificate of Registration.",
-    image: "/carousel-img-8.jpg",
-    alt: "Students starting their journey at NU Clark",
   },
   {
+    slug: "requirements",
     href: "/admissions/requirements",
     title: "Requirements",
     text: "Documents for Senior High, freshman, transfer, and second degree.",
-    image: "/student-4.jpg",
-    alt: "NU Clark students in uniform",
   },
   {
+    slug: "scholarships",
     href: "/admissions/scholarships",
     title: "Scholarships",
     text: "Gold, Blue, White, and Nationalian tracks plus tuition discounts.",
-    image: "/carousel-img-3.jpg",
-    alt: "NU Clark students in campus colors",
   },
 ] as const;
 
@@ -65,12 +64,12 @@ export default function AdmissionsPage() {
             <div className="grid items-center gap-8 overflow-hidden rounded-3xl border border-line bg-white p-4 shadow-sm sm:p-6 lg:grid-cols-2 lg:gap-10 lg:p-8">
               <figure className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-mist sm:aspect-[5/4]">
                 <Image
-                  src="/student-1.jpg"
-                  alt="Incoming Nationalians at an NU Clark orientation"
+                  src="/nu-clark-building.jpg"
+                  alt="The NU Clark campus building with the National University crest"
                   fill
                   priority
                   sizes="(min-width: 1024px) 45vw, 100vw"
-                  className="object-cover object-[center_35%]"
+                  className="object-cover object-[center_30%]"
                 />
               </figure>
 
@@ -142,16 +141,10 @@ export default function AdmissionsPage() {
                     href={item.href}
                     className="group flex h-full flex-col overflow-hidden rounded-3xl border border-line bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-md"
                   >
-                    <figure className="relative aspect-[16/11] overflow-hidden bg-mist">
-                      <Image
-                        src={item.image}
-                        alt={item.alt}
-                        fill
-                        sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 100vw"
-                        className="object-cover object-[center_25%] transition duration-500 group-hover:scale-[1.03]"
-                      />
-                    </figure>
-                    <div className="flex flex-1 flex-col p-5 sm:p-6">
+                    <div className="p-3 sm:p-4">
+                      <JourneyPanel slug={item.slug} index={i} />
+                    </div>
+                    <div className="flex flex-1 flex-col px-5 pb-5 pt-2 sm:px-6 sm:pb-6">
                       <h3 className="text-xl font-extrabold text-navy group-hover:text-royal">
                         {item.title}
                       </h3>
@@ -197,7 +190,12 @@ export default function AdmissionsPage() {
 
               <ol className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {steps.map((step, i) => (
-                  <Reveal key={step.title} as="li" delay={i * 60} className="h-full">
+                  <Reveal
+                    key={step.title}
+                    as="li"
+                    delay={i * 60}
+                    className="h-full"
+                  >
                     <div className="h-full rounded-2xl border-l-4 border-gold bg-mist p-5 ring-1 ring-line sm:p-6">
                       <span className="flex h-11 w-11 items-center justify-center rounded-full bg-gold text-sm font-extrabold text-navy shadow-md">
                         {i + 1}

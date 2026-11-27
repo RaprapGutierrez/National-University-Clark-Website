@@ -5,6 +5,7 @@ import AcademicsBanner from "@/components/AcademicsBanner";
 import { Icon } from "@/components/Icon";
 import Reveal from "@/components/Reveal";
 import SectionTitle from "@/components/SectionTitle";
+import { LifePanel } from "@/components/StudentLifeVisual";
 import { sections } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -15,38 +16,31 @@ export const metadata: Metadata = {
 
 const crumbs = [{ label: "Home", href: "/" }, { label: "Student Life" }];
 
+// slug picks the illustration in StudentLifeVisual
 const pathways = [
   {
     slug: "organizations",
     title: "Organizations",
     text: "Councils, academic societies, campus media, and interest groups — find where you lead and belong.",
     cta: "Browse organizations",
-    image: "/student-1.jpg",
-    imageAlt: "NU Clark students on campus",
   },
   {
     slug: "sports",
     title: "Sports",
     text: "Friendship games, varsity pathways, and campus athletics with Bulldogs pride.",
     cta: "See sports",
-    image: "/carousel-img-1.jpg",
-    imageAlt: "NU Clark athletes at Nationalian Friendship Games",
   },
   {
     slug: "events",
     title: "Events",
     text: "Assemblies, workshops, Christmas on campus, and the calendar that brings Nationalians together.",
     cta: "View events",
-    image: "/carousel-img-5.jpg",
-    imageAlt: "Campus event at NU Clark",
   },
   {
     slug: "services",
     title: "Services",
     text: "Guidance, registrar, clinic, ITSO, SDAO, and the desks that support you through graduation.",
     cta: "Find services",
-    image: "/student-5.jpg",
-    imageAlt: "NU Clark student community",
   },
 ] as const;
 
@@ -77,14 +71,15 @@ export default function StudentLifePage() {
           {/* Opening — NU-style rounded panel */}
           <section className="pt-8 sm:pt-10">
             <div className="grid items-center gap-8 overflow-hidden rounded-3xl border border-line bg-white p-4 shadow-sm sm:p-6 lg:grid-cols-2 lg:gap-10 lg:p-8">
-              <figure className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-mist sm:aspect-[5/4]">
+              {/* 16:9 so the whole group stays in the picture */}
+              <figure className="relative aspect-video overflow-hidden rounded-2xl bg-mist">
                 <Image
-                  src="/student-2.jpg"
-                  alt="NU Clark students in uniform on campus"
+                  src="/student-life-hero.jpg"
+                  alt="A big group of NU Clark students and staff posing together outside the NU Clark entrance"
                   fill
                   priority
                   sizes="(min-width: 1024px) 45vw, 100vw"
-                  className="object-cover object-[center_28%]"
+                  className="object-cover object-center"
                 />
               </figure>
 
@@ -96,8 +91,8 @@ export default function StudentLifePage() {
                   Where Nationalians lead, compete, and belong
                 </h2>
                 <p className="mt-4 max-w-md text-base leading-relaxed text-slate">
-                  Organizations, athletics, campus events, and student services —
-                  four ways into life at NU Clark.
+                  Organizations, athletics, campus events, and student services
+                  — four ways into life at NU Clark.
                 </p>
                 <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                   <a
@@ -117,8 +112,11 @@ export default function StudentLifePage() {
             </div>
           </section>
 
-          {/* Pathways — soft NU cards */}
-          <section id="pathways" className="mt-14 scroll-mt-[var(--site-header-offset)] sm:mt-20">
+          {/* Pathways — colorful illustrated cards */}
+          <section
+            id="pathways"
+            className="mt-14 scroll-mt-[var(--site-header-offset)] sm:mt-20"
+          >
             <Reveal>
               <SectionTitle
                 kicker="Campus life"
@@ -135,16 +133,10 @@ export default function StudentLifePage() {
                     id={item.slug}
                     className="group flex h-full scroll-mt-[var(--site-header-offset)] flex-col overflow-hidden rounded-3xl border border-line bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-md"
                   >
-                    <figure className="relative aspect-[16/10] overflow-hidden bg-mist">
-                      <Image
-                        src={item.image}
-                        alt={item.imageAlt}
-                        fill
-                        sizes="(min-width: 640px) 45vw, 100vw"
-                        className="object-cover object-center transition duration-500 group-hover:scale-[1.03]"
-                      />
-                    </figure>
-                    <div className="flex flex-1 flex-col p-5 sm:p-6">
+                    <div className="p-3 sm:p-4">
+                      <LifePanel slug={item.slug} index={i} />
+                    </div>
+                    <div className="flex flex-1 flex-col px-5 pb-5 pt-2 sm:px-6 sm:pb-6">
                       <h3 className="text-xl font-extrabold text-navy group-hover:text-royal sm:text-2xl">
                         {item.title}
                       </h3>
