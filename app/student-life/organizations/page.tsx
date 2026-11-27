@@ -123,7 +123,10 @@ export default function OrganizationsPage() {
         </section>
 
         {/* Featured governance */}
-        <section className="bg-white">
+        <section
+          id="governance"
+          className="scroll-mt-[var(--site-header-offset)] bg-white"
+        >
           <div className="mx-auto max-w-6xl px-4 py-12 sm:px-5 sm:py-14">
             <Reveal>
               <h2 className="text-2xl font-extrabold tracking-tight text-navy sm:text-3xl">
@@ -158,8 +161,10 @@ export default function OrganizationsPage() {
           </div>
         </section>
 
-        {/* Directory */}
-        {orgCategories.map((cat, ci) => {
+        {/* Directory — skip governance; already shown as featured above */}
+        {orgCategories
+          .filter((cat) => cat.id !== "governance")
+          .map((cat, ci) => {
           const list = orgsByCategory(cat.id);
           if (!list.length) return null;
           return (
