@@ -4,6 +4,8 @@ export const admissionsEmail = "nuclarkadmissions@national-u.edu.ph";
 export const universityOverview = "https://www.nu.edu.ph/about-nu";
 export const qualityManagement = "/quality-management";
 export const linkagesOffice = "/linkages";
+export const communityDevelopment = "/community-development";
+export const careersOffice = "/careers";
 /** University-wide strategic plan page (not the Clark EOMS awards desk). */
 export const universityStrategicPlan =
   "https://www.nu.edu.ph/strategic-quality-management";

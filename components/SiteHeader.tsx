@@ -13,9 +13,9 @@ const utilityLinks = [
   },
   {
     label: "Community Development",
-    href: "https://www.nu.edu.ph/community-development",
+    href: "/community-development",
   },
-  { label: "Careers", href: "https://www.nu.edu.ph/talent-hub" },
+  { label: "Careers", href: "/careers" },
   { label: "Contact Us", href: campusContact },
 ];
 

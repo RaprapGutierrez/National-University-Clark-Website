@@ -26,7 +26,7 @@ const footerLinks = [
     title:"Connect",
     links: [
       { label:"Contact Us", href: campusContact },
-      { label:"Careers", href:"https://www.nu.edu.ph/nu-clark/talent-hub" },
+      { label: "Careers", href: "/careers" },
     ],
   },
 ];
