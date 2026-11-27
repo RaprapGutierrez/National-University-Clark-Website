@@ -129,27 +129,29 @@ export const sections: Section[] = [
   {
     slug: "student-life",
     title: "Student Life",
-    intro: "Life at NU Clark goes beyond the classroom.",
+    intro:
+      "Where Nationalians lead, compete, gather, and get support — beyond the classroom.",
     pages: [
       {
         slug: "organizations",
         title: "Organizations",
-        summary: "Join student clubs and organizations.",
+        summary:
+          "Councils, academic societies, campus media, and interest groups.",
       },
       {
         slug: "sports",
         title: "Sports",
-        summary: "Teams, programs, and athletic events.",
+        summary: "Teams, friendship games, and campus athletics.",
       },
       {
         slug: "events",
         title: "Events",
-        summary: "What's happening on campus.",
+        summary: "Assemblies, workshops, and celebrations on campus.",
       },
       {
         slug: "services",
         title: "Services",
-        summary: "Student support services.",
+        summary: "Guidance, registrar, clinic, and student support offices.",
       },
     ],
   },

@@ -13,9 +13,20 @@ const CONTACT_URL ="/about"; // change to your contact page
 
 type InnerPageProps = { params: Promise<{ section: string; slug: string }> };
 
+const dedicatedStudentLife = new Set([
+  "organizations",
+  "events",
+  "services",
+]);
+
 export function generateStaticParams() {
   return sections.flatMap((s) =>
-    s.pages.map((p) => ({ section: s.slug, slug: p.slug })),
+    s.pages
+      .filter(
+        (p) =>
+          !(s.slug === "student-life" && dedicatedStudentLife.has(p.slug)),
+      )
+      .map((p) => ({ section: s.slug, slug: p.slug })),
   );
 }
 

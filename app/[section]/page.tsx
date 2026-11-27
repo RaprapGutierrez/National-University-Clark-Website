@@ -75,7 +75,10 @@ const studentLifeCopy: Record<
 type SectionProps = { params: Promise<{ section: string }> };
 
 export function generateStaticParams() {
-  return sections.map((s) => ({ section: s.slug }));
+  // Dedicated app/student-life/page.tsx owns /student-life.
+  return sections
+    .filter((s) => s.slug !== "student-life")
+    .map((s) => ({ section: s.slug }));
 }
 
 export async function generateMetadata({
