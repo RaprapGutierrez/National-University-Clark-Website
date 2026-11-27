@@ -78,12 +78,12 @@ export default function PhotoBoard({
               id={story.slug}
               className="scroll-mt-[var(--site-header-offset)] py-6 sm:py-8"
             >
-              <div className="grid gap-5 sm:grid-cols-[12rem_minmax(0,1fr)] sm:gap-8 lg:grid-cols-[16rem_minmax(0,1fr)]">
+              <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:gap-8">
                 <button
                   type="button"
                   aria-expanded={open}
                   onClick={() => setOpenSlug(open ? null : story.slug)}
-                  className="relative aspect-[4/3] overflow-hidden bg-navy text-left sm:aspect-[3/2]"
+                  className="relative aspect-square w-full shrink-0 overflow-hidden bg-[#0f1a4a] text-left sm:w-44 lg:w-52"
                 >
                   {story.image ? (
                     <Image
@@ -91,14 +91,14 @@ export default function PhotoBoard({
                       alt={story.image.alt}
                       fill
                       sizes="(min-width: 1024px) 16rem, (min-width: 640px) 12rem, 100vw"
-                      className="object-cover"
+                      className="object-contain object-center"
                     />
                   ) : (
                     <span className="absolute inset-0 bg-royal/40" />
                   )}
                 </button>
 
-                <div className="min-w-0">
+                <div className="min-w-0 flex-1">
                   <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-royal">
                     {story.tag}
                     {story.date ? ` · ${story.date}` : ""}

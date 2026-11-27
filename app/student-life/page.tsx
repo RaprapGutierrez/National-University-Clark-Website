@@ -4,6 +4,7 @@ import Link from "next/link";
 import AcademicsBanner from "@/components/AcademicsBanner";
 import { Icon } from "@/components/Icon";
 import Reveal from "@/components/Reveal";
+import SectionTitle from "@/components/SectionTitle";
 import { sections } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -44,8 +45,8 @@ const pathways = [
     title: "Services",
     text: "Guidance, registrar, clinic, ITSO, SDAO, and the desks that support you through graduation.",
     cta: "Find services",
-    image: "/campus.jpg",
-    imageAlt: "NU Clark campus",
+    image: "/student-5.jpg",
+    imageAlt: "NU Clark student community",
   },
 ] as const;
 
@@ -53,7 +54,7 @@ const moments = [
   { src: "/student-3.jpg", alt: "Students collaborating at NU Clark" },
   { src: "/student-4.jpg", alt: "Campus life at NU Clark" },
   { src: "/carousel-img-3.jpg", alt: "Nationalians at a campus gathering" },
-  { src: "/student-5.jpg", alt: "NU Clark student community" },
+  { src: "/carousel-img-4.jpg", alt: "Students at NU Clark" },
 ] as const;
 
 export default function StudentLifePage() {
@@ -71,145 +72,195 @@ export default function StudentLifePage() {
         showRule={false}
       />
 
-      <main className="overflow-x-clip pb-20">
-        {/* Photo + copy — landscape photo treated as photo, not a branded overlay stack */}
-        <section className="border-b border-line bg-white">
-          <div className="mx-auto grid max-w-6xl lg:grid-cols-2">
-            <Reveal>
-              <figure className="relative aspect-[3/2] overflow-hidden bg-navy lg:aspect-auto lg:min-h-[22rem]">
+      <main className="relative overflow-x-clip bg-mist pb-16">
+        <div className="mx-auto max-w-6xl px-4 sm:px-5">
+          {/* Opening — NU-style rounded panel */}
+          <section className="pt-8 sm:pt-10">
+            <div className="grid items-center gap-8 overflow-hidden rounded-3xl border border-line bg-white p-4 shadow-sm sm:p-6 lg:grid-cols-2 lg:gap-10 lg:p-8">
+              <figure className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-mist sm:aspect-[5/4]">
                 <Image
                   src="/student-2.jpg"
                   alt="NU Clark students in uniform on campus"
                   fill
                   priority
-                  sizes="(min-width: 1024px) 50vw, 100vw"
-                  className="object-cover object-[center_30%]"
+                  sizes="(min-width: 1024px) 45vw, 100vw"
+                  className="object-cover object-[center_28%]"
                 />
               </figure>
-            </Reveal>
-            <Reveal
-              delay={60}
-              className="flex flex-col justify-center px-4 py-10 sm:px-8 sm:py-14 lg:px-12"
-            >
-              <h2 className="text-2xl font-extrabold leading-tight tracking-tight text-navy sm:text-3xl">
-                Where Nationalians lead, compete, and belong
-              </h2>
-              <p className="mt-4 max-w-md text-base leading-relaxed text-slate">
-                Orgs, athletics, campus events, and student services — four
-                ways into life beyond the classroom at NU Clark.
-              </p>
-            </Reveal>
-          </div>
-        </section>
 
-        {/* Pathways */}
-        <div className="bg-white">
-          {pathways.map((item, i) => {
-            const flip = i % 2 === 1;
-            return (
-              <section
-                key={item.slug}
-                id={item.slug}
-                className={`scroll-mt-[var(--site-header-offset)] border-b border-line ${
-                  flip ? "bg-mist" : "bg-white"
-                }`}
-              >
-                <div className="mx-auto grid max-w-6xl items-stretch lg:grid-cols-2">
-                  <Reveal
-                    className={`relative aspect-[3/2] overflow-hidden bg-navy lg:aspect-auto lg:min-h-[20rem] ${
-                      flip ? "lg:order-2" : ""
-                    }`}
+              <div className="px-1 pb-2 sm:px-2 lg:pb-0">
+                <p className="inline-block rounded-full bg-gold/15 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-royal">
+                  Beyond the classroom
+                </p>
+                <h2 className="mt-4 text-3xl font-extrabold leading-tight tracking-tight text-navy sm:text-4xl">
+                  Where Nationalians lead, compete, and belong
+                </h2>
+                <p className="mt-4 max-w-md text-base leading-relaxed text-slate">
+                  Organizations, athletics, campus events, and student services —
+                  four ways into life at NU Clark.
+                </p>
+                <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+                  <a
+                    href="#pathways"
+                    className="rounded-full bg-gold px-6 py-3 text-center text-sm font-bold text-navy shadow-md shadow-black/10 transition hover:-translate-y-0.5"
                   >
-                    <Image
-                      src={item.image}
-                      alt={item.imageAlt}
-                      fill
-                      sizes="(min-width: 1024px) 50vw, 100vw"
-                      className="object-cover object-center"
-                    />
-                  </Reveal>
-
-                  <Reveal
-                    delay={60}
-                    className={`flex flex-col justify-center px-4 py-10 sm:px-8 sm:py-12 lg:px-12 ${
-                      flip ? "lg:order-1" : ""
-                    }`}
+                    Explore campus life
+                  </a>
+                  <Link
+                    href="/student-life/organizations"
+                    className="rounded-full px-6 py-3 text-center text-sm font-bold text-navy ring-2 ring-navy/15 transition hover:bg-mist"
                   >
-                    <h2 className="text-2xl font-extrabold tracking-tight text-navy sm:text-3xl">
-                      {item.title}
-                    </h2>
-                    <p className="mt-3 max-w-md text-base leading-relaxed text-slate">
-                      {item.text}
-                    </p>
-                    <Link
-                      href={`/student-life/${item.slug}`}
-                      className="mt-6 inline-flex w-fit items-center gap-2 text-sm font-bold text-royal underline-offset-4 hover:underline"
-                    >
-                      {item.cta}
-                      <Icon name="arrow-right" className="size-3.5" />
-                    </Link>
-                  </Reveal>
+                    Browse organizations
+                  </Link>
                 </div>
-              </section>
-            );
-          })}
-        </div>
+              </div>
+            </div>
+          </section>
 
-        {/* Moments — keep landscape ratio; no forced portrait crop */}
-        <section className="bg-white">
-          <div className="mx-auto max-w-6xl px-4 py-12 sm:px-5 sm:py-14">
+          {/* Pathways — soft NU cards */}
+          <section id="pathways" className="mt-14 scroll-mt-[var(--site-header-offset)] sm:mt-20">
             <Reveal>
-              <h2 className="text-2xl font-extrabold tracking-tight text-navy sm:text-3xl">
-                Campus moments
-              </h2>
-              <p className="mt-2 text-base text-slate">
-                Everyday Nationalian life at Clark.
-              </p>
+              <SectionTitle
+                kicker="Campus life"
+                title="Four ways in"
+                text="Pick a path — lead in an org, compete in sports, join events, or get support from campus services."
+              />
             </Reveal>
-            <div className="mt-8 grid gap-2 sm:grid-cols-2 sm:gap-3">
+
+            <div className="grid gap-5 sm:grid-cols-2">
+              {pathways.map((item, i) => (
+                <Reveal key={item.slug} delay={i * 70} className="h-full">
+                  <Link
+                    href={`/student-life/${item.slug}`}
+                    id={item.slug}
+                    className="group flex h-full scroll-mt-[var(--site-header-offset)] flex-col overflow-hidden rounded-3xl border border-line bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-md"
+                  >
+                    <figure className="relative aspect-[16/10] overflow-hidden bg-mist">
+                      <Image
+                        src={item.image}
+                        alt={item.imageAlt}
+                        fill
+                        sizes="(min-width: 640px) 45vw, 100vw"
+                        className="object-cover object-center transition duration-500 group-hover:scale-[1.03]"
+                      />
+                    </figure>
+                    <div className="flex flex-1 flex-col p-5 sm:p-6">
+                      <h3 className="text-xl font-extrabold text-navy group-hover:text-royal sm:text-2xl">
+                        {item.title}
+                      </h3>
+                      <p className="mt-2 flex-1 text-sm leading-relaxed text-slate sm:text-base">
+                        {item.text}
+                      </p>
+                      <span className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-royal">
+                        {item.cta}
+                        <Icon
+                          name="arrow-right"
+                          className="size-3.5 transition group-hover:translate-x-1"
+                        />
+                      </span>
+                    </div>
+                  </Link>
+                </Reveal>
+              ))}
+            </div>
+          </section>
+
+          {/* Moments gallery */}
+          <section className="mt-14 sm:mt-20">
+            <Reveal>
+              <SectionTitle
+                kicker="Gallery"
+                title="Campus moments"
+                text="Everyday Nationalian life at Clark."
+              />
+            </Reveal>
+
+            <div className="grid gap-4 sm:grid-cols-2 sm:gap-5">
               {moments.map((m, i) => (
-                <Reveal key={m.src} delay={i * 40}>
-                  <figure className="relative aspect-[3/2] overflow-hidden bg-navy">
+                <Reveal key={m.src} delay={i * 50}>
+                  <figure className="relative aspect-[3/2] overflow-hidden rounded-3xl bg-navy shadow-sm">
                     <Image
                       src={m.src}
                       alt={m.alt}
                       fill
-                      sizes="(min-width: 640px) 50vw, 100vw"
+                      sizes="(min-width: 640px) 45vw, 100vw"
                       className="object-cover object-center"
                     />
                   </figure>
                 </Reveal>
               ))}
             </div>
-          </div>
-        </section>
+          </section>
 
-        <section className="border-t border-line bg-mist">
-          <div className="mx-auto flex max-w-6xl flex-col gap-5 px-4 py-10 sm:flex-row sm:items-center sm:justify-between sm:px-5 sm:py-12">
-            <Reveal>
-              <h2 className="text-xl font-extrabold text-navy">New to campus?</h2>
-              <p className="mt-1 max-w-lg text-sm leading-relaxed text-slate">
-                Start with organizations and services, then check the events
-                calendar.
-              </p>
-            </Reveal>
-            <Reveal delay={50} className="flex flex-wrap gap-3">
-              <Link
-                href="/student-life/organizations"
-                className="inline-flex items-center gap-2 bg-navy px-5 py-2.5 text-sm font-bold text-white transition hover:bg-royal"
+          {/* CTA — matches Clark / NU home language */}
+          <Reveal className="mt-14 sm:mt-16">
+            <section className="relative isolate grid items-center gap-8 overflow-hidden rounded-3xl bg-navy p-6 text-white sm:p-10 md:grid-cols-[1fr_auto]">
+              <svg
+                aria-hidden
+                viewBox="0 0 400 300"
+                preserveAspectRatio="xMaxYMin slice"
+                className="pointer-events-none absolute right-0 top-0 -z-10 h-full w-2/3 select-none"
               >
-                Explore orgs
-                <Icon name="arrow-right" className="size-3.5" />
-              </Link>
-              <Link
-                href="/student-life/events"
-                className="inline-flex items-center gap-2 border border-line bg-white px-5 py-2.5 text-sm font-bold text-navy transition hover:border-royal hover:text-royal"
+                <polygon
+                  points="400,0 220,0 400,200"
+                  fill="#f5a000"
+                  fillOpacity="0.9"
+                />
+                <polygon points="400,0 330,0 400,70" className="fill-gold" />
+              </svg>
+              <svg
+                aria-hidden
+                viewBox="0 0 300 300"
+                preserveAspectRatio="xMinYMax slice"
+                className="pointer-events-none absolute bottom-0 left-0 -z-10 h-2/3 w-1/2 select-none"
               >
-                Events
-              </Link>
-            </Reveal>
-          </div>
-        </section>
+                <polygon
+                  points="0,300 0,120 180,300"
+                  className="fill-royal"
+                  fillOpacity="0.45"
+                />
+                <polygon points="0,300 0,220 80,300" className="fill-gold" />
+              </svg>
+
+              <div className="text-center md:text-left">
+                <p className="text-sm font-bold uppercase tracking-[0.2em] text-gold">
+                  New to campus?
+                </p>
+                <h2 className="mt-2 text-2xl font-extrabold sm:text-3xl">
+                  Find your place at NU Clark
+                </h2>
+                <p className="mx-auto mt-2 max-w-xl text-white/80 md:mx-0">
+                  Start with organizations and services, then check the events
+                  calendar.
+                </p>
+                <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-center md:justify-start">
+                  <Link
+                    href="/student-life/organizations"
+                    className="inline-block rounded-full bg-gold px-6 py-3 text-center font-bold text-navy transition hover:-translate-y-0.5"
+                  >
+                    Explore orgs
+                  </Link>
+                  <Link
+                    href="/student-life/events"
+                    className="inline-block rounded-full px-6 py-3 text-center font-bold text-white ring-2 ring-white/70 transition hover:bg-white/10"
+                  >
+                    Events
+                  </Link>
+                </div>
+              </div>
+
+              <div className="relative mx-auto hidden h-40 w-56 overflow-hidden rounded-2xl md:block">
+                <Image
+                  src="/carousel-img-3.jpg"
+                  alt=""
+                  fill
+                  sizes="224px"
+                  className="object-cover object-center"
+                />
+              </div>
+            </section>
+          </Reveal>
+        </div>
       </main>
     </>
   );

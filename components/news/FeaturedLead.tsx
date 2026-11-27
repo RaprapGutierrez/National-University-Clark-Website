@@ -5,30 +5,34 @@ import { useState } from "react";
 import { Icon } from "@/components/Icon";
 import type { StoryTeaserData } from "@/lib/story";
 
-/** One lead story: single cover + copy. */
+/**
+ * Lead story. Cover size is fixed — expanding copy must never stretch the
+ * image column (that was the “zoom” when Continue reading was pressed).
+ */
 export default function FeaturedLead({ story }: { story: StoryTeaserData }) {
   const [open, setOpen] = useState(false);
 
   return (
     <article
       id={story.slug}
-      className="scroll-mt-[var(--site-header-offset)] border-b border-line"
+      className="scroll-mt-[var(--site-header-offset)] border-b border-line bg-white"
     >
-      <div className="mx-auto grid max-w-6xl gap-0 lg:grid-cols-2">
-        <div className="relative min-h-[16rem] bg-navy sm:min-h-[20rem] lg:min-h-[26rem]">
+      <div className="mx-auto flex max-w-6xl flex-col lg:flex-row lg:items-start">
+        {/* shrink-0 + fixed square — independent of text height */}
+        <div className="relative aspect-square w-full shrink-0 bg-[#0f1a4a] lg:w-[min(100%,28rem)] xl:w-[32rem]">
           {story.image && (
             <Image
               src={story.image.src}
               alt={story.image.alt}
               fill
               priority
-              sizes="(min-width: 1024px) 50vw, 100vw"
-              className="object-cover"
+              sizes="(min-width: 1280px) 32rem, (min-width: 1024px) 28rem, 100vw"
+              className="object-contain object-center"
             />
           )}
         </div>
 
-        <div className="flex flex-col justify-center px-4 py-8 sm:px-5 sm:py-10 lg:px-10 lg:py-12">
+        <div className="min-w-0 flex-1 px-4 py-8 sm:px-5 sm:py-10 lg:px-10 lg:py-12">
           <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-royal">
             {story.tag}
             {story.date ? ` · ${story.date}` : ""}
@@ -53,7 +57,7 @@ export default function FeaturedLead({ story }: { story: StoryTeaserData }) {
             <button
               type="button"
               onClick={() => setOpen((v) => !v)}
-              className="text-[11px] font-bold uppercase tracking-[0.16em] text-royal underline-offset-4 hover:underline"
+              className="rounded-full bg-navy px-5 py-2 text-[11px] font-bold uppercase tracking-[0.16em] text-white transition hover:bg-royal"
             >
               {open ? "Collapse" : "Continue reading"}
             </button>
@@ -62,7 +66,7 @@ export default function FeaturedLead({ story }: { story: StoryTeaserData }) {
                 href={story.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.16em] text-navy/60 underline-offset-4 hover:text-navy hover:underline"
+                className="inline-flex items-center gap-1.5 self-center text-[11px] font-bold uppercase tracking-[0.16em] text-navy/60 underline-offset-4 hover:text-navy hover:underline"
               >
                 Source
                 <Icon name="external" className="size-3.5" />

@@ -23,8 +23,8 @@ const destinations = [
     href: "/admissions/apply-now",
     title: "Apply now",
     text: "Six steps from the online form to your Certificate of Registration.",
-    image: "/student-1.jpg",
-    alt: "Incoming students at an NU Clark orientation",
+    image: "/carousel-img-8.jpg",
+    alt: "Students starting their journey at NU Clark",
   },
   {
     href: "/admissions/requirements",
@@ -65,12 +65,12 @@ export default function AdmissionsPage() {
             <div className="grid items-center gap-8 overflow-hidden rounded-3xl border border-line bg-white p-4 shadow-sm sm:p-6 lg:grid-cols-2 lg:gap-10 lg:p-8">
               <figure className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-mist sm:aspect-[5/4]">
                 <Image
-                  src="/student-2.jpg"
-                  alt="NU Clark students on campus"
+                  src="/student-1.jpg"
+                  alt="Incoming Nationalians at an NU Clark orientation"
                   fill
                   priority
                   sizes="(min-width: 1024px) 45vw, 100vw"
-                  className="object-cover object-[center_28%]"
+                  className="object-cover object-[center_35%]"
                 />
               </figure>
 

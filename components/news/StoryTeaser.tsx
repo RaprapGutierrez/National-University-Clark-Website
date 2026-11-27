@@ -29,16 +29,16 @@ export default function StoryTeaser({
         className={
           featured
             ? story.image
-              ? "grid lg:grid-cols-[1.05fr_0.95fr]"
+              ? "flex flex-col lg:flex-row-reverse lg:items-start"
               : ""
             : "flex h-full flex-col"
         }
       >
         {story.image && (
           <div
-            className={`relative overflow-hidden bg-navy ${
+            className={`relative overflow-hidden bg-[#0f1a4a] ${
               featured
-                ? "min-h-56 sm:min-h-72 lg:order-2 lg:min-h-full"
+                ? "aspect-square w-full shrink-0 lg:w-[min(100%,22rem)]"
                 : "aspect-[16/10]"
             }`}
           >
@@ -48,18 +48,10 @@ export default function StoryTeaser({
               fill
               sizes={
                 featured
-                  ? "(min-width: 1024px) 520px, 100vw"
+                  ? "(min-width: 1024px) 22rem, 100vw"
                   : "(min-width: 1024px) 360px, (min-width: 640px) 50vw, 100vw"
               }
-              className="object-cover transition duration-500 group-hover:scale-[1.03] motion-reduce:transform-none"
-            />
-            <div
-              aria-hidden="true"
-              className={`pointer-events-none absolute inset-0 ${
-                featured
-                  ? "bg-gradient-to-t from-navy/50 via-transparent to-transparent lg:bg-gradient-to-l"
-                  : "bg-gradient-to-t from-navy/25 via-transparent to-transparent"
-              }`}
+              className="object-contain object-center"
             />
             {story.photoCount > 1 && (
               <span className="absolute bottom-3 right-3 rounded-full bg-black/55 px-2.5 py-1 text-[11px] font-bold text-white backdrop-blur-sm">
@@ -70,7 +62,7 @@ export default function StoryTeaser({
         )}
 
         <div
-          className={`flex flex-1 flex-col ${
+          className={`flex min-w-0 flex-1 flex-col ${
             featured ? "p-5 sm:p-8" : "p-4 sm:p-5"
           }`}
         >
