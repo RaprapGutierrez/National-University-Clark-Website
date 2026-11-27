@@ -175,7 +175,7 @@ export const pageContent: Record<string, Block[]> = {
       body: [
         "LOOK: NU Clark athletes emerge CHAMPIONS in Badminton Men and Table Tennis Men, with SILVER winnings in Chess Women and BRONZE in Chess Men during the Day 2 of this year’s Nationalian Friendship Games (NFG) at NU Laguna.",
         "Yesterday, together with the KabaleNU athletes, their coaches and the campus directors, Dr. Arnel A. Diego, Executive Director; Prof. Priscilla M. Evangelista, Academic Director; and Prof. Richard John W. Hernandez, Academic Services Director; as well as the Campus Sports Development Coordinator, Dr. Francisco Gabriel Prevandos, and other campus unit officials attended the NFG Opening Ceremonies.",
-        "📸 NU Clark Campus Sports Development Office, Coaches Cynthia Mae Ylarde & co.",
+        "Photo: NU Clark Campus Sports Development Office, Coaches Cynthia Mae Ylarde & co.",
       ],
     },
     {

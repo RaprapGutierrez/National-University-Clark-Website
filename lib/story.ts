@@ -1,20 +1,26 @@
 import type { EventPost } from "@/lib/events";
 
-/** Flatten an event/news/research post into a short teaser for listing pages. */
+/** Flatten an event/news/research post for listing UIs. */
 export function toTeaser(post: EventPost) {
   const summary = post.body[0] ?? "";
-  const photoCount =
-    (post.images?.length ?? 0) +
-    (post.gallery?.reduce((n, g) => n + g.items.length, 0) ?? 0);
+  const galleryThumbs =
+    post.gallery?.flatMap((g) => g.items.map((it) => it.src)) ?? [];
+  const allPhotos = [
+    ...(post.images?.map((img) => img.src) ?? []),
+    ...galleryThumbs,
+  ];
+  const uniquePhotos = Array.from(new Set(allPhotos));
 
   return {
     slug: post.slug,
     title: post.title,
     tag: post.tag,
-    date: post.date ?? post.venue ?? "",
+    date: post.date ?? "",
+    venue: post.venue ?? "",
     summary,
     image: post.images?.[0],
-    photoCount,
+    photos: uniquePhotos,
+    photoCount: uniquePhotos.length,
     href: post.links?.[0]?.href,
     body: post.body,
     hashtags: post.hashtags,

@@ -3,11 +3,10 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-// Copy the real URL from lib/about (the grep above prints it)
-const qualityManagement ="https://www.nu.edu.ph/";
+import { qualityManagement } from "@/lib/about";
 
 const utilityLinks = [
-  { label:"Strategic Quality Management", href: qualityManagement },
+  { label: "Quality Management", href: qualityManagement },
   {
     label:"Linkages",
     href:"https://www.nu.edu.ph/institutional-linkages",

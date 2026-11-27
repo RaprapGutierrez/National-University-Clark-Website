@@ -1,8 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
+import { Icon } from "@/components/Icon";
 import type { Block } from "@/lib/content";
 import ImageCarousel from "@/components/ImageCarousel";
 import ImageGallery from "@/components/ImageGallery";
+
+const CREDIT_PREFIX = /^(?:📸\s*|Photo(?:\s+credit)?:\s*)/i;
 
 // Top bar color on a stat card, for medal results
 const TONE_BAR = {
@@ -57,26 +60,6 @@ function Heading({
     >
       {children}
     </h2>
-  );
-}
-
-function CameraIcon() {
-  return (
-    <svg
-      width="14"
-      height="14"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-      className="mt-0.5 shrink-0"
-    >
-      <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3z" />
-      <circle cx="12" cy="13" r="3" />
-    </svg>
   );
 }
 
@@ -135,9 +118,8 @@ function StickerCard({ item }: { item: CardItem }) {
 function BlockView({ block }: { block: Block }) {
   switch (block.type) {
     case "text": {
-      // Lines that start with the camera emoji are photo credits: shown small, under the text.
-      const credits = block.body.filter((p) => p.startsWith("📸"));
-      const paragraphs = block.body.filter((p) => !p.startsWith("📸"));
+      const credits = block.body.filter((p) => CREDIT_PREFIX.test(p));
+      const paragraphs = block.body.filter((p) => !CREDIT_PREFIX.test(p));
       return (
         <section>
           <Heading accent={block.lede}>{block.heading}</Heading>
@@ -162,8 +144,8 @@ function BlockView({ block }: { block: Block }) {
               key={i}
               className="mt-6 flex max-w-3xl items-start gap-2 border-t border-line pt-3 text-xs text-slate/80"
             >
-              <CameraIcon />
-              <span>{c.replace(/^📸\s*/, "")}</span>
+              <Icon name="camera" className="mt-0.5 size-3.5 shrink-0" />
+              <span>{c.replace(CREDIT_PREFIX, "")}</span>
             </p>
           ))}
         </section>

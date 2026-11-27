@@ -57,7 +57,7 @@ export const events: EventPost[] = [
       "As the lights begin to glow, so does the spirit of the season.",
       "The NU Clark community gathered to celebrate the Christmas Tree Lighting Ceremony, a beautiful reminder of hope, joy, and togetherness.",
       "As we officially welcome the most wonderful time of the year, may the warm glow of Christmas inspire kindness, gratitude, and meaningful moments with the people who matter most.",
-      "From all of us at NU Clark, may your Christmas season be merry, meaningful, and filled with blessings. 💛💙",
+      "From all of us at NU Clark, may your Christmas season be merry, meaningful, and filled with blessings.",
     ],
     // Main picture: tree-lighting-01.jpg
     images: [

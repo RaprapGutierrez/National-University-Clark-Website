@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useId, useState } from "react";
+import { Icon } from "@/components/Icon";
 import type { StoryTeaserData } from "@/lib/story";
 
 export default function StoryTeaser({
@@ -150,7 +151,10 @@ export default function StoryTeaser({
                 }`}
               >
                 {open ? "Show less" : "Read story"}
-                <span aria-hidden="true">{open ? "↑" : "→"}</span>
+                <Icon
+                  name={open ? "arrow-up" : "arrow-right"}
+                  className="size-3.5"
+                />
               </button>
             )}
             {story.href && (
@@ -165,7 +169,7 @@ export default function StoryTeaser({
                 }`}
               >
                 Open source
-                <span aria-hidden="true">↗</span>
+                <Icon name="external" className="size-3.5" />
               </a>
             )}
           </div>

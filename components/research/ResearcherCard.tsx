@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Icon } from "@/components/Icon";
 import type { Researcher } from "@/lib/research";
 
 export default function ResearcherCard({ person }: { person: Researcher }) {
@@ -74,7 +75,7 @@ export default function ResearcherCard({ person }: { person: Researcher }) {
               className="inline-flex items-center gap-2 rounded-full bg-navy px-4 py-2 text-sm font-bold leading-none text-white transition hover:bg-royal"
             >
               {l.label}
-              <span aria-hidden="true">→</span>
+              <Icon name="external" className="size-3.5" />
             </a>
           ))}
         </div>

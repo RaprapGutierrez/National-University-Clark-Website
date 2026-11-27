@@ -2,7 +2,10 @@ export const campusContact = "https://www.nu.edu.ph/nu-clark/contact-us";
 export const campusMap = "https://maps.app.goo.gl/NFz6SgJgdXKZaf9o8";
 export const admissionsEmail = "nuclarkadmissions@national-u.edu.ph";
 export const universityOverview = "https://www.nu.edu.ph/about-nu";
-export const qualityManagement = "https://www.nu.edu.ph/strategic-quality-management";
+export const qualityManagement = "/quality-management";
+/** University-wide strategic plan page (not the Clark EOMS awards desk). */
+export const universityStrategicPlan =
+  "https://www.nu.edu.ph/strategic-quality-management";
 
 export const campusExterior = {
   src: "/about/campus-exterior.webp",

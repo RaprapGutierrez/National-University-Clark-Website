@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Icon } from "@/components/Icon";
 import type { Alumnus } from "@/lib/alumni";
 
 export default function AlumniCard({ person }: { person: Alumnus }) {
@@ -100,7 +101,7 @@ export default function AlumniCard({ person }: { person: Alumnus }) {
               className="inline-flex items-center gap-2 rounded-full bg-navy px-4 py-2 text-sm font-bold leading-none text-white transition hover:bg-royal"
             >
               LinkedIn
-              <span aria-hidden="true">→</span>
+              <Icon name="external" className="size-3.5" />
             </a>
           )}
           {person.facebook && (

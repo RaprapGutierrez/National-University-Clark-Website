@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Icon } from "@/components/Icon";
 
 export type CardPost = {
   slug: string;
@@ -112,7 +113,7 @@ export default function NewsCard({
                 }`}
               >
                 {linkLabel}
-                <span aria-hidden="true">→</span>
+                <Icon name="arrow-right" className="size-3.5" />
               </a>
             </div>
           )}

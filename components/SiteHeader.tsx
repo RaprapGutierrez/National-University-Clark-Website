@@ -6,7 +6,7 @@ import { ScrollHeader } from "@/components/about/ScrollHeader";
 import { campusContact, qualityManagement } from "@/lib/about";
 
 const utilityLinks = [
-  { label: "Strategic Quality Management", href: qualityManagement },
+  { label: "Quality Management", href: qualityManagement },
   {
     label: "Linkages",
     href: "https://www.nu.edu.ph/institutional-linkages",

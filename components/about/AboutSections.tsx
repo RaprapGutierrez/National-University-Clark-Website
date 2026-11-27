@@ -11,6 +11,7 @@ import {
   qualityManagement,
   strategicDirections,
   universityOverview,
+  universityStrategicPlan,
 } from "@/lib/about";
 import { AboutIcon } from "./AboutIcon";
 import { CampusGallery, TourVideo } from "./CampusMedia";
@@ -191,7 +192,9 @@ export function Vmgo() {
           ))}
         </dl>
         <div className="mt-4">
-          <SourceLink href={qualityManagement}>Read the university’s strategic directions</SourceLink>
+          <SourceLink href={universityStrategicPlan}>
+            Read the university’s strategic directions
+          </SourceLink>
         </div>
       </section>
 
@@ -269,7 +272,9 @@ export function Accreditation() {
           National University also publishes its quality commitments and the PACUCOA program list for NU Manila.
         </p>
         <div className="mt-2">
-          <SourceLink href={qualityManagement}>View NU’s quality assurance resources</SourceLink>
+          <SourceLink href={qualityManagement}>
+            View NU Clark Quality Management
+          </SourceLink>
         </div>
       </section>
       <UniversityRecognitions />

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Icon } from "@/components/Icon";
 import type { EventPost } from "@/lib/events";
 
 export default function EventCard({
@@ -113,9 +114,10 @@ export default function EventCard({
                   href={event.video}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="rounded-full bg-gold px-4 py-2 text-sm font-bold text-navy transition hover:-translate-y-0.5"
+                  className="inline-flex items-center gap-1.5 rounded-full bg-gold px-4 py-2 text-sm font-bold text-navy transition hover:-translate-y-0.5"
                 >
-                  Watch on Facebook →
+                  Watch on Facebook
+                  <Icon name="external" className="size-3.5" />
                 </a>
               )}
               {event.links?.map((l) => (
@@ -124,13 +126,14 @@ export default function EventCard({
                   href={l.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`rounded-full px-4 py-2 text-sm font-bold transition hover:-translate-y-0.5 ${
+                  className={`inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-bold transition hover:-translate-y-0.5 ${
                     dark
                       ?"bg-white/15 text-white ring-1 ring-white/30 hover:bg-white/25"
                       :"bg-navy text-white hover:bg-royal"
                   }`}
                 >
-                  {l.label} →
+                  {l.label}
+                  <Icon name="external" className="size-3.5" />
                 </a>
               ))}
             </div>
