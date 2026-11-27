@@ -39,7 +39,7 @@ export default function SiteHeader() {
 
       {/* Mobile: flat white bar like nu.edu.ph. Desktop: navy band with pill nav. */}
       <div className="border-b border-line bg-white lg:border-0 lg:bg-navy lg:py-3 lg:pt-5 lg:text-white">
-        <div className="lg:mx-auto lg:max-w-6xl lg:px-4 lg:px-5 lg:[&>nav]:mt-0">
+        <div className="lg:mx-auto lg:max-w-6xl lg:px-5 lg:[&>nav]:mt-0">
           <Navbar />
         </div>
       </div>

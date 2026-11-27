@@ -2,7 +2,13 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import {
+  useEffect,
+  useId,
+  useRef,
+  useState,
+  type ReactNode,
+} from "react";
 import { createPortal } from "react-dom";
 import { usePathname } from "next/navigation";
 import { APPLY_URL } from "@/lib/site";
@@ -11,13 +17,32 @@ import {
   extraNavLinks,
   navSections,
   utilityNavLinks,
+  type NavGroup,
 } from "@/lib/nav-menu";
 
 const menu = navSections;
 const extraLinks = extraNavLinks;
 const utilityLinks = utilityNavLinks;
 
-function Chevron({ className = "" }: { className?: string }) {
+const APPLY_PILL =
+  "inline-flex items-center justify-center rounded-full bg-gold px-4 py-2 text-sm font-bold text-navy transition active:scale-[0.98] hover:bg-[#ffd84a]";
+
+const DRAWER_EASE =
+  "transition-[transform,opacity] duration-[400ms] ease-[cubic-bezier(0.2,0.8,0.2,1)] motion-reduce:transition-none";
+
+function pathMatches(current: string | undefined, href: string) {
+  return current === href || Boolean(current?.startsWith(`${href}/`));
+}
+
+function desktopLinkClass(isCurrent: boolean) {
+  return `flex items-center gap-1.5 rounded-lg px-2 py-2 text-navy transition-colors duration-150 hover:text-royal ${
+    isCurrent
+      ? "bg-mist font-bold underline decoration-gold decoration-2 underline-offset-[7px]"
+      : "font-medium"
+  }`;
+}
+
+function Chevron({ open }: { open?: boolean }) {
   return (
     <svg
       width="12"
@@ -29,18 +54,26 @@ function Chevron({ className = "" }: { className?: string }) {
       strokeLinecap="round"
       strokeLinejoin="round"
       aria-hidden="true"
-      className={`transition-transform ${className}`}
+      className={`transition-transform ${open ? "rotate-180" : ""}`}
     >
       <path d="m6 9 6 6 6-6" />
     </svg>
   );
 }
 
-function ArrowRight({ className = "" }: { className?: string }) {
+function Icon({
+  d,
+  size = 18,
+  className = "",
+}: {
+  d: string;
+  size?: number;
+  className?: string;
+}) {
   return (
     <svg
-      width="18"
-      height="18"
+      width={size}
+      height={size}
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
@@ -50,65 +83,11 @@ function ArrowRight({ className = "" }: { className?: string }) {
       aria-hidden="true"
       className={className}
     >
-      <path d="M5 12h14M13 6l6 6-6 6" />
+      <path d={d} />
     </svg>
   );
 }
 
-function ArrowLeft({ className = "" }: { className?: string }) {
-  return (
-    <svg
-      width="18"
-      height="18"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2.25"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-      className={className}
-    >
-      <path d="M19 12H5M11 6l-6 6 6 6" />
-    </svg>
-  );
-}
-
-function MenuIcon() {
-  return (
-    <svg
-      width="22"
-      height="22"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2.25"
-      strokeLinecap="round"
-      aria-hidden="true"
-    >
-      <path d="M4 7h16M4 12h16M4 17h16" />
-    </svg>
-  );
-}
-
-function CloseIcon() {
-  return (
-    <svg
-      width="22"
-      height="22"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2.25"
-      strokeLinecap="round"
-      aria-hidden="true"
-    >
-      <path d="M6 6l12 12M18 6L6 18" />
-    </svg>
-  );
-}
-
-// The new NU CLARK logo (shield plus "NU CLARK"), saved as /public/nu-clark-logo.png
 function BrandMark({
   onClick,
   compact = false,
@@ -135,6 +114,259 @@ function BrandMark({
   );
 }
 
+function DrawerPanel({
+  open,
+  children,
+}: {
+  open: boolean;
+  children: ReactNode;
+}) {
+  return (
+    <div
+      className={[
+        "absolute inset-0 overflow-y-auto overscroll-contain px-5",
+        DRAWER_EASE,
+        open
+          ? "translate-x-0 opacity-100"
+          : "pointer-events-none translate-x-6 opacity-0",
+      ].join(" ")}
+    >
+      {children}
+    </div>
+  );
+}
+
+function MobileMenu({
+  open,
+  panel,
+  currentPath,
+  onClose,
+  onSelectPanel,
+}: {
+  open: boolean;
+  panel: string | null;
+  currentPath?: string;
+  onClose: () => void;
+  onSelectPanel: (slug: string | null) => void;
+}) {
+  const titleId = useId();
+  const onCloseRef = useRef(onClose);
+  onCloseRef.current = onClose;
+  const activeSection = menu.find((s) => s.slug === panel);
+  const groups: NavGroup[] = activeSection
+    ? columnsBySlug[activeSection.slug]
+        .flat()
+        .filter((g) => g.title || g.items.length > 0)
+    : [];
+
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onCloseRef.current();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open]);
+
+  return (
+    <div
+      className={[
+        "fixed inset-0 z-[70] flex flex-col bg-white lg:hidden",
+        "transition-[opacity,visibility] duration-[280ms] ease-out motion-reduce:transition-none",
+        open ? "visible opacity-100" : "invisible opacity-0",
+      ].join(" ")}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby={titleId}
+    >
+      <div className="flex shrink-0 items-center gap-2 border-b border-line px-4 py-3">
+        <BrandMark onClick={onClose} compact />
+        <span id={titleId} className="sr-only">
+          Site menu
+        </span>
+        <div className="ml-auto flex items-center gap-2">
+          <a href={APPLY_URL} className={APPLY_PILL} onClick={onClose}>
+            Apply
+          </a>
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Close menu"
+            className="flex h-10 w-10 items-center justify-center rounded-lg text-navy transition-colors active:bg-mist hover:bg-mist"
+          >
+            <Icon d="M6 6l12 12M18 6L6 18" size={22} />
+          </button>
+        </div>
+      </div>
+
+      <div className="relative min-h-0 flex-1 overflow-hidden">
+        <div
+          className={[
+            "absolute inset-0 overflow-y-auto overscroll-contain px-5",
+            DRAWER_EASE,
+            panel ? "-translate-x-6 opacity-0" : "translate-x-0 opacity-100",
+          ].join(" ")}
+        >
+          <ul className="py-1">
+            {menu.map((s) => (
+              <li key={s.slug} className="border-b border-line">
+                <button
+                  type="button"
+                  onClick={() => onSelectPanel(s.slug)}
+                  className="flex w-full items-center justify-between gap-3 py-4 text-left text-[1.05rem] font-semibold text-navy transition-colors active:bg-mist"
+                >
+                  <span className="min-w-0">{s.title}</span>
+                  <Icon d="M5 12h14M13 6l6 6-6 6" className="shrink-0 text-royal" />
+                </button>
+              </li>
+            ))}
+            {extraLinks.map((l) => (
+              <li key={l.href} className="border-b border-line">
+                <Link
+                  href={l.href}
+                  onClick={onClose}
+                  aria-current={currentPath === l.href ? "page" : undefined}
+                  className="block py-4 text-[1.05rem] font-semibold text-navy transition-colors active:bg-mist"
+                >
+                  {l.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+
+          <p className="pb-1 pt-8 text-[11px] font-bold uppercase tracking-[0.16em] text-royal">
+            University
+          </p>
+          <ul className="pb-6">
+            {utilityLinks.map((l) => {
+              const className =
+                "block border-b border-line py-3.5 text-[1.05rem] font-semibold text-navy transition-colors active:bg-mist";
+              return (
+                <li key={l.label}>
+                  {l.href.startsWith("/") ? (
+                    <Link
+                      href={l.href}
+                      onClick={onClose}
+                      aria-current={
+                        currentPath === l.href ? "page" : undefined
+                      }
+                      className={className}
+                    >
+                      {l.label}
+                    </Link>
+                  ) : (
+                    <a href={l.href} onClick={onClose} className={className}>
+                      {l.label}
+                    </a>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+
+        <DrawerPanel open={Boolean(panel)}>
+          {activeSection && (
+            <>
+              <button
+                type="button"
+                onClick={() => onSelectPanel(null)}
+                className="flex items-center gap-2 py-4 text-sm font-bold text-royal transition-colors active:opacity-70"
+              >
+                <Icon d="M19 12H5M11 6l-6 6 6 6" />
+                Back
+              </button>
+              <Link
+                href={`/${activeSection.slug}`}
+                onClick={onClose}
+                className="mb-2 block border-b border-line pb-4 text-xl font-extrabold text-navy"
+              >
+                {activeSection.title}
+              </Link>
+              {activeSection.slug === "about" && (
+                <Link
+                  href="/about"
+                  onClick={onClose}
+                  className="block border-b border-line py-3.5 font-semibold text-navy transition-colors active:bg-mist"
+                >
+                  About NU Clark
+                </Link>
+              )}
+              {groups.map((g, gi) => (
+                <div
+                  key={`${g.title ?? "group"}-${gi}`}
+                  className="border-b border-line py-3"
+                >
+                  {g.title && (
+                    <Link
+                      href={g.href!}
+                      onClick={onClose}
+                      className="block py-1.5 font-bold text-navy transition-colors active:text-royal"
+                    >
+                      {g.title}
+                    </Link>
+                  )}
+                  {g.items.length > 0 && (
+                    <ul
+                      className={
+                        g.title ? "mt-1 space-y-1 pl-3" : "space-y-1"
+                      }
+                    >
+                      {g.items.map((it) => (
+                        <li key={it.label}>
+                          <Link
+                            href={it.href}
+                            onClick={onClose}
+                            aria-current={
+                              it.href === currentPath ? "page" : undefined
+                            }
+                            className="block rounded-md py-2 text-[15px] text-slate transition-colors active:bg-mist aria-[current=page]:font-bold aria-[current=page]:text-navy"
+                          >
+                            {it.label}
+                            {it.sub && (
+                              <span className="mt-0.5 block text-xs text-slate/80">
+                                {it.sub}
+                              </span>
+                            )}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              ))}
+            </>
+          )}
+        </DrawerPanel>
+      </div>
+
+      <div className="shrink-0 border-t border-line px-5 py-4">
+        <div className="flex flex-wrap items-center gap-3 opacity-80">
+          {(
+            [
+              ["/pacucoa.png", "PACUCOA"],
+              ["/ched.png", "CHED"],
+              ["/faap.png", "FAAP"],
+            ] as const
+          ).map(([src, alt]) => (
+            <Image
+              key={alt}
+              src={src}
+              alt={alt}
+              width={48}
+              height={48}
+              className="h-10 w-auto object-contain"
+            />
+          ))}
+        </div>
+        <p className="mt-3 text-[11px] leading-snug text-slate">
+          Copyright © 2026 National University Clark. All Rights Reserved.
+        </p>
+      </div>
+    </div>
+  );
+}
+
 export default function Navbar({
   currentPath: currentPathProp,
 }: {
@@ -146,51 +378,24 @@ export default function Navbar({
   const [visible, setVisible] = useState(false);
   const [panel, setPanel] = useState<string | null>(null);
   const [active, setActive] = useState<string | null>(null);
-  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const navRef = useRef<HTMLElement>(null);
+  const hoverTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const unmountTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     return () => {
-      if (timer.current) clearTimeout(timer.current);
-      if (closeTimer.current) clearTimeout(closeTimer.current);
-    };
-  }, []);
-
-  useEffect(() => {
-    const el = navRef.current;
-    if (!el) return;
-
-    const setNavHeight = () => {
-      // Prefer full sticky header height so the drawer lines up under the bar
-      const header = el.closest("[data-site-header]") as HTMLElement | null;
-      const h = (header ?? el).getBoundingClientRect().height;
-      document.documentElement.style.setProperty(
-        "--mobile-nav-h",
-        `${Math.max(Math.round(h), 48)}px`,
-      );
-    };
-
-    setNavHeight();
-    const ro = new ResizeObserver(setNavHeight);
-    ro.observe(el);
-    const header = el.closest("[data-site-header]");
-    if (header) ro.observe(header);
-    window.addEventListener("resize", setNavHeight);
-    return () => {
-      ro.disconnect();
-      window.removeEventListener("resize", setNavHeight);
+      if (hoverTimer.current) clearTimeout(hoverTimer.current);
+      if (unmountTimer.current) clearTimeout(unmountTimer.current);
     };
   }, []);
 
   useEffect(() => {
     if (!mounted) return;
-    const prev = document.body.style.overflow;
+    const { overflow, touchAction } = document.body.style;
     document.body.style.overflow = "hidden";
-    document.documentElement.dataset.mobileMenuOpen = "true";
+    document.body.style.touchAction = "none";
     return () => {
-      document.body.style.overflow = prev;
-      delete document.documentElement.dataset.mobileMenuOpen;
+      document.body.style.overflow = overflow;
+      document.body.style.touchAction = touchAction;
     };
   }, [mounted]);
 
@@ -202,31 +407,20 @@ export default function Navbar({
   }, [pathname]);
 
   const showDropdown = (slug: string) => {
-    if (timer.current) clearTimeout(timer.current);
+    if (hoverTimer.current) clearTimeout(hoverTimer.current);
     setActive(slug);
   };
 
   const hideDropdown = () => {
-    if (timer.current) clearTimeout(timer.current);
-    timer.current = setTimeout(() => setActive(null), 200);
-  };
-
-  const syncMenuTop = () => {
-    const el = navRef.current;
-    if (!el) return;
-    const header = el.closest("[data-site-header]") as HTMLElement | null;
-    const h = (header ?? el).getBoundingClientRect().height;
-    document.documentElement.style.setProperty(
-      "--mobile-nav-h",
-      `${Math.max(Math.round(h), 48)}px`,
-    );
+    if (hoverTimer.current) clearTimeout(hoverTimer.current);
+    hoverTimer.current = setTimeout(() => setActive(null), 200);
   };
 
   const openMenu = () => {
-    if (closeTimer.current) clearTimeout(closeTimer.current);
+    if (unmountTimer.current) clearTimeout(unmountTimer.current);
+    setPanel(null);
     setMounted(true);
     requestAnimationFrame(() => {
-      syncMenuTop();
       requestAnimationFrame(() => setVisible(true));
     });
   };
@@ -235,36 +429,29 @@ export default function Navbar({
     setVisible(false);
     setPanel(null);
     setActive(null);
-    if (closeTimer.current) clearTimeout(closeTimer.current);
-    closeTimer.current = setTimeout(() => setMounted(false), 460);
+    if (unmountTimer.current) clearTimeout(unmountTimer.current);
+    unmountTimer.current = setTimeout(() => setMounted(false), 460);
   };
 
-  const activeSection = menu.find((s) => s.slug === panel);
-  const applyClass =
-    "inline-flex items-center justify-center rounded-full bg-gold px-4 py-2 text-sm font-bold text-navy transition active:scale-[0.98] hover:bg-[#ffd84a]";
+  const menuOpen = mounted && visible;
 
   return (
     <>
       <nav
-        ref={navRef}
         className={[
           "relative z-40 bg-white",
-          // Mobile: flat full-width bar like nu.edu.ph
           "w-full rounded-none px-4 py-3 shadow-none",
-          // Desktop: floating pill on the navy band
           "lg:left-1/2 lg:w-[min(calc(100vw-2.5rem),1700px)] lg:-translate-x-1/2 lg:rounded-2xl lg:px-8 lg:py-3 lg:shadow-sm",
         ].join(" ")}
       >
         <div className="flex items-center gap-2 sm:gap-4">
           <BrandMark onClick={closeMenu} />
 
-          {/* Desktop menu */}
           <ul className="hidden flex-1 items-center justify-evenly lg:flex">
             {menu.map((s) => {
-              const isActive = active === s.slug;
+              const isOpen = active === s.slug;
               const href = `/${s.slug}`;
-              const isCurrent =
-                currentPath === href || currentPath?.startsWith(`${href}/`);
+              const isCurrent = pathMatches(currentPath, href);
               const cols = columnsBySlug[s.slug];
               return (
                 <li
@@ -291,20 +478,20 @@ export default function Navbar({
                           ? "location"
                           : undefined
                     }
-                    className={`flex items-center gap-1.5 rounded-lg px-2 py-2 text-navy transition-colors duration-150 hover:text-royal ${isCurrent ? "bg-mist font-bold underline decoration-gold decoration-2 underline-offset-[7px]" : "font-medium"}`}
+                    className={desktopLinkClass(isCurrent)}
                   >
                     {s.title}
-                    <Chevron className={isActive ? "rotate-180" : ""} />
+                    <Chevron open={isOpen} />
                   </Link>
 
                   <div
                     className={`absolute left-0 right-0 top-full z-30 pt-3 transition-opacity duration-150 ${
-                      isActive
+                      isOpen
                         ? "visible opacity-100"
                         : "invisible pointer-events-none opacity-0"
                     }`}
                   >
-                    {isActive && (
+                    {isOpen && (
                       <div className="max-h-[calc(100vh-140px)] overflow-y-auto rounded-2xl border border-line bg-[#f4f5fc] p-6 shadow-xl">
                         <div
                           className="grid"
@@ -372,8 +559,7 @@ export default function Navbar({
             })}
 
             {extraLinks.map((l) => {
-              const isCurrent =
-                currentPath === l.href || currentPath?.startsWith(`${l.href}/`);
+              const isCurrent = pathMatches(currentPath, l.href);
               return (
                 <li key={l.href}>
                   <Link
@@ -385,7 +571,7 @@ export default function Navbar({
                           ? "location"
                           : undefined
                     }
-                    className={`flex items-center gap-1.5 rounded-lg px-2 py-2 text-navy transition-colors duration-150 hover:text-royal ${isCurrent ? "bg-mist font-bold underline decoration-gold decoration-2 underline-offset-[7px]" : "font-medium"}`}
+                    className={desktopLinkClass(isCurrent)}
                   >
                     {l.label}
                   </Link>
@@ -401,232 +587,36 @@ export default function Navbar({
             Apply Now
           </a>
 
-          {/* Mobile: Apply + menu toggle (X when open, like nu.edu.ph) */}
           <div className="ml-auto flex items-center gap-2 lg:hidden">
-            <a href={APPLY_URL} className={applyClass}>
+            <a href={APPLY_URL} className={APPLY_PILL}>
               Apply
             </a>
             <button
               type="button"
-              onClick={() => (mounted && visible ? closeMenu() : openMenu())}
-              aria-expanded={visible}
-              aria-label={visible ? "Close menu" : "Open menu"}
+              onClick={() => (menuOpen ? closeMenu() : openMenu())}
+              aria-expanded={menuOpen}
+              aria-label={menuOpen ? "Close menu" : "Open menu"}
               className="flex h-10 w-10 items-center justify-center rounded-lg text-navy transition-colors active:bg-mist hover:bg-mist"
             >
-              {visible ? <CloseIcon /> : <MenuIcon />}
+              {menuOpen ? (
+                <Icon d="M6 6l12 12M18 6L6 18" size={22} />
+              ) : (
+                <Icon d="M4 7h16M4 12h16M4 17h16" size={22} />
+              )}
             </button>
           </div>
         </div>
       </nav>
 
-      {/* Portaled out of ScrollHeader — fixed positioning breaks inside transformed parents */}
       {mounted &&
         createPortal(
-          <div
-            className={[
-              "fixed inset-x-0 bottom-0 top-[var(--mobile-nav-h,3.75rem)] z-[55] lg:hidden",
-              "transition-[opacity,visibility] duration-[280ms] ease-out motion-reduce:transition-none",
-              visible ? "visible opacity-100" : "invisible opacity-0",
-            ].join(" ")}
-            role="dialog"
-            aria-modal="true"
-            aria-label="Site menu"
-          >
-            <div
-              className={[
-                "flex h-full flex-col bg-white",
-                "transition-[transform,opacity] duration-[460ms] ease-[cubic-bezier(0.2,0.8,0.2,1)] motion-reduce:transition-none",
-                visible
-                  ? "translate-y-0 opacity-100"
-                  : "-translate-y-2 opacity-0",
-              ].join(" ")}
-            >
-              <div className="relative min-h-0 flex-1 overflow-hidden">
-                <div
-                  className={[
-                    "absolute inset-0 overflow-y-auto px-5 pr-6",
-                    "transition-[transform,opacity] duration-[460ms] ease-[cubic-bezier(0.2,0.8,0.2,1)] motion-reduce:transition-none",
-                    panel
-                      ? "-translate-x-6 opacity-0"
-                      : "translate-x-0 opacity-100",
-                  ].join(" ")}
-                >
-                  <ul className="py-1">
-                    {menu.map((s) => (
-                      <li key={s.slug} className="border-b border-line">
-                        <button
-                          type="button"
-                          onClick={() => setPanel(s.slug)}
-                          className="flex w-full items-center justify-between gap-3 py-4 pr-1 text-left text-[1.05rem] font-semibold text-navy transition-colors active:bg-mist"
-                        >
-                          <span className="min-w-0">{s.title}</span>
-                          <ArrowRight className="shrink-0 text-royal" />
-                        </button>
-                      </li>
-                    ))}
-                    {extraLinks.map((l) => (
-                      <li key={l.href} className="border-b border-line">
-                        <Link
-                          href={l.href}
-                          onClick={closeMenu}
-                          aria-current={
-                            currentPath === l.href ? "page" : undefined
-                          }
-                          className="block py-4 pr-1 text-[1.05rem] font-semibold text-navy transition-colors active:bg-mist"
-                        >
-                          {l.label}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-
-                  <div className="mt-6 border-t border-line pt-2">
-                    <p className="px-0 pb-2 pt-3 text-[11px] font-bold uppercase tracking-[0.16em] text-royal">
-                      University
-                    </p>
-                    <ul>
-                      {utilityLinks.map((l) => {
-                        const internal = l.href.startsWith("/");
-                        const className =
-                          "block border-b border-line py-3.5 pr-1 text-[1.05rem] font-semibold text-navy transition-colors active:bg-mist";
-                        return (
-                          <li key={l.label}>
-                            {internal ? (
-                              <Link
-                                href={l.href}
-                                onClick={closeMenu}
-                                aria-current={
-                                  currentPath === l.href ? "page" : undefined
-                                }
-                                className={className}
-                              >
-                                {l.label}
-                              </Link>
-                            ) : (
-                              <a
-                                href={l.href}
-                                onClick={closeMenu}
-                                className={className}
-                              >
-                                {l.label}
-                              </a>
-                            )}
-                          </li>
-                        );
-                      })}
-                    </ul>
-                  </div>
-                </div>
-
-                <div
-                  className={[
-                    "absolute inset-0 overflow-y-auto bg-white px-5 pr-6",
-                    "transition-[transform,opacity] duration-[460ms] ease-[cubic-bezier(0.2,0.8,0.2,1)] motion-reduce:transition-none",
-                    panel
-                      ? "translate-x-0 opacity-100"
-                      : "pointer-events-none translate-x-6 opacity-0",
-                  ].join(" ")}
-                >
-                  {activeSection && (
-                    <>
-                      <button
-                        type="button"
-                        onClick={() => setPanel(null)}
-                        className="flex items-center gap-2 py-4 text-sm font-bold text-royal transition-colors active:opacity-70"
-                      >
-                        <ArrowLeft />
-                        Back
-                      </button>
-                      <Link
-                        href={`/${activeSection.slug}`}
-                        onClick={closeMenu}
-                        className="mb-2 block border-b border-line pb-4 text-xl font-extrabold text-navy"
-                      >
-                        {activeSection.title}
-                      </Link>
-                      {activeSection.slug === "about" && (
-                        <Link
-                          href="/about"
-                          onClick={closeMenu}
-                          className="block border-b border-line py-3.5 font-semibold text-navy transition-colors active:bg-mist"
-                        >
-                          About NU Clark
-                        </Link>
-                      )}
-                      {columnsBySlug[activeSection.slug].flat().map((g, gi) => (
-                        <div key={gi} className="border-b border-line py-3">
-                          {g.title && (
-                            <Link
-                              href={g.href!}
-                              onClick={closeMenu}
-                              className="block py-1.5 font-bold text-navy transition-colors active:text-royal"
-                            >
-                              {g.title}
-                            </Link>
-                          )}
-                          <ul
-                            className={
-                              g.title ? "mt-1 space-y-1 pl-3" : "space-y-1"
-                            }
-                          >
-                            {g.items.map((it) => (
-                              <li key={it.label}>
-                                <Link
-                                  href={it.href}
-                                  onClick={closeMenu}
-                                  aria-current={
-                                    it.href === currentPath ? "page" : undefined
-                                  }
-                                  className="block rounded-md py-2 text-[15px] text-slate transition-colors active:bg-mist aria-[current=page]:font-bold aria-[current=page]:text-navy"
-                                >
-                                  {it.label}
-                                  {it.sub && (
-                                    <span className="mt-0.5 block text-xs text-slate/80">
-                                      {it.sub}
-                                    </span>
-                                  )}
-                                </Link>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      ))}
-                    </>
-                  )}
-                </div>
-              </div>
-
-              <div className="border-t border-line px-5 py-4">
-                <div className="flex flex-wrap items-center gap-3 opacity-80">
-                  <Image
-                    src="/pacucoa.png"
-                    alt="PACUCOA"
-                    width={48}
-                    height={48}
-                    className="h-10 w-auto object-contain"
-                  />
-                  <Image
-                    src="/ched.png"
-                    alt="CHED"
-                    width={48}
-                    height={48}
-                    className="h-10 w-auto object-contain"
-                  />
-                  <Image
-                    src="/faap.png"
-                    alt="FAAP"
-                    width={48}
-                    height={48}
-                    className="h-10 w-auto object-contain"
-                  />
-                </div>
-                <p className="mt-3 text-[11px] leading-snug text-slate">
-                  Copyright © 2026 National University Clark. All Rights
-                  Reserved.
-                </p>
-              </div>
-            </div>
-          </div>,
+          <MobileMenu
+            open={visible}
+            panel={panel}
+            currentPath={currentPath}
+            onClose={closeMenu}
+            onSelectPanel={setPanel}
+          />,
           document.body,
         )}
     </>

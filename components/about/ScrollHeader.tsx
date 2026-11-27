@@ -15,12 +15,8 @@ export function ScrollHeader({ children }: { children: ReactNode }) {
     const desktopMq = window.matchMedia("(min-width: 1024px)");
 
     function updateVisibility() {
-      // Mobile: keep the bar pinned — hide-on-scroll was causing jumpy layout.
-      // Also keep visible while the portaled hamburger is open.
-      if (
-        !desktopMq.matches ||
-        document.documentElement.dataset.mobileMenuOpen === "true"
-      ) {
+      // Mobile stays pinned — hide-on-scroll caused jumpy layout with the sticky bar.
+      if (!desktopMq.matches) {
         setHidden(false);
         previousY = Math.max(window.scrollY, 0);
         ticking = false;
