@@ -62,10 +62,10 @@ export function AboutOverview({ section }: { section: Section }) {
       <AboutHeader>
         <div className="grid items-center gap-8 pt-8 sm:pt-12 lg:grid-cols-2 lg:gap-10 lg:pt-14">
           <div>
-            <h1 className="text-4xl leading-tight font-extrabold tracking-tight">
+            <h1 className="text-4xl leading-tight font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
               About <span className="whitespace-nowrap">NU Clark</span>
             </h1>
-            <p className="mt-4 max-w-xl text-base text-white/90 sm:mt-5">
+            <p className="mt-4 max-w-xl text-base text-white/90 sm:mt-5 sm:text-lg">
               {section.intro}
             </p>
             <div className="mt-6 flex flex-wrap items-center gap-3 sm:mt-8">
@@ -82,7 +82,7 @@ export function AboutOverview({ section }: { section: Section }) {
       </AboutHeader>
       <main className={`${frame} space-y-12 pt-9 pb-14 sm:space-y-16 sm:pt-12 sm:pb-20`}>
         <section aria-labelledby="about-contents">
-          <h2 id="about-contents" className="mb-5 scroll-mt-6 font-serif text-3xl leading-tight tracking-tight sm:mb-7" tabIndex={-1}>
+          <h2 id="about-contents" className="mb-5 scroll-mt-6 font-serif text-3xl leading-tight tracking-tight sm:mb-7 sm:text-4xl" tabIndex={-1}>
             Explore About NU Clark
           </h2>
           <ul className="grid md:grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)] md:gap-x-8 lg:gap-x-12">
@@ -154,7 +154,7 @@ const resources = [
 function AboutResources() {
   return (
     <section aria-labelledby="about-resources">
-      <h2 id="about-resources" className="mb-5 border-b-2 border-gold pb-3 font-serif text-3xl tracking-tight">
+      <h2 id="about-resources" className="mb-5 border-b-2 border-gold pb-3 font-serif text-3xl tracking-tight sm:text-4xl">
         Resources
       </h2>
       <ul className="grid gap-4 sm:grid-cols-2">

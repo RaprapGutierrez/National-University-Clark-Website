@@ -88,7 +88,7 @@ export default function AcademicsBanner({
                   {label}
                 </p>
               )}
-              <h1 className="mt-2 text-[1.85rem] font-extrabold leading-[1.12] tracking-tight sm:mt-3">
+              <h1 className="mt-2 text-[1.85rem] font-extrabold leading-[1.12] tracking-tight sm:mt-3 sm:text-4xl lg:text-5xl">
                 {title}
               </h1>
               {showRule ? (
@@ -96,8 +96,8 @@ export default function AcademicsBanner({
               ) : null}
               {subtitle && (
                 <p
-                  className={`max-w-xl text-sm font-medium text-white/90 ${
-                    showRule ?"mt-3 sm:mt-5" :"mt-3 sm:mt-4"
+                  className={`max-w-xl text-sm font-medium text-white/90 sm:text-base lg:text-lg ${
+                    showRule ? "mt-3 sm:mt-5" : "mt-3 sm:mt-4"
                   }`}
                 >
                   {subtitle}

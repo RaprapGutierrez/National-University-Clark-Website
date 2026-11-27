@@ -23,8 +23,8 @@ export default function SectionTitle({
         {kicker}
       </p>
       <h2
-        className={`mt-1 text-2xl font-extrabold ${
-          light ?"text-white" :"text-navy"
+        className={`mt-1 text-2xl font-extrabold sm:text-3xl lg:text-4xl ${
+          light ? "text-white" : "text-navy"
         }`}
       >
         {title}

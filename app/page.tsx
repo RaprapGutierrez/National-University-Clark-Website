@@ -53,7 +53,7 @@ function SectionTitle({
       <p className="text-sm font-bold uppercase tracking-[0.2em] text-royal">
         {kicker}
       </p>
-      <h2 className="mt-1 text-2xl font-extrabold text-navy">
+      <h2 className="mt-1 text-2xl font-extrabold text-navy sm:text-3xl lg:text-4xl">
         {title}
       </h2>
       <div className="mt-3 flex items-center gap-2">
@@ -167,7 +167,7 @@ export default function Home() {
                 <p className="inline-block rounded-full bg-gold/15 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-gold">
                   National University Clark
                 </p>
-                <h1 className="mt-4 text-4xl font-extrabold leading-tight tracking-tight">
+                <h1 className="mt-4 text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
                   Education that works in the heart of{" "}
                   <span className="relative inline-block text-gold">
                     Central Luzon.
@@ -327,7 +327,7 @@ export default function Home() {
             </svg>
 
             <div className="text-center md:text-left">
-              <h2 className="text-2xl font-extrabold">
+              <h2 className="text-2xl font-extrabold sm:text-3xl">
                 Ready to become a Nationalian?
               </h2>
               <p className="mx-auto mt-2 max-w-xl text-white/80 md:mx-0">

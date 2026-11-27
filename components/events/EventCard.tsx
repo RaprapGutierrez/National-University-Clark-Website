@@ -47,10 +47,10 @@ export default function EventCard({
           <h3
             className={`mt-3 font-extrabold leading-tight ${
               featured
-                ?"text-2xl text-gold"
+                ? "text-2xl text-gold sm:text-3xl"
                 : dark
-                  ?"text-xl text-gold"
-                  :"text-xl text-navy"
+                  ? "text-xl text-gold sm:text-2xl"
+                  : "text-xl text-navy sm:text-2xl"
             }`}
           >
             {event.title}
