@@ -75,9 +75,9 @@ const studentLifeCopy: Record<
 type SectionProps = { params: Promise<{ section: string }> };
 
 export function generateStaticParams() {
-  // Dedicated app/student-life/page.tsx owns /student-life.
+  const dedicated = new Set(["student-life", "admissions", "academics"]);
   return sections
-    .filter((s) => s.slug !== "student-life")
+    .filter((s) => !dedicated.has(s.slug))
     .map((s) => ({ section: s.slug }));
 }
 

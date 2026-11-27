@@ -298,22 +298,44 @@ export default function LinkagesPage() {
               </p>
             </Reveal>
 
-            <div className="mt-10 space-y-9">
+            <div className="mt-10 space-y-12">
               {networkKinds.map((kind) => {
                 const partners = linkagesNetwork.filter((p) => p.kind === kind);
                 if (!partners.length) return null;
                 return (
                   <Reveal key={kind}>
                     <h3 className="text-sm font-bold text-royal">{kind}</h3>
-                    <ul className="mt-3 grid gap-4 sm:grid-cols-2">
+                    <ul className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
                       {partners.map((partner) => (
-                        <li key={partner.name}>
-                          <p className="font-extrabold text-navy">
-                            {partner.name}
-                          </p>
-                          <p className="mt-0.5 text-sm leading-relaxed text-slate">
-                            {partner.note}
-                          </p>
+                        <li key={partner.name} className="flex gap-4">
+                          <div className="relative h-14 w-14 shrink-0 overflow-hidden bg-[#eef1f8]">
+                            {partner.logo || partner.image ? (
+                              <Image
+                                src={partner.logo || partner.image!}
+                                alt=""
+                                fill
+                                sizes="56px"
+                                className="object-contain object-center p-1.5"
+                              />
+                            ) : (
+                              <span className="flex h-full items-center justify-center text-[10px] font-extrabold text-navy">
+                                {partner.name
+                                  .split(/\s+/)
+                                  .slice(0, 2)
+                                  .map((w) => w[0])
+                                  .join("")
+                                  .toUpperCase()}
+                              </span>
+                            )}
+                          </div>
+                          <div className="min-w-0 pt-0.5">
+                            <p className="font-extrabold leading-snug text-navy">
+                              {partner.name}
+                            </p>
+                            <p className="mt-1 text-sm leading-relaxed text-slate">
+                              {partner.note}
+                            </p>
+                          </div>
                         </li>
                       ))}
                     </ul>

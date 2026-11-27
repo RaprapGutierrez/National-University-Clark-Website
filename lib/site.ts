@@ -106,7 +106,8 @@ export const sections: Section[] = [
   {
     slug: "admissions",
     title: "Admissions",
-    intro: "Everything you need to start your journey as a Nationalian.",
+    intro:
+      "Apply online, prepare your requirements, and explore scholarships for Nationalians.",
     pages: [
       {
         slug: "apply-now",

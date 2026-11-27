@@ -1,15 +1,15 @@
 /** Community Development / COMEX — structure from nu.edu.ph; assets from NUClarkCOMEX. */
 
 export const communityIntro = {
-  kicker: "Community Development",
+  kicker: "COMEX",
   heading: "Community Extension Services Office",
-  tagline: "NUrturing Communities through geNUine service.",
+  tagline: "NUrturing communities through geNUine service.",
   about:
-    "The official desk of National University Clark’s Community Extension Services Office — developing and implementing sustainable community projects, social responsibility, and long-term learning programs.",
+    "NU Clark’s Community Extension Services Office plans and runs sustainable community projects — with students, partners, and barangays — so learning reaches beyond the classroom.",
   facebook: "https://www.facebook.com/NUClarkCOMEX",
   email: "comex@national-u.edu.ph",
   address:
-    "National University, Clark Tech Hub 8, SM City Clark Expansion, Clark-Mabalacat-Angeles Road, Barangay Dau, Mabalacat City, Pampanga",
+    "Clark Tech Hub 8, SM City Clark Expansion, Clark-Mabalacat-Angeles Road, Barangay Dau, Mabalacat City, Pampanga",
 };
 
 export const communityCover = "/community/cover.jpg";
@@ -20,41 +20,65 @@ export const communityVision =
 export const communityMission =
   "To develop and facilitate community-based strategies, programs, and projects through collective participation which improves socio-economic opportunities, preserves cultural vitality, and promotes environmental responsibility.";
 
-export const communityPrograms = [
+export type CommunityProgram = {
+  title: string;
+  subtitle: string;
+  sdg: string;
+  text: string;
+  image: string;
+};
+
+export const communityPrograms: CommunityProgram[] = [
   {
     title: "Usaping Seguridad at Kaligtasan",
-    subtitle: "Disaster Risk Reduction and Resiliency · SDG 11",
-    text: "Strengthens disaster preparedness with emergency response training, first aid skills, and post-disaster relief that enhance community resilience.",
+    subtitle: "Disaster risk reduction and resiliency",
+    sdg: "SDG 11",
+    text: "Emergency response training, first aid, and post-disaster relief that help partner communities prepare and recover.",
+    image: "/community/photo-04.jpg",
   },
   {
     title: "Gintong Kaalaman at Kabuhayan",
-    subtitle: "Educational Enhancement and Economic Prosperity · SDG 4 & 8",
-    text: "Supports education and economic empowerment through tutoring, classroom assistance, skills development, and livelihood training.",
+    subtitle: "Education and livelihood",
+    sdg: "SDG 4 & 8",
+    text: "Tutoring, classroom assistance, skills development, and livelihood training that open doors for learners and families.",
+    image: "/community/photo-01.jpg",
   },
   {
     title: "Natatanging Kultura at Pagkakapantay-pantay",
-    subtitle: "Cultural Vitality and Social Equity · SDG 10 & 17",
-    text: "Advocates cultural awareness, social justice, and inclusivity through heritage, gender equality, and community empowerment initiatives.",
+    subtitle: "Culture and social equity",
+    sdg: "SDG 10 & 17",
+    text: "Heritage, gender equality, and community empowerment initiatives that keep culture and inclusion at the center.",
+    image: "/community/photo-02.jpg",
   },
   {
     title: "Aksyon para sa Kalikasan",
-    subtitle: "Environmental Sustainability and Climate Action · SDG 13",
-    text: "Promotes climate action through reforestation, waste reduction, clean-up drives, and sustainability advocacy.",
+    subtitle: "Environment and climate action",
+    sdg: "SDG 13",
+    text: "Reforestation, waste reduction, clean-up drives, and sustainability advocacy with partner communities.",
+    image: "/community/photo-06.jpg",
   },
   {
     title: "Yamang Pangkalusugan at Kapakanan",
-    subtitle: "Community Health and Well-being · SDG 3",
-    text: "Enhances public health through medical missions, mental health awareness, and nutrition education.",
+    subtitle: "Community health and well-being",
+    sdg: "SDG 3",
+    text: "Medical missions, mental health awareness, and nutrition education for healthier partner communities.",
+    image: "/community/photo-05.jpg",
   },
 ];
 
 export const communityVolunteer = {
   title: "Nagkakaisang Ugnayan Volunteerism Program",
   short: "NUVP",
-  text: "NUVP fosters social responsibility and community engagement by building a dedicated volunteer network. Through five core programs aligned with the Sustainable Development Goals, volunteers gain leadership experience, build connections, and contribute to a more resilient and inclusive society.",
+  text: "NUVP builds a volunteer network for students and staff who want to lead with service. Five SDG-aligned programs offer leadership experience, real partnerships, and lasting community impact.",
 };
 
-/** University-wide impact figures (nu.edu.ph Community Development, as of June 2026). */
+/** Featured COMEX story for the page lead. */
+export const communityFeatured = {
+  title: "Community immersion in the field",
+  text: "Nationalians work side by side with partner communities — from needs assessments to service days — so extension stays grounded in real needs.",
+  image: "/community/photo-07.jpg",
+};
+
 export const communityImpact = [
   { value: "366+", label: "Trees planted" },
   { value: "970+", label: "Blood bags donated" },
@@ -81,13 +105,8 @@ export const communityFeedback = [
   },
 ];
 
+/** Remaining field posts not paired with a program. */
 export const communityGallery = [
-  "/community/photo-01.jpg",
-  "/community/photo-02.jpg",
   "/community/photo-03.jpg",
-  "/community/photo-04.jpg",
-  "/community/photo-05.jpg",
-  "/community/photo-06.jpg",
-  "/community/photo-07.jpg",
   "/community/photo-08.jpg",
 ];

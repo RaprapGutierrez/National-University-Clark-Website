@@ -131,6 +131,10 @@ export type LinkagePartner = {
   name: string;
   kind: "Industry" | "Government" | "Academic" | "International" | "Community";
   note: string;
+  /** Partner mark when available */
+  logo?: string;
+  /** Ceremony / MOU photo when available */
+  image?: string;
 };
 
 /** Broader NU Clark partnership network (AILPO page + campus announcements). */
@@ -139,26 +143,34 @@ export const linkagesNetwork: LinkagePartner[] = [
     name: "Institute of Management Accountants (IMA)",
     kind: "Industry",
     note: "University partner for CMA pathways, competitions, and professional learning.",
+    logo: "/partners/ima.png",
+    image: "/linkages/photo-15.jpg",
   },
   {
     name: "Chez Suzette French Brasserie",
     kind: "Industry",
     note: "Hospitality MOU for experiential learning and workforce readiness.",
+    logo: "/partners/chez.png",
+    image: "/linkages/photo-06.jpg",
   },
   {
     name: "Gueco Balibago Elementary School",
     kind: "Community",
     note: "Education partnership for immersion, extension, and capacity-building.",
+    image: "/linkages/photo-02.jpg",
   },
   {
     name: "German-Philippine Chamber of Commerce and Industry",
     kind: "International",
     note: "ProRecognition career fair and Germany work-abroad pathways.",
+    logo: "/partners/gpcci.png",
+    image: "/linkages/photo-09.jpg",
   },
   {
     name: "NAPOLCOM Regional Office III",
     kind: "Government",
     note: "Internship, professional development, research, and community initiatives.",
+    logo: "/partners/napolcom.png",
   },
   {
     name: "Dewey International – Taiwan",
@@ -169,6 +181,7 @@ export const linkagesNetwork: LinkagePartner[] = [
     name: "OMADA One Inc.",
     kind: "Industry",
     note: "BPO and remote staffing collaboration for academe-industry engagement.",
+    logo: "/partners/omada.png",
   },
   {
     name: "PSYZYGY Psychological Center",
@@ -179,21 +192,25 @@ export const linkagesNetwork: LinkagePartner[] = [
     name: "Servo IT Solutions",
     kind: "Industry",
     note: "IT education, innovation, and industry immersion.",
+    logo: "/partners/servo.png",
   },
   {
     name: "UP Diliman Asian Center",
     kind: "Academic",
     note: "Interdisciplinary research and academic collaboration.",
+    logo: "/partners/upd.png",
   },
   {
     name: "Clark International Airport (LIPAD)",
     kind: "Industry",
     note: "Airport and aviation-sector training and partnership opportunities.",
+    logo: "/partners/lipad.png",
   },
   {
     name: "Clark Development Corporation",
     kind: "Government",
     note: "Clark Freeport institutional collaboration.",
+    logo: "/partners/cdc.png",
   },
   {
     name: "DICT",
@@ -214,15 +231,19 @@ export const linkagesNetwork: LinkagePartner[] = [
     name: "Sunchon National University – Korea",
     kind: "International",
     note: "MOU for research, mobility, and shared educational resources.",
+    logo: "/partners/scnu.png",
+    image: "/news/sunchon-mou/sunchon-mou-01.jpg",
   },
   {
     name: "Hotels and Restaurants Association of Pampanga",
     kind: "Industry",
     note: "OJT, careers, and research with leading hospitality partners.",
+    logo: "/partners/hrap.png",
   },
   {
     name: "Pampanga State Agricultural University",
     kind: "Academic",
     note: "Academic programs, research, and community engagement.",
+    logo: "/partners/psau.png",
   },
 ];
