@@ -6,10 +6,16 @@ import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { usePathname } from "next/navigation";
 import { APPLY_URL } from "@/lib/site";
-import { columnsBySlug, extraNavLinks, navSections } from "@/lib/nav-menu";
+import {
+  columnsBySlug,
+  extraNavLinks,
+  navSections,
+  utilityNavLinks,
+} from "@/lib/nav-menu";
 
 const menu = navSections;
 const extraLinks = extraNavLinks;
+const utilityLinks = utilityNavLinks;
 
 function Chevron({ className = "" }: { className?: string }) {
   return (
@@ -156,17 +162,25 @@ export default function Navbar({
     if (!el) return;
 
     const setNavHeight = () => {
-      const h = el.getBoundingClientRect().height;
+      // Prefer full sticky header height so the drawer lines up under the bar
+      const header = el.closest("[data-site-header]") as HTMLElement | null;
+      const h = (header ?? el).getBoundingClientRect().height;
       document.documentElement.style.setProperty(
         "--mobile-nav-h",
-        `${Math.round(h)}px`,
+        `${Math.max(Math.round(h), 48)}px`,
       );
     };
 
     setNavHeight();
     const ro = new ResizeObserver(setNavHeight);
     ro.observe(el);
-    return () => ro.disconnect();
+    const header = el.closest("[data-site-header]");
+    if (header) ro.observe(header);
+    window.addEventListener("resize", setNavHeight);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("resize", setNavHeight);
+    };
   }, []);
 
   useEffect(() => {
@@ -197,10 +211,22 @@ export default function Navbar({
     timer.current = setTimeout(() => setActive(null), 200);
   };
 
+  const syncMenuTop = () => {
+    const el = navRef.current;
+    if (!el) return;
+    const header = el.closest("[data-site-header]") as HTMLElement | null;
+    const h = (header ?? el).getBoundingClientRect().height;
+    document.documentElement.style.setProperty(
+      "--mobile-nav-h",
+      `${Math.max(Math.round(h), 48)}px`,
+    );
+  };
+
   const openMenu = () => {
     if (closeTimer.current) clearTimeout(closeTimer.current);
     setMounted(true);
     requestAnimationFrame(() => {
+      syncMenuTop();
       requestAnimationFrame(() => setVisible(true));
     });
   };
@@ -453,6 +479,43 @@ export default function Navbar({
                       </li>
                     ))}
                   </ul>
+
+                  <div className="mt-6 border-t border-line pt-2">
+                    <p className="px-0 pb-2 pt-3 text-[11px] font-bold uppercase tracking-[0.16em] text-royal">
+                      University
+                    </p>
+                    <ul>
+                      {utilityLinks.map((l) => {
+                        const internal = l.href.startsWith("/");
+                        const className =
+                          "block border-b border-line py-3.5 pr-1 text-[1.05rem] font-semibold text-navy transition-colors active:bg-mist";
+                        return (
+                          <li key={l.label}>
+                            {internal ? (
+                              <Link
+                                href={l.href}
+                                onClick={closeMenu}
+                                aria-current={
+                                  currentPath === l.href ? "page" : undefined
+                                }
+                                className={className}
+                              >
+                                {l.label}
+                              </Link>
+                            ) : (
+                              <a
+                                href={l.href}
+                                onClick={closeMenu}
+                                className={className}
+                              >
+                                {l.label}
+                              </a>
+                            )}
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </div>
                 </div>
 
                 <div

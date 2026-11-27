@@ -1,7 +1,17 @@
+import { campusContact, qualityManagement } from "@/lib/about";
 import { sections, type Section } from "@/lib/site";
 
 export type NavItem = { label: string; sub?: string; href: string };
 export type NavGroup = { title?: string; href?: string; items: NavItem[] };
+
+/** Top utility strip (desktop) + hamburger extras (mobile). */
+export const utilityNavLinks = [
+  { label: "Quality Management", href: qualityManagement },
+  { label: "Linkages", href: "/linkages" },
+  { label: "Community Development", href: "/community-development" },
+  { label: "Careers", href: "/careers" },
+  { label: "Contact Us", href: campusContact },
+] as const;
 
 /** Slim program index for navigation only — keeps full program copy out of the client bundle. */
 const navProgramsBySchool: Record<

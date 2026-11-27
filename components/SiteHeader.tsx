@@ -3,21 +3,7 @@
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import { ScrollHeader } from "@/components/about/ScrollHeader";
-import { campusContact, qualityManagement } from "@/lib/about";
-
-const utilityLinks = [
-  { label: "Quality Management", href: qualityManagement },
-  {
-    label: "Linkages",
-    href: "/linkages",
-  },
-  {
-    label: "Community Development",
-    href: "/community-development",
-  },
-  { label: "Careers", href: "/careers" },
-  { label: "Contact Us", href: campusContact },
-];
+import { utilityNavLinks } from "@/lib/nav-menu";
 
 const linkClass =
   "inline-block py-1 underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold";
@@ -27,7 +13,7 @@ const frame = "mx-auto max-w-6xl px-4 sm:px-5";
 export default function SiteHeader() {
   return (
     <ScrollHeader>
-      {/* Utility links — desktop only */}
+      {/* Utility links — desktop only (also in mobile hamburger) */}
       <nav
         aria-label="University resources"
         className="hidden bg-[#191f46] text-white lg:block"
@@ -35,7 +21,7 @@ export default function SiteHeader() {
         <ul
           className={`${frame} flex min-h-11 flex-wrap items-center justify-end gap-x-6 py-2 text-sm font-semibold`}
         >
-          {utilityLinks.map(({ href, label }) => (
+          {utilityNavLinks.map(({ href, label }) => (
             <li key={label}>
               {href.startsWith("/") ? (
                 <Link href={href} className={linkClass}>
